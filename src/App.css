@@ -1,38 +1,38 @@
-.App {
-  text-align: center;
+
+.jumbotron {
+  padding:70px 30px 70px 30px;
+  margin:0px auto;
+  background: #848e9b ;
+  color:floralwhite;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar-dark {
+  background-color: #393d42;
 }
+.nav-link{
+  overflow: hidden;
+  display: flexbox;
+  color:whitesmoke;
+  padding: 5;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.footer{
+  background-color: #89929c;
+  color:floralwhite;
 }
-
-.App-link {
-  color: #61dafb;
+.addItemsCards{
+  
+  min-height: 600px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.itemOnCreateNewCards{
+  width: 100%;
+}
+.surveyContainer{
+  padding: 3em;
+  background:white;
+    box-shadow: 4px 3px 8px 1px #888585;
+  	-webkit-box-shadow: 4px 3px 8px 1px #978f8f;
+}
+.questions-container{
+  width: 70%;
 }
