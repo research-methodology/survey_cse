@@ -138,8 +138,8 @@ export const loginUser = (creds) => (dispatch) => {
 //     localStorage.removeItem('creds');
 //     dispatch(receiveLogout())
 // }
-export const sendingSurvey=(result) =>(dispatch) =>{
-    dispatch({type:ActionTypes.SENDING_SURVEY});
+export const createNewSurvey=(result) =>(dispatch) =>{
+    dispatch({type:ActionTypes.CREATE_NEW_SURVEY});
     
     return fetch(baseUrl + "survey/",{
         method:"POST",
@@ -156,12 +156,12 @@ export const sendingSurvey=(result) =>(dispatch) =>{
             let createdSurvey =JSON.parse(response.body);
 
             console.log("sending survey successfull ")
-            dispatch({type: ActionTypes.SENDING_SURVEY_SUCCESS,payload:createdSurvey});
+            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:createdSurvey});
         }
     },error => {
         throw error;
   }).catch(error =>  { console.log('Survey', error.message); 
-  dispatch({type: ActionTypes.SENDING_SURVEY_FAILURE, payload:error.message});
+  dispatch({type: ActionTypes.CREATE_NEW_SURVEY_FAILURE, payload:error.message});
 
 });
 }

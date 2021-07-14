@@ -4,10 +4,8 @@ import RenderQuestions from './Questionspage';
 const fetchURL = "";
 //const getQuestions = () => fetch(fetchURL).then(res => res.json());
 function RespondentHome(props) {
-      let Questioninfo={
-            categories:props.Surveys.surveys[0].categories
+      let Questioninfo=props.Surveys.surveys[0];
 
-}
 const [surveyInfo, setsurveyInfo] = useState(Questioninfo);
 
 // useEffect(() => {

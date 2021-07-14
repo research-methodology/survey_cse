@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, sendingSurvey} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout, createNewSurvey} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -24,7 +24,7 @@ const mapStateToProps = state =>{
 }
 
 const mapDispatchToProps = dispatch => ({
-    sendingSurvey:(result) =>{dispatch(sendingSurvey(result))},
+    createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
     loginUser:(crid) => dispatch(loginUser(crid)),
     logout:(token) =>dispatch(logout(token)),
@@ -93,7 +93,7 @@ render(){
                             <Route path='/signup' component={signuphandles}
                        />
                        <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
-                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey sendingSurvey={this.props.sendingSurvey} />} />
+                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent" component={() => <RespondentHome Surveys={this.props.Surveys} />} />
                             <PrivateRoute path="/SurveyResult" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
