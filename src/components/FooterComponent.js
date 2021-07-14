@@ -21,8 +21,8 @@ return(
 		              <i className="fa fa-phone fa-lg"></i>: +250 788722091<br />
 		              <i className="fa fa-fax fa-lg"></i>: +250 786388768<br />
                      < i className="fa fa-fax fa-lg"></i>: +250 787311654<br />
-		              <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:servey@stud.ac.rw">
-                      servey@stud.ac.rw</a>
+		              <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:survey.group.cst@gmail.com">
+                      survey.group.cst@gmail.com</a>
                     </address>
                 </div>
                 <div className="col-12 col-sm-4 align-self-center">

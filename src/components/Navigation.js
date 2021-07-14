@@ -63,11 +63,11 @@ export default class Navigation extends Component {
                                     </NavItem>
                                     
                                     </Nav>
-                                     {toggling}
+                                    {toggling}
                                 </Collapse>
                                 
                                
-                               
+                                
                             </div>
                     </Navbar>
                     </React.Fragment>
