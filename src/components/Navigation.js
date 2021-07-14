@@ -19,10 +19,10 @@ export default class Navigation extends Component {
         render(){
             let toggling = (<Nav className="ml-auto" navbar>
             <NavItem>
-                <Button ><NavLink className="nav-link" to='/login'><span className="fa fa-sign-in fa-lg"></span> Login  </NavLink></Button>
+                <Button ><NavLink className="nav-link" to='/login'><span className="fa fa-sign-in fa-lg"></span> Login</NavLink></Button>
             </NavItem>
             <NavItem>
-                <Button className=""><NavLink className="nav-link" to='/signup'><span className="fa fa-user-plus fa-lg"></span> Signup </NavLink></Button>
+                <Button className=""><NavLink className="nav-link" to='/signup'><span className="fa fa-user-plus fa-lg"></span> Signup</NavLink></Button>
             </NavItem>
         </Nav>)
         if(this.props.auth.isAuthenticated){
@@ -65,6 +65,7 @@ export default class Navigation extends Component {
                                     </Nav>
                                      {toggling}
                                 </Collapse>
+                                
                                
                                
                             </div>
