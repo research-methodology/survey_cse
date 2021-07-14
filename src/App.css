@@ -43,3 +43,9 @@
 .questions-container{
   width: 70%;
 }
+.scrollable-x{
+  overflow-x: scroll;
+}
+.scrollpart{
+  min-width: 600px;
+}
