@@ -122,7 +122,7 @@ const [surveyInfo, setsurveyInfo] = useState(Questioninfo);
                     <Col offset sm={{size: 7, offset: 3}}>
                     <div className="surveyContainer d-flex justify-content-center">
                     
-            <div><RenderQuestions  Questioninfo={surveyInfo}/></div>
+            <div><RenderQuestions  QuestionInfo={surveyInfo}/></div>
                 </div>
                     </Col>
                 </Row>
