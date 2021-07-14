@@ -25,12 +25,12 @@ export default class Navigation extends Component {
     }
         render(){
             let toggling = (<Nav className="ml-auto" navbar>
-            <NavItem>
+            <div class="btn-group" role="group" aria-label="Basic example">
                 <Button ><NavLink className="nav-link" to='/login'><span className="fa fa-sign-in fa-lg"></span> Login</NavLink></Button>
-            </NavItem>
-            <NavItem>
-                <Button className=""><NavLink className="nav-link" to='/signup'><span className="fa fa-user-plus fa-lg"></span> Signup</NavLink></Button>
-            </NavItem>
+            
+            
+                <Button className="bg-light text-dark"><NavLink className="nav-link text-dark" to='/signup'><span className="fa fa-user-plus fa-lg"></span> Signup</NavLink></Button>
+            </div>
         </Nav>)
         if(this.props.auth.isAuthenticated){
             
@@ -41,7 +41,7 @@ export default class Navigation extends Component {
             logoutB = <Button color="light"><Loading/></Button>;
         }
             toggling = (
-            <div>
+            
                 <Nav className="ml-auto" navbar>
              <NavItem>
                                         <NavLink className="nav-link" to='/dashboard'><span className="fa fa-dashboard fa-lg"></span>Dashboard</NavLink>
@@ -49,7 +49,7 @@ export default class Navigation extends Component {
                                     {logoutB}
                                     
             </Nav>  
-            </div>
+            
             )
         }
         
