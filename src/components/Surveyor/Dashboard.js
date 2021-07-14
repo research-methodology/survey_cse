@@ -1,30 +1,21 @@
 import React from 'react'
 import PrevCard from './PrevCard'
 import {Row, Col} from 'reactstrap'
-export default function Dashboard() {
+export default function Dashboard(props) {
     let surveys = [
         {
             type: "CreateNew",
             goto: "createNewSurvey"
         },
-        {
-            type:"survey",
-            title: 'Love in families',
-            description:"this survey is about how family menber love each other in Rwanda"
-
-        },
-        {
-            type:"survey",
-            title: 'is sport important',
-            description:"this survey is for peaple in Nyamirambo"
-        }
+        ...props.Surveys.surveys
+        
     ];
 
     let prevs = surveys.map(survey =>{
         return (
             <Col>
             <div className="m-3"> 
-            <PrevCard type={survey.type} title={survey.title} description={survey.description} />
+            <PrevCard type={survey.type?survey.type:"survey"} surveyTitle={survey.surveyTitle} description={survey.description} />
         
             </div>
                 

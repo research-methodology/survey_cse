@@ -14,7 +14,7 @@ export default function PrevCard(props) {
     else{
         crd = <div>
             <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333', height:'200px', width:'400px' }}>
-        <CardTitle tag="h5">{props.title}</CardTitle>
+        <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
         <CardText>{props.description}</CardText>
         <Button href="/SurveyResult">View</Button>
       </Card>

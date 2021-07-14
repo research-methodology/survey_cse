@@ -16,7 +16,7 @@ export const logout = (token) =>(dispatch) =>{
     },error => {
         throw error;
   }).catch(error =>  { console.log('Logout', error.message); 
-  dispatch({type: ActionTypes.LOGOUT_FAILURE});
+  dispatch({type: ActionTypes.LOGOUT_FAILURE,payload:error.message});
 
 });
 };
@@ -157,5 +157,31 @@ export const loginUser = (creds) => (dispatch) => {
 //     localStorage.removeItem('creds');
 //     dispatch(receiveLogout())
 // }
+export const createNewSurvey=(result) =>(dispatch) =>{
+    dispatch({type:ActionTypes.CREATE_NEW_SURVEY});
+    
+    return fetch(baseUrl + "survey/",{
+        method:"POST",
+        body:JSON.stringify(result),
+        headers:{
+            "Authorization":localStorage.getItem('token'),
+            'Content-Type':'application/json'
+        },
+        credentials: "same-origin"
+    }).then(response =>{
 
+        if(response.status === 200 || response.status === 201){
+
+            let createdSurvey =JSON.parse(response.body);
+
+            console.log("sending survey successfull ")
+            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:createdSurvey});
+        }
+    },error => {
+        throw error;
+  }).catch(error =>  { console.log('Survey', error.message); 
+  dispatch({type: ActionTypes.CREATE_NEW_SURVEY_FAILURE, payload:error.message});
+
+});
+}
 
