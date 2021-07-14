@@ -19,6 +19,7 @@ import SurveyPage from './Surveyor/SurveyPage';
 import confirmemail from './confirmemailpage';
 const mapStateToProps = state =>{
     return{
+        auth: state.auth
 
     }
 }
@@ -50,7 +51,8 @@ class Main extends Component{
 render(){
     const Logingin=()=>{
         return(
-            <div className="col-7 col-md-12"><Login loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
+            <div className="col-7 col-md-12"><Login auth={this.props.auth}
+             loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
         );
     }
     const signuphandles=()=>{
@@ -60,9 +62,25 @@ render(){
         );
           
     };
+    const PrivateRoute = ({component: Component, ...rest}) => (
+        <Route {...rest} render={(props) => {
+            // let userCollection = JSON.parse(localStorage.getItem('userCollection'));
+            // let typeOfUser = userCollection.typeOfUser;
+            if(localStorage.getItem('token') !== null){
+                    return <Component {...props} />
+                
+            }
+            else {
+                return <Redirect to={{
+                    pathname: '/home',
+                    state: {from: props.location}
+                }}/>
+            }
+        }}/>
+    );
         return(
             <div>
-                <Navigation />
+                <Navigation auth={this.props.auth} />
                 <TransitionGroup>
                     <CSSTransition 
                     appear
@@ -73,11 +91,11 @@ render(){
                             <Route path="/login" component={Logingin}/>
                             <Route path='/signup' component={signuphandles}
                        />
-                       <Route path="/dashboard" component={() => <Dashboard />} />
-                            <Route path="/createNewSurvey" component={() => <CreateNewSurvey />} />
+                       <PrivateRoute path="/dashboard" component={() => <Dashboard />} />
+                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey />} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent" component={() => <RespondentHome/>} />
-                            <Route path="/SurveyResult" component={() => <SurveyPage /> } />
+                            <PrivateRoute path="/SurveyResult" component={() => <SurveyPage /> } />
                             
                             <Redirect to="/home" />
                         </Switch>

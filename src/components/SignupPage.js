@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import { Breadcrumb, BreadcrumbItem, Button,  Label, Col,Row} from 'reactstrap';
 import { Control,Form,Errors,actions } from "react-redux-form";
 import { Link,Redirect} from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 
 const required = (val) => val && val.length;
@@ -32,9 +33,8 @@ class Signuppage extends Component {
         this.props.Signup_form(values.first_name,values.last_name,values.email,values.password,values.confirm_password);
         // window.location.href('confirmpass');
         this.props.resetSignupForm();
-         <Redirect to='/confirmemail'/>
-      
-
+        this.props.history.push('/confirmemail');
+        //  <Redirect to='/confirmemail'/>
     }
 render(){
     return(
@@ -196,4 +196,4 @@ render(){
 );
 }
 }
-export default Signuppage;
+export default withRouter(Signuppage);
