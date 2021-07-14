@@ -15,7 +15,7 @@ import Dashboard from './Surveyor/Dashboard';
 import CreateNewSurvey from './Surveyor/CreateNewSurvey';
 import SurveyPage from './Surveyor/SurveyPage';
 import confirmemail from './confirmemailpage';
-import verifyemail from './Verifyuser';
+import Verifyemail from './Verifyuser';
 const mapStateToProps = state =>{
     return{
         auth: state.auth
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
     loginUser:(crid) => dispatch(loginUser(crid)),
     logout:(token) =>dispatch(logout(token)),
+    Verifyuser:(token)=>dispatch(Verifyuser(token)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
 });
 const SignupForm=(props)=>{
@@ -91,7 +92,7 @@ render(){
                             <Route path="/login" component={Logingin}/>
                             <Route path='/signup' component={signuphandles}
                        />
-                       <Route exact path="/verification/:token" component={verifyemail}/>
+                       <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} /> }/>
                        <PrivateRoute path="/dashboard" component={() => <Dashboard />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey />} />
                             <Route path="/confirmemail" component={confirmemail}/>

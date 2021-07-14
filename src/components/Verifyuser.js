@@ -2,7 +2,7 @@
 import { Button } from 'reactstrap';
 import React, {Component} from 'react';
 import { withRouter } from 'react-router';
-import {Verifyuser} from '../redux/Action_creators'
+//import {Verifyuser} from '../redux/Action_creators'
 let token={};
 class Verifyemail extends Component {
     constructor(props) {
@@ -15,8 +15,8 @@ token=this.props.match.params.token;
   
          Handleverify=()=>(dispatch)=>{
           console.log('params are : '+token);
-        // this.props.Verifyuser(token);
-        dispatch(Verifyuser(token))
+        this.props.Verifyuser(token);
+      //  dispatch(Verifyuser(token))
         this.props.history.push("/login");
         // Redirect("/login");
         }
