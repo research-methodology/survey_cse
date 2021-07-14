@@ -8,58 +8,7 @@ export default function CreateNewSurvey() {
     let testInfo = {
         surveyTitle:"Testing Survey title",
         surveys:{
-        category1:{
-            questions:{
-                question1:{
-                    wayOfAnswering:"",
-                    answers:{
-                        answer1:{
-                            text:'test1'
-                        },
-                        answer2:{
-                            text:'test2'
-                        }
-                    }
-                },
-                "question 2":{
-                    wayOfAnswering:"",
-                    answers:{
-                        answer53:{
-                            text:'test54'
-                        },
-                        answer52:{
-                            text:'test22'
-                        }
-                    }
-                }
-            }
-        },
-        category2:{
-            questions:{
-                question12:{
-                    wayOfAnswering:"",
-                    answers:{
-                        answer13:{
-                            text:'test13'
-                        },
-                        answer2:{
-                            text:'test22'
-                        }
-                    }
-                },
-                "question 22":{
-                    wayOfAnswering:"",
-                    answers:{
-                        answer543:{
-                            text:'test554'
-                        },
-                        answer652:{
-                            text:'test223'
-                        }
-                    }
-                }
-            }
-        }
+        
     }}
     function addNewCategory(newCategory){
         let currentSurveyInfo = {...surveyInfo};
