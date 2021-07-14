@@ -1,7 +1,10 @@
+
 import React,{Component} from 'react';
 import { Breadcrumb, BreadcrumbItem, Button,  Label, Col,Row} from 'reactstrap';
 import { Control,Form,Errors,actions } from "react-redux-form";
-import { Link } from 'react-router-dom';
+import { Link,Redirect} from 'react-router-dom';
+
+
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -9,7 +12,7 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
   
 const verifypassword=()=>{
     const password=document.getElementById('password').value;
-    const confirmpassword=document.getElementById('confirmpassword').value;
+    const confirmpassword=document.getElementById('confirm-password').value;
   return(
     confirmpassword===password
   ); 
@@ -23,8 +26,12 @@ class Signuppage extends Component {
 
     }
     
-    handleSubmit(values) {        
+    handleSubmit(values) {   
+     
+  
         this.props.Signup_form(values.first_name,values.last_name,values.email,values.password,values.confirm_password);
+        // window.location.href('confirmpass');
+         <Redirect to='/confirmemail'/>
         this.props.resetSignupForm();
 
     }
@@ -133,14 +140,14 @@ render(){
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="password" md={2}>c Password</Label>
+                                <Label htmlFor="password" md={2}>confirm_password</Label>
                                 <Col md={10}>
-                                    <Control.password model=".confirm_password" id="password" name="confirm_password"
-                                        placeholder="Password"
+                                    <Control.password model=".confirm_password" id="confirm-password" name="confirm_password"
+                                        placeholder="confirm-Password"
                                         className="form-control"
                                         type="password"
                                         validators={{
-                                            required, minLength: minLength(3), maxLength: maxLength(15)
+                                            required, minLength: minLength(3), maxLength: maxLength(15),verifypassword
                                         }}
                                          />
                                     <Errors
@@ -150,7 +157,8 @@ render(){
                                         messages={{
                                             required: 'Required',
                                             minLength: 'Must be greater than 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
+                                            maxLength: 'Must be 15 characters or less',
+                                            verifypassword:"Passwords do not match"
                                         }}
                                      />
                                 </Col>

@@ -16,6 +16,7 @@ import Navigation from './Navigation';
 import Dashboard from './Surveyor/Dashboard';
 import CreateNewSurvey from './Surveyor/CreateNewSurvey';
 import SurveyPage from './Surveyor/SurveyPage';
+import confirmemail from './confirmemailpage';
 const mapStateToProps = state =>{
     return{
 
@@ -74,9 +75,10 @@ render(){
                        />
                        <Route path="/dashboard" component={() => <Dashboard />} />
                             <Route path="/createNewSurvey" component={() => <CreateNewSurvey />} />
-
+                            <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent" component={() => <RespondentHome/>} />
                             <Route path="/SurveyResult" component={() => <SurveyPage /> } />
+                            
                             <Redirect to="/home" />
                         </Switch>
                     </CSSTransition>
