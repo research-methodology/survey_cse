@@ -6,15 +6,25 @@ import { NavLink } from 'react-router-dom';
 export default class Navigation extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isNavOpen: false
+        };
+        this.toggleNav = this.toggleNav.bind(this);
     };
+    toggleNav() {
+        this.setState({
+            isNavOpen: !this.state.isNavOpen
+        });
+    }
         render(){
             return(
-                <div>
-                     <Navbar dark expand="md">
+                <React.Fragment>
+                                 <Navbar dark expand="md">
+            
                             <div className="container">
-                                {/* <NavbarToggler onClick={this.toggleNav} /> */}
+                            <NavbarToggler onClick={this.toggleNav} />
                                 <NavbarBrand className="mr-auto" href="/"><img src="" alt="user Servey Appliction"/></NavbarBrand>
-                                <Collapse navbar>
+                                <Collapse isOpen={this.state.isNavOpen} navbar>
                                     <Nav navbar>
                                     <NavItem>
                                         <NavLink className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
@@ -49,13 +59,12 @@ export default class Navigation extends Component {
                                 </Collapse>
                                
                             </div>
-                        </Navbar>
-                    
-                    </div>
+                    </Navbar>
+                    </React.Fragment>
             );
                        
                 
             
         }
    
-}
+    }

@@ -33,6 +33,13 @@
     box-shadow: 4px 3px 8px 1px #888585;
   	-webkit-box-shadow: 4px 3px 8px 1px #978f8f;
 }
+.eachQuestion-container{
+  padding: 1em;
+  margin: 1em;
+  background:white;
+    box-shadow: 4px 3px 8px 1px #888585;
+  	-webkit-box-shadow: 4px 3px 8px 1px #978f8f;
+}
 .questions-container{
   width: 70%;
 }
