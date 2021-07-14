@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout,Verifyuser} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -15,6 +15,7 @@ import Dashboard from './Surveyor/Dashboard';
 import CreateNewSurvey from './Surveyor/CreateNewSurvey';
 import SurveyPage from './Surveyor/SurveyPage';
 import confirmemail from './confirmemailpage';
+import verifyemail from './Verifyuser';
 const mapStateToProps = state =>{
     return{
         auth: state.auth
@@ -90,6 +91,7 @@ render(){
                             <Route path="/login" component={Logingin}/>
                             <Route path='/signup' component={signuphandles}
                        />
+                       <Route exact path="/verification/:token" component={verifyemail}/>
                        <PrivateRoute path="/dashboard" component={() => <Dashboard />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey />} />
                             <Route path="/confirmemail" component={confirmemail}/>

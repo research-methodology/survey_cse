@@ -1,4 +1,4 @@
-import * as ActionTypes from './Action_Types';
+import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
 export const logout = (token) =>(dispatch) =>{
     dispatch({type: ActionTypes.LOGOUT_REQUEST});
@@ -20,6 +20,25 @@ export const logout = (token) =>(dispatch) =>{
 
 });
 };
+export const Verifyuser=(token)=>(dispatch)=>{
+    console.log('Received token '+token);
+return fetch(baseUrl+'user/verification/:token',{
+methode:"PUT",
+headers:{
+    "Authorization":token
+},
+credentials: "same-origin"
+}).then(response =>{
+    if(response.status === 200 || response.status === 201){
+        console.log("verified successfull ")
+        dispatch({type: ActionTypes.VERIFY_USER});
+    }
+},error => {
+    throw error;
+}).catch(error =>  { console.log('Verfication', error.message); 
+dispatch({type: ActionTypes.VERIFY_FAILURE});
+});
+}
 export const  Signup_form=(first_name,last_name,email,password,confirm_password) =>(dispatch)=>{
     console.log(baseUrl);
     const newUser={
