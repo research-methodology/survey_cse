@@ -164,8 +164,9 @@ export default function CreateNewSurvey() {
                 <p>Affter selecting category, questions in that category will shown on questions card. <br/> Same to answers that will shown after selection of question </p>
             </div>
         </div>
-        <div className="surveyContainer">
-        <div className="row row-content">
+        <div className="surveyContainer scrollable-x">
+            <div className="scrollpart">
+        <div className="row row-content ">
           <div className="col-12 col-md-9">
             <Form>
               <Row>
@@ -199,7 +200,7 @@ export default function CreateNewSurvey() {
             </Button>
         </div>
       </div>
-    </div>
+    </div></div>
     </div>
   );
 }

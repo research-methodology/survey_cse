@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {  Button,Form, FormGroup, Input, Label, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import { Loading } from './LoadingComponent';
 
 class Login extends Component{
     constructor(props) {
@@ -15,8 +15,27 @@ class Login extends Component{
 
     }
       render(){
+          let msg = null;
+          if(this.props.auth.errMess !== null){
+              msg =<div class="alert alert-danger" role="alert">
+              {this.props.auth.errMess} 
+            </div>
+          }
+          else if(this.props.auth.isAuthenticated){
+                msg= <div class="alert alert-primary" role="alert">
+       you are logged in 
+     </div>
+             }
+          
+        
+        let loginB = <Button type="submit" value="submit" color="primary">Login</Button>;
+        if(this.props.auth.isLoading){
+            loginB =<Button color="light"><Loading/></Button>
+             
+        }
 return(
     <div className="container">
+        {msg}
     <div className="row">
     <Breadcrumb>
   <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
@@ -44,7 +63,8 @@ return(
                                     Remember me
                                 </Label>
                             </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Login</Button>
+                            {loginB}
+                            
                         </Form>
                         </div>
                         </div>
