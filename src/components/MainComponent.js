@@ -1,13 +1,11 @@
 
 import React, { Component } from 'react';
-import {Loading} from './LoadingComponent';
-import Header from './HeaderComponent';
 import RespondentHome from './RespndentPart/RespondentHomepage'
 import Signuppage from './SignupPage'; 
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -27,6 +25,7 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch => ({
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
     loginUser:(crid) => dispatch(loginUser(crid)),
+    logout:(token) =>dispatch(logout(token)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
 });
 const SignupForm=(props)=>{
@@ -80,7 +79,7 @@ render(){
     );
         return(
             <div>
-                <Navigation auth={this.props.auth} />
+                <Navigation auth={this.props.auth} logout={this.props.logout} />
                 <TransitionGroup>
                     <CSSTransition 
                     appear

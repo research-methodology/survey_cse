@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 export default class Navigation extends Component {
     constructor(props) {
         super(props);
@@ -10,11 +11,17 @@ export default class Navigation extends Component {
             isNavOpen: false
         };
         this.toggleNav = this.toggleNav.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     };
     toggleNav() {
         this.setState({
             isNavOpen: !this.state.isNavOpen
         });
+    }
+    handleLogout(){
+        let token = localStorage.getItem("token");
+        this.props.logout(token);
+        localStorage.removeItem("token");
     }
         render(){
             let toggling = (<Nav className="ml-auto" navbar>
@@ -26,15 +33,21 @@ export default class Navigation extends Component {
             </NavItem>
         </Nav>)
         if(this.props.auth.isAuthenticated){
+            
+            let logoutB = <NavItem>
+            <Button onClick={this.handleLogout} ><span className="fa fa-sign-out fa-lg"></span> Sign out</Button>
+        </NavItem> ;
+        if(this.props.auth.isLoading){
+            logoutB = <Button color="light"><Loading/></Button>;
+        }
             toggling = (
             <div>
                 <Nav className="ml-auto" navbar>
              <NavItem>
                                         <NavLink className="nav-link" to='/dashboard'><span className="fa fa-dashboard fa-lg"></span>Dashboard</NavLink>
                                     </NavItem> 
-                                    <NavItem>
-                <Button ><NavLink className="nav-link" to='/login'><span className="fa fa-sign-out fa-lg"></span> Sign out</NavLink></Button>
-            </NavItem> 
+                                    {logoutB}
+                                    
             </Nav>  
             </div>
             )

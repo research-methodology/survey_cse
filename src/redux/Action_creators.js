@@ -1,5 +1,25 @@
 import * as ActionTypes from './Action_Types';
 import {baseUrl} from '../shared/baseUrl';
+export const logout = (token) =>(dispatch) =>{
+    dispatch({type: ActionTypes.LOGOUT_REQUEST});
+    return fetch(baseUrl + "user/logout",{
+        method:"POST",
+        headers:{
+            "Authorization":token
+        },
+        credentials: "same-origin"
+    }).then(response =>{
+        if(response.status === 200 || response.status === 201){
+            console.log("logout successfull ")
+            dispatch({type: ActionTypes.LOGOUT_SUCCESS});
+        }
+    },error => {
+        throw error;
+  }).catch(error =>  { console.log('Logout', error.message); 
+  dispatch({type: ActionTypes.LOGOUT_FAILURE});
+
+});
+};
 export const  Signup_form=(first_name,last_name,email,password,confirm_password) =>(dispatch)=>{
     const newUser={
         first_name:first_name,
@@ -30,8 +50,8 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
             throw error;
       })
     .then(response => response.json())
-    .then(response => { console.log('Signup', response); alert('Thank you for signing up!\n'+JSON.stringify(response)); })
-    .catch(error =>  { console.log('Signup', error.message); alert('Your signup request could not be processed\nError: '+error.message); });
+    .then(response => { console.log('Signup', response); console.log('Thank you for signing up!\n'+JSON.stringify(response)); })
+    .catch(error =>  { console.log('Signup', error.message); console.log('Your signup request could not be processed\nError: '+error.message); });
 };
 export const requestLogin = (creds) => {
     return {
@@ -96,24 +116,24 @@ export const loginUser = (creds) => (dispatch) => {
     .catch(error => dispatch(loginError(error.message)))
 };
 
-export const requestLogout = () => {
-    return {
-      type: ActionTypes.LOGOUT_REQUEST
-    }
-}
+// export const requestLogout = () => {
+//     return {
+//       type: ActionTypes.LOGOUT_REQUEST
+//     }
+// }
   
-export const receiveLogout = () => {
-    return {
-      type: ActionTypes.LOGOUT_SUCCESS
-    }
-}
+// export const receiveLogout = () => {
+//     return {
+//       type: ActionTypes.LOGOUT_SUCCESS
+//     }
+// }
 
 // Logs the user out
-export const logoutUser = () => (dispatch) => {
-    dispatch(requestLogout())
-    localStorage.removeItem('token');
-    localStorage.removeItem('creds');
-    dispatch(receiveLogout())
-}
+// export const logoutUser = () => (dispatch) => {
+//     dispatch(requestLogout())
+//     localStorage.removeItem('token');
+//     localStorage.removeItem('creds');
+//     dispatch(receiveLogout())
+// }
 
 
