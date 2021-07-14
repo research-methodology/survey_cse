@@ -76,13 +76,10 @@ export default class Navigation extends Component {
                                     </NavItem>
                                     
                                     </Nav>
-                                  
-                                    
-                                   
-                                        
-                                    
+                                     {toggling}
                                 </Collapse>
-                                {toggling}
+                                
+                               
                                
                             </div>
                     </Navbar>

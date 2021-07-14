@@ -21,6 +21,7 @@ export const logout = (token) =>(dispatch) =>{
 });
 };
 export const  Signup_form=(first_name,last_name,email,password,confirm_password) =>(dispatch)=>{
+    console.log(baseUrl);
     const newUser={
         first_name:first_name,
         last_name:last_name,
@@ -29,7 +30,9 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
         confirm_password:confirm_password
     }
     console.log(JSON.stringify(newUser));
+
     return fetch(baseUrl + "user/signup", {
+       
         method: "POST",
         body: JSON.stringify(newUser),
         headers: {
