@@ -31,8 +31,9 @@ class Signuppage extends Component {
   
         this.props.Signup_form(values.first_name,values.last_name,values.email,values.password,values.confirm_password);
         // window.location.href('confirmpass');
-         <Redirect to='/confirmemail'/>
         this.props.resetSignupForm();
+         <Redirect to='/confirmemail'/>
+      
 
     }
 render(){
