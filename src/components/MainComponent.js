@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, sendingSurvey} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -15,6 +15,7 @@ import Dashboard from './Surveyor/Dashboard';
 import CreateNewSurvey from './Surveyor/CreateNewSurvey';
 import SurveyPage from './Surveyor/SurveyPage';
 import confirmemail from './confirmemailpage';
+import Verifyemail from './Verifyuser';
 const mapStateToProps = state =>{
     return{
         auth: state.auth,
@@ -24,10 +25,11 @@ const mapStateToProps = state =>{
 }
 
 const mapDispatchToProps = dispatch => ({
-    sendingSurvey:(result) =>{dispatch(sendingSurvey(result))},
+    createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
     loginUser:(crid) => dispatch(loginUser(crid)),
     logout:(token) =>dispatch(logout(token)),
+    Verifyuser:(token)=>dispatch(Verifyuser(token)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
 });
 const SignupForm=(props)=>{
@@ -88,12 +90,14 @@ render(){
                     classNames="fade" timeout ={{enter: 300, exit: 200}}>
                         <Switch>
                             <Route path="/home" component={Home}/>
-
+                             
                             <Route path="/login" component={Logingin}/>
                             <Route path='/signup' component={signuphandles}
+                        
                        />
+                       <Route exact path="/verification/:id" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} />}/>
                        <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
-                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey sendingSurvey={this.props.sendingSurvey} />} />
+                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent" component={() => <RespondentHome Surveys={this.props.Surveys} />} />
                             <PrivateRoute path="/SurveyResult" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
