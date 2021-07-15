@@ -21,11 +21,11 @@ export const logout = (token) =>(dispatch) =>{
 });
 };
 export const Verifyuser=(token)=>(dispatch)=>{
-    console.log('Received token '+token);
-return fetch(baseUrl+'user/verification/:token',{
-methode:"PUT",
+    //console.log('Received token '+token);
+return fetch(baseUrl+'user/verification/'+token,{
+method:"PUT",
 headers:{
-    "Authorization":token
+    "Content-Type": "application/json"
 },
 credentials: "same-origin"
 }).then(response =>{
