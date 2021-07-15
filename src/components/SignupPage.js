@@ -33,10 +33,15 @@ class Signuppage extends Component {
         this.props.Signup_form(values.first_name,values.last_name,values.email,values.password,values.confirm_password);
         // window.location.href('confirmpass');
         this.props.resetSignupForm();
-        this.props.history.push('/confirmemail');
+        
         //  <Redirect to='/confirmemail'/>
     }
+    
 render(){
+    if(this.props.auth.isSignUpConfirmed){
+        console.log('this');
+        this.props.history.push('/confirmemail');
+    }
     return(
 
     <div className="container">
