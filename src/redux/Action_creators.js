@@ -185,3 +185,6 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 });
 }
 
+export const saveSurveyResult = (result) => (dispatch) =>{
+    
+}
