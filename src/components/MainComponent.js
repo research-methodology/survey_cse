@@ -95,7 +95,7 @@ render(){
                             <Route path='/signup' component={signuphandles}
                         
                        />
-                       <Route exact path="/verification/:id" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} />}/>
+                       <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} />}/>
                        <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>

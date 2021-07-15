@@ -9,14 +9,12 @@ class Verifyemail extends Component {
         super(props);
         this.Handleverify = this.Handleverify.bind(this);
     }
-componentDidMount(){
-token=this.props.match.params.token;
-}
-  
-         Handleverify=()=>(dispatch)=>{
+         Handleverify=()=>{
+        token=this.props.match.params.token;
           console.log('params are : '+token);
+
         this.props.Verifyuser(token);
-      //  dispatch(Verifyuser(token))
+    
         this.props.history.push("/login");
         // Redirect("/login");
         }
