@@ -15,7 +15,7 @@ class Verifyemail extends Component {
 
         this.props.Verifyuser(token);
     
-        this.props.history.push("/login");
+        //this.props.history.push("/login");
         // Redirect("/login");
         }
     render() { 
