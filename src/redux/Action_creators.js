@@ -23,9 +23,10 @@ export const logout = (token) =>(dispatch) =>{
 export const Verifyuser=(token)=>(dispatch)=>{
     console.log('Received token '+token);
 return fetch(baseUrl+'user/verification/:token',{
-methode:"PUT",
+method:"PUT",
 headers:{
-    "Authorization":token
+    "Authorization":token,
+    "Content-Type": "application/json"
 },
 credentials: "same-origin"
 }).then(response =>{
