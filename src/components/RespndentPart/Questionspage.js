@@ -66,7 +66,9 @@ var Renderitems = ({ items }) => {
         let answersField = "";
       if (question.wayOfAnswering === "TextField") {
         answersField = (
-                  <Input onChange={handleChange} type="textarea" className="form-control" name={category.categoryName +","+question.question+",TextFeld,null"} />
+                  <Input onChange={handleChange} type="textarea" className="form-control" name={category.categoryName +","+question.question+",TextFeld,null"} id={category.categoryName +","+question.question+",TextFeld,null"} 
+                  required
+                  />
         );
       } else if (question.wayOfAnswering === "Checkbox") {
           
@@ -77,13 +79,14 @@ var Renderitems = ({ items }) => {
               
               
                 <FormGroup check>
-                <input
+                <Input 
                       type="checkbox"
                       onChange={handleChange}
                       name={category.categoryName +","+question.question+",Checkbox," + answer.answer}
                       value={answer.answer}
                       className="form-check-input"
                       id={answer.answer + "ocia"}
+                      required
                     />
                   <Label class="form-check-label" for={answer.answer + "ocia"}>{answer.answer}</Label>
                   
@@ -110,7 +113,9 @@ var Renderitems = ({ items }) => {
             <React.Fragment>
               
                 <FormGroup check>
-                  <Input onChange={handleChange} type="radio" value={answer.answer} name={category.categoryName +","+question.question+",Radio,null"} />
+                  <Input onChange={handleChange} type="radio" value={answer.answer} name={category.categoryName +","+question.question+",Radio,null"} 
+                  required
+                  />
                   <Label>{answer.answer}</Label>
                 </FormGroup>
               
@@ -138,7 +143,9 @@ var Renderitems = ({ items }) => {
 
         answersField = (
             <React.Fragment>
-                <select className="custom-select" name={category.categoryName +","+question.question+",Dropdown,null"} onChange={handleChange}>
+                <select className="custom-select" id={category.categoryName +","+question.question+",Dropdown,null"} name={category.categoryName +","+question.question+",Dropdown,null"} onChange={handleChange}
+                required
+                >
                 {answers}
                 </select>
             </React.Fragment>
