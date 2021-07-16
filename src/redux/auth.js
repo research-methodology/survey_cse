@@ -82,7 +82,7 @@ export const Auth = (state = {
                     return {...state,
                         isLoading: false,
                         isAuthenticated: false,
-                        errMess: action.message,
+                        errMess: action.payload,
                         token: '',
                         user:null,
                         isVerified:false,isSignUpConfirmed:false
@@ -105,6 +105,13 @@ export const Auth = (state = {
                         user:null,
                         isVerified:false,isSignUpConfirmed:true
                     };
+                    case ActionTypes.SIGNUP_FAILURE:
+                        return {...state,
+                            isLoading: false,
+                            isAuthenticated: false,
+                            errMess: action.payload,
+                            isVerified:false,isSignUpConfirmed:false
+            };
         default:
             return state
     }

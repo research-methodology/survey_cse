@@ -1,5 +1,35 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
+export const SubmitSurveyrespons=(output)=>(dispatch)=>{
+    dispatch({type: ActionTypes.RESIPONDING_REQUEST});
+    return fetch(baseUrl+"/",{
+method:"POST",
+body:JSON.stringify(output),
+headers: {
+    "Content-Type": "application/json"
+  },
+  credentials: "same-origin"
+    })
+    .then((response)=>{
+        if (response.ok) {
+            dispatch({type: ActionTypes.RESIPONDING_SUCCESS})
+            return response;
+          } else {
+            var error = new Error('Error ' + response.status + ': ' + response.message);
+            error.response = response;
+            throw error;
+          }
+        },
+        error => {
+              throw error;
+        })
+      .then(response => response.json())
+      .then(response => { console.log('Responding', response); console.log('Thank you for responding our servey !\n'+JSON.stringify(response)); })
+      .catch(error =>  { console.log('Responding', error.message); console.log('Your survey results could not be processed\nError: '+error.message);
+      dispatch({type: ActionTypes.RESIPONDING_FAILED});
+    });
+  
+};
 export const logout = (token) =>(dispatch) =>{
     dispatch({type: ActionTypes.LOGOUT_REQUEST});
     return fetch(baseUrl + "user/logout",{
@@ -29,10 +59,14 @@ headers:{
     "Content-Type": "application/json"
 },
 credentials: "same-origin"
-}).then(response =>{
+}).then(response => response.json())
+    .then(response =>{
     if(response.status === 200 || response.status === 201){
         console.log("verified successfull ")
         dispatch({type: ActionTypes.VERIFY_USER});
+    }
+    else{
+        dispatch({type: ActionTypes.VERIFY_FAILURE, payload:response.message});
     }
 },error => {
     throw error;
@@ -61,12 +95,23 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
         },
         credentials: "same-origin"
     })
+        .then(response => response.json())
     .then(response => {
-        if (response.ok) {
+        if (response.ok|| response.status ==='success' || response===200) {
             dispatch({type:ActionTypes.SIGNUP_SUCCESS})
           return response;
         } else {
-          var error = new Error('Error '  + ': ' + response.message);
+            let msg = null;
+            if(response.error){
+                msg = response.error;
+            }
+            else if( response.message){
+                msg = response.message
+            }
+            else{
+                msg = response.statusText;
+            }
+          var error = new Error('Error '  + ': ' + msg);
           error.response = response;
           throw error;
         }
@@ -74,11 +119,23 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
       error => {
             throw error;
       })
-    .then(response => response.json())
     .then(response => {
-         console.log('Signup', response); console.log('Thank you for signing up!\n') })
+        if(response.status === 200 || response.status ===201) {
+            console.log('Signup', response);
+            console.log('Thank you for signing up!\n')
+        }
+        else {
+            let msg = response.message === undefined? response.statusText : response.message;
+            let error = new Error("error " + msg);
+
+            console.log("this is response" + JSON.stringify(response));
+            error.response = response;
+            throw error;
+        }
+    })
     .catch(error =>  {
-        dispatch({type:ActionTypes.SIGNUP_FAILURE})
+        console.log("this is error testing" + JSON.stringify(error))
+        dispatch({type:ActionTypes.SIGNUP_FAILURE, payload:error.message})
          console.log('Signup', error.message); console.log('Your signup request could not be processed\nError: '+error.message); });
 };
 export const requestLogin = (creds) => {
@@ -117,7 +174,7 @@ export const loginUser = (creds) => (dispatch) => {
     .then(response => response.json())
     .then(response => {
         console.log(JSON.stringify(response));
-        if (response.status === 201) {
+        if (response.status === 201|| response.status ==='success' || response===200) {
             return response;
         } else {
             var error = new Error('Error ' + ': ' + response.message);
@@ -132,7 +189,7 @@ export const loginUser = (creds) => (dispatch) => {
     .then(response => {
         console.log("this is response");
         console.log(response);
-        if (response.status === 201) {
+        if (response.status === 201 || response.status ==='success' || response===200) {
             // If login was successful, set the token in local storage
             localStorage.setItem('token', response.token);
             //localStorage.setItem('creds', JSON.stringify(creds));

@@ -1,12 +1,11 @@
 import React,{useState} from 'react';
 import { Row,Col } from 'reactstrap';
 import RenderQuestions from './Questionspage';
-const fetchURL = "";
 //const getQuestions = () => fetch(fetchURL).then(res => res.json());
 function RespondentHome(props) {
       let Questioninfo=props.Surveys.surveys[0];
 
-const [surveyInfo, setsurveyInfo] = useState(Questioninfo);
+const [surveyInfo] = useState(Questioninfo);
 
 // useEffect(() => {
 //     getQuestions().then(data => setsurveyInfo(data));
@@ -22,8 +21,7 @@ const [surveyInfo, setsurveyInfo] = useState(Questioninfo);
                 <Row>
                     <Col offset sm={{size: 7, offset: 3}}>
                     <div className="surveyContainer d-flex justify-content-center">
-                    
-            <div><RenderQuestions  QuestionInfo={surveyInfo}/></div>
+            <div><RenderQuestions  QuestionInfo={surveyInfo} Respond={props.respond} SubmitSurveyrespons={props.SubmitSurveyrespons}/></div>
                 </div>
                     </Col>
                 </Row>

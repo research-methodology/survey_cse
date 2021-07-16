@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const Footer=(props)=>{
+export const Footer=()=>{
 return(
     <div className="footer"> 
     <div className="row justify-content-center">             
@@ -18,21 +18,21 @@ return(
                     <h5>Our Address</h5>
                     <address>
 		           We are From University of Rwanda <br/>College of Science and Technology<br/> Kigali Campus<br/>
-		              <i className="fa fa-phone fa-lg"></i>: +250 788722091<br />
-		              <i className="fa fa-fax fa-lg"></i>: +250 786388768<br />
-                     < i className="fa fa-fax fa-lg"></i>: +250 787311654<br />
-		              <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:survey.group.cst@gmail.com">
+		              <i className="fa fa-phone fa-lg"> </i>: +250 788722091<br />
+		              <i className="fa fa-fax fa-lg"> </i>: +250 786388768<br />
+                     < i className="fa fa-fax fa-lg"> </i>: +250 787311654<br />
+		              <i className="fa fa-envelope fa-lg"> </i>: <a href="mailto:survey.group.cst@gmail.com">
                       survey.group.cst@gmail.com</a>
                     </address>
                 </div>
                 <div className="col-12 col-sm-4 align-self-center">
                     <div className="text-center">
-                        <a className="btn btn-social-icon btn-google" href="http://google.com/+"><i className="fa fa-google-plus"></i></a>
-                        <a className="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i className="fa fa-facebook"></i></a>
-                        <a className="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i className="fa fa-linkedin"></i></a>
-                        <a className="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i className="fa fa-twitter"></i></a>
-                        <a className="btn btn-social-icon btn-google" href="http://youtube.com/"><i className="fa fa-youtube"></i></a>
-                        <a className="btn btn-social-icon" href="mailto:"><i className="fa fa-envelope-o"></i></a>
+                        <a className="btn btn-social-icon btn-google" href="http://google.com/+"><i className="fa fa-google-plus"> </i></a>
+                        <a className="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i className="fa fa-facebook"> </i></a>
+                        <a className="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i className="fa fa-linkedin"> </i></a>
+                        <a className="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i className="fa fa-twitter"> </i></a>
+                        <a className="btn btn-social-icon btn-google" href="http://youtube.com/"><i className="fa fa-youtube"> </i></a>
+                        <a className="btn btn-social-icon" href="mailto:"><i className="fa fa-envelope-o"> </i></a>
                     </div>
                 </div>
             </div>

@@ -28,13 +28,22 @@ class Verifyemail extends Component {
         if(this.props.auth.isLoading){
             btn = <Button className="btn-block bg-secondary"><Loading/></Button>
         }
+        let msg = null;
+        if(this.props.auth.errMess !== null){
+            msg =<div className="alert alert-danger text-center" role="alert">
+                {this.props.auth.errMess}
+            </div>
+        }
         
-        return (  
+        return (
+            <div>
+                {msg}
             <div className="d-flex justify-content-center col-12 col-md">
             <p className="row m-5">     
             Thank you , you are in a good way, click here to verify membership  &nbsp; {btn}
          </p>
          </div>
+            </div>
         );
     }
 }
