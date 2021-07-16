@@ -1,4 +1,4 @@
-import * as ActionTypes from './Action_Types';
+import * as ActionTypes from './ActionTypes';
 
 export const Surveys = (state = {
     isLoading:false,

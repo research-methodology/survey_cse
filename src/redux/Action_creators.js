@@ -1,5 +1,35 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
+export const SubmitSurveyrespons=(output)=>(dispatch)=>{
+    dispatch({type: ActionTypes.RESIPONDING_REQUEST});
+    return fetch(baseUrl+"/",{
+method:"POST",
+body:JSON.stringify(output),
+headers: {
+    "Content-Type": "application/json"
+  },
+  credentials: "same-origin"
+    })
+    .then((response)=>{
+        if (response.ok) {
+            dispatch({type: ActionTypes.RESIPONDING_SUCCESS})
+            return response;
+          } else {
+            var error = new Error('Error ' + response.status + ': ' + response.message);
+            error.response = response;
+            throw error;
+          }
+        },
+        error => {
+              throw error;
+        })
+      .then(response => response.json())
+      .then(response => { console.log('Responding', response); console.log('Thank you for responding our servey !\n'+JSON.stringify(response)); })
+      .catch(error =>  { console.log('Responding', error.message); console.log('Your survey results could not be processed\nError: '+error.message);
+      dispatch({type: ActionTypes.RESIPONDING_FAILED});
+    });
+  
+};
 export const logout = (token) =>(dispatch) =>{
     dispatch({type: ActionTypes.LOGOUT_REQUEST});
     return fetch(baseUrl + "user/logout",{
@@ -21,11 +51,10 @@ export const logout = (token) =>(dispatch) =>{
 });
 };
 export const Verifyuser=(token)=>(dispatch)=>{
-    console.log('Received token '+token);
-return fetch(baseUrl+'user/verification/:token',{
+    //console.log('Received token '+token);
+return fetch(baseUrl+'user/verification/'+token,{
 method:"PUT",
 headers:{
-    "Authorization":token,
     "Content-Type": "application/json"
 },
 credentials: "same-origin"

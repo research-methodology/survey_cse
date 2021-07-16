@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-var Renderitems = ({ items }) => {
+import {Loading} from '../LoadingComponent';
+import {Redirect} from 'react-router-dom';
+var Renderitems = ({ items,SubmitSurveyrespons}) => {
   const categories  = items['categories'];
   let answers = null;
+
+// var SubmitSurvey=(output)=>(props)=>{
+// props.SubmitSurveyrespons(output);
+// }
   const [start, setStart] = useState(0);
   const [output,setOutput] = useState({});
+  // var [SubmitSurveyrespons,setSubmitSurveyrespons]=useState(SubmitSurvey({}));
   // var categorycount=categories[count-1];
   // console.log({...categorycount});
-  let handleFinish = () =>{
-
+  let handleFinish = ()=>{
     alert(JSON.stringify(output));
+    SubmitSurveyrespons(output);
   }
   let handleShowMore = () => {
     setStart(start >= (categories.length - 1) ? start : start + 1);
@@ -64,7 +71,7 @@ var Renderitems = ({ items }) => {
  results = categories.slice(start, (start + 1)).map((category) => {
     var questions = category.questions.map((question) => {
         let answersField = "";
-      if (question.wayOfAnswering === "TextField") {
+      if (question.wayOfAnswering === "TextField"){
         answersField = (
                   <Input onChange={handleChange} type="textarea" className="form-control" name={category.categoryName +","+question.question+",TextFeld,null"} />
         );
@@ -193,11 +200,23 @@ function RenderQuestions(props) {
   const [questionsToDiplay, setQuestionsToDisplay] = useState(
     props.QuestionInfo["categories"][0]
   );
+
+  if(props.Respond.isresponded){
+  console.log("successful sent");
+      }
+       if(props.Respond.errMess){
+        var error=new Error();
+         alert(error);
+         return {
+           error
+         }
+        }
+       
   return (
     <div className="">
       <Renderitems
         items={props.QuestionInfo}
-        questionsToDiplay={questionsToDiplay}
+        questionsToDiplay={questionsToDiplay} SubmitSurveyrespons={props.SubmitSurveyrespons}
       />
     </div>
   );

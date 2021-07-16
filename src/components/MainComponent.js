@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -19,8 +19,8 @@ import Verifyemail from './Verifyuser';
 const mapStateToProps = state =>{
     return{
         auth: state.auth,
-        Surveys:state.Surveys
-
+        Surveys:state.Surveys,
+        respond:state.respond
     }
 }
 
@@ -30,6 +30,7 @@ const mapDispatchToProps = dispatch => ({
     loginUser:(crid) => dispatch(loginUser(crid)),
     logout:(token) =>dispatch(logout(token)),
     Verifyuser:(token)=>dispatch(Verifyuser(token)),
+    SubmitSurveyrespons:(output)=>dispatch(SubmitSurveyrespons(output)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
 });
 const SignupForm=(props)=>{
@@ -99,7 +100,7 @@ render(){
                        <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
-                            <Route path="/respondent" component={() => <RespondentHome Surveys={this.props.Surveys} />} />
+                            <Route path="/respondent" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond}/>} />
                             <PrivateRoute path="/SurveyResult" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
                             
                             <Redirect to="/home" />

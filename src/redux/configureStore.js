@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Auth } from './auth';
 import { Surveys } from './surveys';
+import {Respond} from './Respond';
 import {Initial_signup_fields,Initial_Login_fields} from './Forms';
 
 
@@ -13,6 +14,7 @@ const store=createStore(
 combineReducers({ 
    auth: Auth,
    Surveys:Surveys,
+   respond:Respond,
    ...createForms({
      
       signup:Initial_signup_fields,
