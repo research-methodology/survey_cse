@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import {Loading} from '../LoadingComponent';
-import {Redirect} from 'react-router-dom';
 var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
   const categories  = items['categories'];
   let answers = null;
@@ -15,7 +14,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
   // var categorycount=categories[count-1];
   // console.log({...categorycount});
   let handleFinish = (event)=>{
-    //alert(JSON.stringify(output));
+    alert(JSON.stringify(output));
     SubmitSurveyrespons(output);
     event.preventDefault();
   }
@@ -35,7 +34,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
       category,
       question
     };
-    
+
     if(prevOutput[question]["answer"] === undefined){
 
       prevOutput[question]["answer"] = [];
@@ -74,13 +73,16 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
         let answersField = "";
       if (question.wayOfAnswering === "TextField"){
         answersField = (
-                  <Input onChange={handleChange} type="textarea" className="form-control" name={category.categoryName +","+question.question+",TextFeld,null"} />
+                  <Input onChange={handleChange} type="textarea" className="form-control" name={category.categoryName +","+question.question+",TextFeld,null"}
+                  key={category.categoryName +","+question.question+",TextFeld,null"}
+                         required
+                  />
         );
       } else if (question.wayOfAnswering === "Checkbox") {
           
         answers = question.answers.map((answer, index) => {
           return (
-            <React.Fragment key={answer + index + "daefd"}>
+            <React.Fragment key={category.categoryName +","+question.question+",Checkbox," + answer.answer + index}>
               
               
               
@@ -91,7 +93,8 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
                       name={category.categoryName +","+question.question+",Checkbox," + answer.answer}
                       value={answer.answer}
                       className="form-check-input"
-                      id={answer.answer + "ocia"}
+                      key={category.categoryName +","+question.question+",Checkbox," + answer.answer}
+                      required
                     />
                   <Label class="form-check-label" for={answer.answer + "ocia"}>{answer.answer}</Label>
                   
@@ -105,7 +108,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
         });
 
         answersField =(
-            <React.Fragment>  
+            <React.Fragment key={category.categoryName +","+question.question+",Checkbox,"}>
                 {answers}
             </React.Fragment>
             
@@ -115,10 +118,13 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
       } else if (question.wayOfAnswering === "Radio") {
         answers = question.answers.map((answer) => {
           return (
-            <React.Fragment>
+            <React.Fragment key={category.categoryName +","+question.question+",Radio,null"}>
               
                 <FormGroup check>
-                  <Input onChange={handleChange} type="radio" value={answer.answer} name={category.categoryName +","+question.question+",Radio,null"} />
+                  <Input onChange={handleChange} type="radio" value={answer.answer} name={category.categoryName +","+question.question+",Radio,null"}
+                  id={category.categoryName +","+question.question+",Radio,null"}
+                         required
+                  />
                   <Label>{answer.answer}</Label>
                 </FormGroup>
               
@@ -127,14 +133,14 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
         });
 
         answersField = (
-            <React.Fragment>
+            <React.Fragment key={category.categoryName +","+question.question+",radio,"}>
                 {answers}
             </React.Fragment>
         )
       } else if (question.wayOfAnswering === "Dropdown") {
         answers = question.answers.map((answer) => {
           return (
-            <React.Fragment>
+            <React.Fragment key={category.categoryName +","+question.question+",Radio,null"+answer.answer}>
               
                 <option value={answer.answer}>
                   {answer.answer}
@@ -145,9 +151,13 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
         });
 
         answersField = (
-            <React.Fragment>
-                <select className="custom-select" name={category.categoryName +","+question.question+",Dropdown,null"} onChange={handleChange}>
-                {answers}
+            <React.Fragment key={category.categoryName +","+question.question+",Dropdown,null"}>
+                <select className="custom-select" name={category.categoryName +","+question.question+",Dropdown,null"} onChange={handleChange}
+                id={category.categoryName +","+question.question+",Dropdown,null"}
+                        required
+                >
+                    <option>Choose..</option>
+                    {answers}
                 </select>
             </React.Fragment>
         )
