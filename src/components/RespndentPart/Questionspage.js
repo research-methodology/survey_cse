@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import {Loading} from '../LoadingComponent';
 import {Redirect} from 'react-router-dom';
-var Renderitems = ({ items,SubmitSurveyrespons}) => {
+var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
   const categories  = items['categories'];
   let answers = null;
 
@@ -14,9 +14,10 @@ var Renderitems = ({ items,SubmitSurveyrespons}) => {
   // var [SubmitSurveyrespons,setSubmitSurveyrespons]=useState(SubmitSurvey({}));
   // var categorycount=categories[count-1];
   // console.log({...categorycount});
-  let handleFinish = ()=>{
-    alert(JSON.stringify(output));
+  let handleFinish = (event)=>{
+    //alert(JSON.stringify(output));
     SubmitSurveyrespons(output);
+    event.preventDefault();
   }
   let handleShowMore = () => {
     setStart(start >= (categories.length - 1) ? start : start + 1);
@@ -172,15 +173,26 @@ var Renderitems = ({ items,SubmitSurveyrespons}) => {
     );
   });
   }
-  
-  let prev = start === 0? null :(<Button className="btn-lg ml-4 mt-3 bg-light text-dark" onClick={handleShowPrev}>
+  let prev = null;
+let next = null;
+
+if(Respond.isLoading){
+  prev = (<Button className="btn-lg ml-4 mt-3 bg-light text-dark" onClick={handleShowPrev}>
   Prev category
-</Button>)
-let next = (start=== categories.length-1)? (<Button className="btn-lg ml-4 mt-3 bg-secondary" onClick={handleFinish}>
-Finish survey
-</Button>) : (<Button className="btn-lg ml-4 mt-3 bg-secondary" onClick={handleShowMore}>
+  </Button>)
+    next =<Button className="btn-lg ml-4 mt-3 bg-secondary"><Loading/></Button>
+}
+else{
+  next = (start=== categories.length-1)? (<Button className="btn-lg ml-4 mt-3 bg-secondary" onClick={handleFinish}>
+    
+  Finish survey
+  </Button>) : (<Button className="btn-lg ml-4 mt-3 bg-secondary" onClick={handleShowMore}>
 Next category
 </Button>)
+prev = start === 0? null :(<Button className="btn-lg ml-4 mt-3 bg-light text-dark" onClick={handleShowPrev}>
+Prev category
+</Button>)
+}
   return items ? (
     <div>
       <div>{results}</div>
@@ -200,23 +212,26 @@ function RenderQuestions(props) {
   const [questionsToDiplay, setQuestionsToDisplay] = useState(
     props.QuestionInfo["categories"][0]
   );
-
-  if(props.Respond.isresponded){
-  console.log("successful sent");
-      }
-       if(props.Respond.errMess){
-        var error=new Error();
-         alert(error);
-         return {
-           error
-         }
-        }
+  let msg = null;
+  if(props.Respond.errMess !== null){
+      msg =<div class="alert alert-danger" role="alert">
+      {props.Respond.errMess} Not sent
+    </div>
+  }
+  else if(props.Respond.isresponded){
+        msg= <div class="alert alert-primary" role="alert">
+Your survey results uploaded successful
+</div>
+  }
        
   return (
     <div className="">
+     
+        {msg}
+        
       <Renderitems
         items={props.QuestionInfo}
-        questionsToDiplay={questionsToDiplay} SubmitSurveyrespons={props.SubmitSurveyrespons}
+        questionsToDiplay={questionsToDiplay} SubmitSurveyrespons={props.SubmitSurveyrespons} Respond={props.Respond}
       />
     </div>
   );

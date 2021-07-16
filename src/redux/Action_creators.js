@@ -52,6 +52,7 @@ export const logout = (token) =>(dispatch) =>{
 };
 export const Verifyuser=(token)=>(dispatch)=>{
     //console.log('Received token '+token);
+    dispatch({type:ActionTypes.VERIFY_USER_REQUEST});
 return fetch(baseUrl+'user/verification/'+token,{
 method:"PUT",
 headers:{
@@ -70,6 +71,7 @@ dispatch({type: ActionTypes.VERIFY_FAILURE});
 });
 }
 export const  Signup_form=(first_name,last_name,email,password,confirm_password) =>(dispatch)=>{
+    dispatch({type:ActionTypes.SIGNUP_REQUEST});
     console.log(baseUrl);
     const newUser={
         first_name:first_name,
@@ -78,7 +80,7 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
         password:password,
         confirm_password:confirm_password
     }
-    console.log(JSON.stringify(newUser));
+    //console.log(JSON.stringify(newUser));
 
     return fetch(baseUrl + "user/signup", {
        
@@ -91,9 +93,10 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
     })
     .then(response => {
         if (response.ok) {
+            dispatch({type:ActionTypes.SIGNUP_SUCCESS})
           return response;
         } else {
-          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          var error = new Error('Error '  + ': ' + response.message);
           error.response = response;
           throw error;
         }
@@ -102,8 +105,11 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
             throw error;
       })
     .then(response => response.json())
-    .then(response => { console.log('Signup', response); console.log('Thank you for signing up!\n'+JSON.stringify(response)); })
-    .catch(error =>  { console.log('Signup', error.message); console.log('Your signup request could not be processed\nError: '+error.message); });
+    .then(response => {
+         console.log('Signup', response); console.log('Thank you for signing up!\n') })
+    .catch(error =>  {
+        dispatch({type:ActionTypes.SIGNUP_FAILURE})
+         console.log('Signup', error.message); console.log('Your signup request could not be processed\nError: '+error.message); });
 };
 export const requestLogin = (creds) => {
     return {
@@ -129,7 +135,7 @@ export const loginError = (message) => {
 export const loginUser = (creds) => (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
-    console.log(JSON.stringify(creds));
+    //console.log(JSON.stringify(creds));
 
     return fetch(baseUrl + 'user/login', {
         method: 'POST',
@@ -138,20 +144,24 @@ export const loginUser = (creds) => (dispatch) => {
         },
         body: JSON.stringify(creds)
     })
+    .then(response => response.json())
     .then(response => {
+        console.log(JSON.stringify(response));
         if (response.status === 201) {
             return response;
         } else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            var error = new Error('Error ' + ': ' + response.message);
             error.response = response;
+            //console.log(JSON.stringify(err))
             throw error;
         }
         },
         error => {
             throw error;
         })
-    .then(response => response.json())
     .then(response => {
+        console.log("this is response");
+        console.log(response);
         if (response.status === 201) {
             // If login was successful, set the token in local storage
             localStorage.setItem('token', response.token);

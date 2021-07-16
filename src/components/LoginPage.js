@@ -26,16 +26,16 @@ class Login extends Component{
        you are logged in 
      </div>
              }
-          
-        
         let loginB = <Button type="submit" value="submit" color="primary">Login</Button>;
         if(this.props.auth.isLoading){
-            loginB =<Button color="light"><Loading/></Button>
-             
+            loginB =<Button color="light"><Loading/></Button>     
         }
 return(
     <div className="container">
+        <div className="text-center">
         {msg}
+        </div>
+        
     <div className="row">
     <Breadcrumb>
   <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>

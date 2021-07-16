@@ -33,13 +33,7 @@ const mapDispatchToProps = dispatch => ({
     SubmitSurveyrespons:(output)=>dispatch(SubmitSurveyrespons(output)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
 });
-const SignupForm=(props)=>{
-    return(
-<Signuppage resetSignupForm={props.resetSignupForm}
-                     Signup_form={props.Signup_form}                   
-    />
-    ); 
-}  
+
 
 class Main extends Component{
     constructor(props) {
@@ -59,13 +53,13 @@ render(){
              loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
         );
     }
-    const signuphandles=()=>{
-        return(
-        <div><Signuppage Signup_form={this.props.Signup_form} resetSignupForm={this.props.resetSignupForm}/>
-        </div>
-        );
+    // const signuphandles=()=>{
+    //     return(
+    //     <div>
+    //     </div>
+    //     );
           
-    };
+    // };
     const PrivateRoute = ({component: Component, ...rest}) => (
         <Route {...rest} render={(props) => {
             // let userCollection = JSON.parse(localStorage.getItem('userCollection'));
@@ -93,10 +87,10 @@ render(){
                             <Route path="/home" component={Home}/>
                              
                             <Route path="/login" component={Logingin}/>
-                            <Route path='/signup' component={signuphandles}
+                            <Route path='/signup' component={() => <Signuppage Signup_form={this.props.Signup_form} resetSignupForm={this.props.resetSignupForm }auth={this.props.auth}/>}
                         
                        />
-                       <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} />}/>
+                       <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} auth={this.props.auth} />}/>
                        <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
