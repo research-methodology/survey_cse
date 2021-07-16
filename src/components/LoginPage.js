@@ -17,13 +17,13 @@ class Login extends Component{
       render(){
           let msg = null;
           if(this.props.auth.errMess !== null){
-              msg =<div class="alert alert-danger" role="alert">
+              msg =<div className="alert alert-danger" role="alert">
               {this.props.auth.errMess} 
             </div>
           }
           else if(this.props.auth.isAuthenticated){
-                msg= <div class="alert alert-primary" role="alert">
-       you are logged in 
+                msg= <div className="alert alert-primary" role="alert">
+       you are logged in
      </div>
              }
         let loginB = <Button type="submit" value="submit" color="primary">Login</Button>;

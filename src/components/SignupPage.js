@@ -42,9 +42,16 @@ render(){
         console.log('this');
         this.props.history.push('/confirmemail');
     }
+    let msg = null;
+    if(this.props.auth.errMess !== null){
+        msg =<div className="alert alert-danger" role="alert">
+            {this.props.auth.errMess}
+        </div>
+    }
     return(
 
     <div className="container">
+        {msg}
     <div className="row">
     <Breadcrumb>
 
@@ -130,7 +137,7 @@ render(){
                                         className="form-control"
                                         type="password"
                                         validators={{
-                                            required, minLength: minLength(3), maxLength: maxLength(15)
+                                            required, minLength: minLength(5), maxLength: maxLength(15)
                                         }}
                                          />
                                     <Errors
@@ -153,7 +160,7 @@ render(){
                                         className="form-control"
                                         type="password"
                                         validators={{
-                                            required, minLength: minLength(3), maxLength: maxLength(15),verifypassword
+                                            required, minLength: minLength(5), maxLength: maxLength(15),verifypassword
                                         }}
                                          />
                                     <Errors
