@@ -19,7 +19,7 @@ const [surveyInfo] = useState(Questioninfo);
                 <h2 className="m-3 p-3 d-flex justify-content-center bg-secondary">Servey title</h2>
                 </div>
                 <Row>
-                    <Col offset sm={{size: 7, offset: 3}}>
+                    <Col offset md={{size: 7, offset: 3}}>
                     <div className="surveyContainer d-flex justify-content-center">
             <div><RenderQuestions  QuestionInfo={surveyInfo} Respond={props.respond} SubmitSurveyrespons={props.SubmitSurveyrespons}/></div>
                 </div>

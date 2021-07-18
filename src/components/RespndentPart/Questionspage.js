@@ -10,6 +10,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
 // }
   const [start, setStart] = useState(0);
   const [output,setOutput] = useState({});
+  const [answerStates,setAnswerStates] = useState({})
   // var [SubmitSurveyrespons,setSubmitSurveyrespons]=useState(SubmitSurvey({}));
   // var categorycount=categories[count-1];
   // console.log({...categorycount});
@@ -42,6 +43,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
     if(type === 'Checkbox'){
       
       let checked = event.target.checked;
+      setAnswerStates({...answerStates, [name]:checked});
       if(checked){
         prevOutput[question]["answer"].push(value);
       }
@@ -57,7 +59,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
       }
     }
     else{
-      
+            setAnswerStates({...answerStates, [name]: value});
       prevOutput[question]["answer"] = [value];
 
     }
@@ -72,15 +74,29 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
     var questions = category.questions.map((question) => {
         let answersField = "";
       if (question.wayOfAnswering === "TextField"){
+          if(answerStates[category.categoryName +","+question.question+",TextFeld,null" === undefined]){
+              let prev =answerStates;
+              prev[category.categoryName +","+question.question+",TextFeld,null"] = "";
+              setAnswerStates(prev);
+          }
         answersField = (
-                  <Input onChange={handleChange} type="textarea" className="form-control" name={category.categoryName +","+question.question+",TextFeld,null"}
+                  <Input onChange={handleChange} type="textarea" className="form-control"
+                         value={answerStates[category.categoryName +","+question.question+",TextFeld,null"]}
+                         name={category.categoryName +","+question.question+",TextFeld,null"}
                   key={category.categoryName +","+question.question+",TextFeld,null"}
-                         required
+
                   />
         );
       } else if (question.wayOfAnswering === "Checkbox") {
           
         answers = question.answers.map((answer, index) => {
+            let pName = category.categoryName +","+question.question+",Checkbox," + answer.answer;
+            if(answerStates[pName] === undefined){
+                //let prev = answerStates;
+
+                //prev[category.categoryName +","+question.question+",Checkbox," + answer.answer] = false;
+                setAnswerStates({...answerStates, [pName]: false});
+            }
           return (
             <React.Fragment key={category.categoryName +","+question.question+",Checkbox," + answer.answer + index}>
               
@@ -89,12 +105,13 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
                 <FormGroup check>
                 <input
                       type="checkbox"
+                      checked={answerStates[pName]}
                       onChange={handleChange}
-                      name={category.categoryName +","+question.question+",Checkbox," + answer.answer}
+                      name={pName}
                       value={answer.answer}
                       className="form-check-input"
                       key={category.categoryName +","+question.question+",Checkbox," + answer.answer}
-                      required
+
                     />
                   <Label class="form-check-label" for={answer.answer + "ocia"}>{answer.answer}</Label>
                   
@@ -117,13 +134,17 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
 
       } else if (question.wayOfAnswering === "Radio") {
         answers = question.answers.map((answer) => {
+            let pName = category.categoryName +","+question.question+",Radio,null";
+            if(answerStates[pName] === undefined){
+                setAnswerStates({...answerStates,[pName]: ""});
+            }
           return (
             <React.Fragment key={category.categoryName +","+question.question+",Radio,null"}>
               
                 <FormGroup check>
-                  <Input onChange={handleChange} type="radio" value={answer.answer} name={category.categoryName +","+question.question+",Radio,null"}
+                  <Input onChange={handleChange} type="radio" value={answer.answer} name={pName}
                   id={category.categoryName +","+question.question+",Radio,null"}
-                         required
+                         checked={answerStates[pName] === answer.answer}
                   />
                   <Label>{answer.answer}</Label>
                 </FormGroup>
@@ -138,11 +159,15 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
             </React.Fragment>
         )
       } else if (question.wayOfAnswering === "Dropdown") {
+          let pName = category.categoryName +","+question.question+",Dropdown,null";
+          if(answerStates[pName] === undefined){
+              setAnswerStates({...answerStates,[pName]: ""});
+          }
         answers = question.answers.map((answer) => {
           return (
-            <React.Fragment key={category.categoryName +","+question.question+",Radio,null"+answer.answer}>
+            <React.Fragment key={category.categoryName +","+question.question+",Dropdown,null"+answer.answer}>
               
-                <option value={answer.answer}>
+                <option value={answer.answer} selected={answerStates[pName] === answer.answer}>
                   {answer.answer}
                 </option>
               
@@ -154,7 +179,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
             <React.Fragment key={category.categoryName +","+question.question+",Dropdown,null"}>
                 <select className="custom-select" name={category.categoryName +","+question.question+",Dropdown,null"} onChange={handleChange}
                 id={category.categoryName +","+question.question+",Dropdown,null"}
-                        required
+
                 >
                     <option>Choose..</option>
                     {answers}
