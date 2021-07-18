@@ -212,9 +212,6 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
 let next = null;
 
 if(Respond.isLoading){
-  prev = (<Button className="btn-lg ml-4 mt-3 bg-light text-dark" onClick={handleShowPrev}>
-  Prev category
-  </Button>)
     next =<Button className="btn-lg ml-4 mt-3 bg-secondary"><Loading/></Button>
 }
 else{
