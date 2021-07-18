@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
-    Button, Modal, ModalHeader, ModalBody,
-    Form, FormGroup, Input, Label } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem,
+    Button} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 export default class Navigation extends Component {
@@ -57,11 +56,11 @@ export default class Navigation extends Component {
                 <React.Fragment>
                                  <Navbar dark expand="md">
             
-                            <div className="container">
+                            <div className="container-fluid">
                             <NavbarToggler onClick={this.toggleNav} />
-                                <NavbarBrand className="mr-auto" href="/">
-                                    {/* <img src="" alt="user Servey Appliction"/> */}
-                                    <h3>Servey appliction</h3>
+                                <NavbarBrand className="" href="/">
+                                     <img src="logo.png" style={{width:"60px"}} alt="logo"/>
+                                    <span>DoServey </span>
                                     </NavbarBrand>
                                 <Collapse isOpen={this.state.isNavOpen} navbar>
                                     <Nav navbar>
