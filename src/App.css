@@ -11,9 +11,9 @@
 }
 .nav-link{
   overflow: hidden;
-  display: flexbox;
+  /*display: flexbox;*/
   color:whitesmoke;
-  padding: 5;
+  /*padding: 5;*/
 
 }
 .footer{
@@ -39,6 +39,16 @@
   background:white;
     box-shadow: 4px 3px 8px 1px #888585;
   	-webkit-box-shadow: 4px 3px 8px 1px #978f8f;
+}
+@media only screen and (max-width: 600px) {
+  .eachQuestion-container{
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .surveyContainer{
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 .questions-container{
   width: 70%;
