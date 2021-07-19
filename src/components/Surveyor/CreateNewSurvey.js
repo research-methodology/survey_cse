@@ -1,9 +1,10 @@
-import { Button } from "reactstrap";
+import {Breadcrumb, BreadcrumbItem, Button} from "reactstrap";
 import React, { useState } from "react";
 import { Row, Input, Form, Label } from "reactstrap";
 import AnswersComponet from "./AnswersComponet";
 import CategoriesComponent from "./CategoriesComponent";
 import QuestionsComponet from "./QuestionsComponet";
+import {Link} from "react-router-dom";
 export default function CreateNewSurvey() {
     let testInfo = {
         surveyTitle:"Testing Survey title",
@@ -107,6 +108,15 @@ export default function CreateNewSurvey() {
     <div>
       <div className="">
           <div className="container">
+              <div className="row">
+                  <div className="col-12">
+                      <Breadcrumb>
+                          <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                          <BreadcrumbItem><Link to="/dashboard">Dashboard</Link></BreadcrumbItem>
+                          <BreadcrumbItem active>Create new survey</BreadcrumbItem>
+                      </Breadcrumb>
+                  </div>
+              </div>
       <div className="row">
             <div className="col-12 mt-3 mb-3 colorAndB2 text-center">
                 <h2>Creation of new survey</h2>
@@ -115,20 +125,21 @@ export default function CreateNewSurvey() {
             </div>
         </div>
           </div>
-        <div className="surveyContainer scrollable-x container-survey">
+        <div className="surveyContainer  container-survey">
+            <div className="row row-content ">
+                <div className="col-12 col-md-9">
+                    <Form>
+                        <Row>
+                            <div className="col-11 ml-2">
+                                <Label>Survey title</Label>
+                                <Input onChange={ChangeSurveyTitle} type="text" />
+                            </div>
+                        </Row>
+                    </Form>
+                </div>
+            </div>
+            <div className="scrollable-x">
             <div className="scrollpart">
-        <div className="row row-content ">
-          <div className="col-12 col-md-9">
-            <Form>
-              <Row>
-                  <div className="col-12 ml-2">
-                      <Label>Survey title</Label>
-                      <Input onChange={ChangeSurveyTitle} type="text" />
-                  </div>
-              </Row>
-            </Form>
-          </div>
-        </div>
         
         <div className="row">
           <div className="col-4">
@@ -154,6 +165,6 @@ export default function CreateNewSurvey() {
         </div>
       </div>
     </div></div>
-    </div>
+    </div></div>
   );
 }

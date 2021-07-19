@@ -1,6 +1,8 @@
 import { Button } from 'reactstrap';
 import React from 'react'
 import SurveyDetails from './SurveyDetails'
+import {Chart} from "react-google-charts";
+import {Loading} from "../LoadingComponent";
 export default function SurveyPage(props) {
     let surveyResult ={
         surveyTitle:props.Surveys.surveys[0].surveyTitle,
@@ -47,23 +49,39 @@ export default function SurveyPage(props) {
 
     let questionCards =  questionsAsked.map(question =>{
         let answers = Object.keys( surveyD["survey"][question]["answers"])
-        let ans = answers.map(answer => {
-            return(
-                <React.Fragment>
-                <dt class="col-6">{answer}</dt>
-                <dd class="col-6">{surveyD["survey"][question]["answers"][answer]}</dd>
-                </React.Fragment>
-            )
+        let data= [['Task', 'Hours per Day']];
+        answers.forEach((answer) => {
+            let d = [];
+            d.push(answer);
+            d.push(parseInt(surveyD["survey"][question]["answers"][answer]));
+            data.push(d);
+            // return(
+            //     <React.Fragment>
+            //     <dt class="col-6">{answer}</dt>
+            //     <dd class="col-6">{surveyD["survey"][question]["answers"][answer]}</dd>
+            //     </React.Fragment>
+            // )
         })
+        let chart = <Chart key={question + "dsflskdjfa"}
+            width="100%" height="300px" chartType="PieChart"
+            loader={<div><Loading/></div>}
+            data={data}
+            options={{
+                title: question,
+                // Just add this option
+                is3D: true,
+            }}
+            rootProps={{ 'data-testid': '2' }}
+        />
 
         
         return (
-            <div class="card col-sm-5 col-md-4 col-lg-3 m-3" style={{width:"400px"}}>
-                    <h3 class="card-header bg-secondary text-white">{question}</h3>
-                    <div class="card-body">
-                        <dl class="row">
-                            {ans}
-                        </dl>
+            <div class="col-12 col-sm-6" >
+                    {/*<h3 class="card-header bg-secondary text-white">{question}</h3>*/}
+                    <div class="">
+                        {/*<dl class="row">*/}
+                            {chart}
+                        {/*</dl>*/}
                     </div>
                     {/* <div class="card-footer">
                     <dl class="row">

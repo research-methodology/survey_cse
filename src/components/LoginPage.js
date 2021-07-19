@@ -31,7 +31,7 @@ class Login extends Component{
             loginB =<Button color="light"><Loading/></Button>     
         }
 return(
-    <div className="container">
+    <div className="container text-center">
         <div className="text-center">
         {msg}
         </div>
@@ -45,6 +45,10 @@ return(
 <h3>Login-page</h3>
 <hr/>
 </div>
+    </div>
+        <div className="row">
+            <div className="col-12 col-md-5 offset-md-3">
+                <div className="surveyContainer m-1 pl-5 pr-5">
 <Form onSubmit={this.handleLogin}>
                             <FormGroup>
                                 <Label htmlFor="email">email</Label>
@@ -68,6 +72,8 @@ return(
                         </Form>
                         </div>
                         </div>
+        </div>
+    </div>
 );
 
 }}

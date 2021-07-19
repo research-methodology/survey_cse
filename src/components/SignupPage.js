@@ -50,7 +50,7 @@ render(){
     }
     return(
 
-    <div className="container">
+    <div className="container text-center">
         {msg}
     <div className="row">
     <Breadcrumb>
@@ -62,6 +62,10 @@ render(){
 <h3>Signup-page</h3>
 <hr/>
 </div>
+    </div>
+        <div className="row">
+            <div className="col-11 col-md-6 offset-md-3">
+        <div className="surveyContainer m-1 pl-5 pr-5">
 <Form  model="signup" onSubmit={(values)=>this.handleSubmit(values)}>
             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
@@ -178,7 +182,7 @@ render(){
                             </Row>
                             
                            <Row className="form-group">
-                                <Col md={{size: 6, offset: 2}}>
+                                <Col md={{size: 10, offset: 2}}>
                                     <div className="form-check">
                                         <Label check>
                                             <Control.checkbox model=".agree"
@@ -195,12 +199,14 @@ render(){
 
                             <Row className="form-group">
                                 <Col md={{size: 10, offset: 2}}>
-                                    <Button type="submit" color="primary">
+                                    <Button type="submit" className="color2">
                                         Create account
                                     </Button>
                                 </Col>
                            </Row>
             </Form>
+        </div>
+        </div>
 </div>
 
 </div>
