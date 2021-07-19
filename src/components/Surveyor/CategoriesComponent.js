@@ -45,7 +45,7 @@ export default function CategoriesComponent(props) {
             </Modal> 
         
         <div className="mt-3">
-            <div className="addItemsCards" style={{background:"#333"}}>
+            <div className="addItemsCards color1">
                 <div>
                     <Button onClick={togglerModal} className="m-1"><span className="fa fa-plus" ></span> Create new category</Button>
                 </div>

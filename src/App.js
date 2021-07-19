@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Provider store={store}>
       <BrowserRouter>
-        <div className="App">
+        <div className="App color1">
          <MainComponent />
         </div>
       </BrowserRouter>

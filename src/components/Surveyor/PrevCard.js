@@ -4,16 +4,16 @@ export default function PrevCard(props) {
     var crd = '';
     if(props.type === 'CreateNew'){
         crd = <div>
-            <Card  className="d-flex justify-content-center align-items-center" body inverse style={{ backgroundColor: 'grey', height:'200px', width:'400px' }}>
+            <Card  className="d-flex justify-content-center align-items-center color1" body style={{  height:'200px', width:'400px' }}>
                 <CardText>
-                    <Button><a href='/createNewSurvey'><span className="fa fa-plus"></span> Create new Survey</a></Button>
+                    <Button className="colorAndB2"><a href='/createNewSurvey'><span className="fa fa-plus"></span> Create new Survey</a></Button>
                 </CardText>
             </Card>
         </div>
     }
     else{
         crd = <div>
-            <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333', height:'200px', width:'400px' }}>
+            <Card className="colorAndB2" body style={{ borderColor: '#333', height:'200px', width:'400px' }}>
         <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
         <CardText>{props.description}</CardText>
         <Button href="/SurveyResult">View</Button>

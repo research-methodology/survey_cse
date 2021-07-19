@@ -105,22 +105,26 @@ export default function CreateNewSurvey() {
     }
   return (
     <div>
-      <div className="container">
+      <div className="">
+          <div className="container">
       <div className="row">
-            <div className="col-12 mt-3 mb-3" style={{background:"#333", color:"white"}}>
+            <div className="col-12 mt-3 mb-3 colorAndB2 text-center">
                 <h2>Creation of new survey</h2>
                 <p>Use following cards to create your survey.</p>
                 <p>Affter selecting category, questions in that category will shown on questions card. <br/> Same to answers that will shown after selection of question </p>
             </div>
         </div>
-        <div className="surveyContainer scrollable-x">
+          </div>
+        <div className="surveyContainer scrollable-x container-survey">
             <div className="scrollpart">
         <div className="row row-content ">
           <div className="col-12 col-md-9">
             <Form>
               <Row>
-                <Label>Survey title</Label>
-                <Input onChange={ChangeSurveyTitle} type="text" />
+                  <div className="col-12 ml-2">
+                      <Label>Survey title</Label>
+                      <Input onChange={ChangeSurveyTitle} type="text" />
+                  </div>
               </Row>
             </Form>
           </div>
