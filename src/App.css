@@ -47,6 +47,9 @@
   	-webkit-box-shadow: 4px 3px 8px 1px #978f8f;
 }
 @media only screen and (min-width: 1000px) {
+  .PrevCard1{
+    width:400px;
+  }
   .container-survey{
     margin-right: 10%;
     margin-left: 10%;
