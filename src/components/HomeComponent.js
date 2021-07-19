@@ -12,12 +12,12 @@ class Home extends Component {
 
     render() {
         return(
-            <div>
+            <div className="text-center">
              <div className="container mt-3">
-                 <Jumbotron >
+                 <Jumbotron className="colorAndB1" >
                     <div className="">
                         <div className="row row-header">
-                            <div className="col-12 col-sm-6">
+                            <div className="col-12">
                                 <h1>Serveying Appliction</h1>
                                 <p>We bring you all the required needs for conducting research and we also get ypu in touch with people you want to be your respondents!</p>
                             </div>
@@ -25,7 +25,7 @@ class Home extends Component {
                         </div>
                      
                     </div>
-                    <div className="d-flex align-self-end justify-content-center mt-5"><button className="btn bg-warning"> <NavLink className="nav-link" to='/login'>Start Now</NavLink></button></div>
+                    <div className="d-flex align-self-end justify-content-center mt-5"><button className="btn color2"> <NavLink className="nav-link" to='/login'>Start Now</NavLink></button></div>
                 </Jumbotron></div>
                 
             </div>

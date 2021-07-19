@@ -67,9 +67,9 @@ export default function AnswersComponet(props) {
             </Modal> 
         
         <div className="mt-3  pr-3">
-            <div className="addItemsCards container-fluid " style={{background:"#333", color:'white'}}>
+            <div className="addItemsCards container-fluid color1">
                 <div className="row">
-                <Form className="col-12 mb-3 mt-3" style={{background: "#334"}}> 
+                <Form className="col-12 mb-3 mt-3" >
               <Row>
                 <Label className="col-7 ">Choose way of answering</Label>
                 {chooseWayOfAnswering}

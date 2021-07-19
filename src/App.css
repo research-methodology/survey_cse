@@ -2,8 +2,21 @@
 .jumbotron {
   padding:70px 30px 70px 30px;
   margin:0px auto;
-  background: #848e9b ;
+}
+.colorAndB1{
+  background-color: #848e9b ;
   color:floralwhite;
+}
+.colorAndB2{
+  background-color: white;
+  color: #000000;
+}
+.color2{
+  background-color: #393d42;
+  color:floralwhite;
+}
+.bg3{
+  background-color: #535757;
 }
 
 .navbar-dark {
@@ -17,7 +30,7 @@
 
 }
 .footer{
-  background-color: #89929c;
+  /*background-color: #89929c;*/
   color:floralwhite;
 }
 .addItemsCards{
@@ -33,6 +46,13 @@
     box-shadow: 4px 3px 8px 1px #888585;
   	-webkit-box-shadow: 4px 3px 8px 1px #978f8f;
 }
+@media only screen and (min-width: 1000px) {
+  .container-survey{
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+}
+
 .eachQuestion-container{
   padding: 1em;
   margin: 1em;
@@ -40,7 +60,7 @@
     box-shadow: 4px 3px 8px 1px #888585;
   	-webkit-box-shadow: 4px 3px 8px 1px #978f8f;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .eachQuestion-container{
     margin-right: 0;
     margin-left: 0;
@@ -57,5 +77,5 @@
   overflow-x: scroll;
 }
 .scrollpart{
-  min-width: 600px;
+  min-width: 800px;
 }

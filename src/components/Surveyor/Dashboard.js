@@ -26,7 +26,7 @@ export default function Dashboard(props) {
         <div className="container">
             <Row>
                 <Col>
-                <div className="mt-3" style={{ background:'#333', padding:'4px', color:'white'}} >
+                <div className="mt-3 text-center colorAndB2" style={{ padding:'4px'}} >
                     <h2>Your surveys</h2>
                 </div>
                 </Col>

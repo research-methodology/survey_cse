@@ -44,7 +44,7 @@ export default function QuestionsComponet(props) {
                 </ModalBody>
             </Modal> 
         <div className="mt-3">
-            <div className="addItemsCards" style={{background:"#333"}}>
+            <div className="addItemsCards color1">
                 <div>
                     <Button onClick={togglerModal} className="m-1"><span className="fa fa-plus" ></span> Add new question</Button>
                 </div>
