@@ -1,6 +1,7 @@
 import React from 'react'
 import PrevCard from './PrevCard'
-import {Row, Col} from 'reactstrap'
+import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap'
+import {Link} from "react-router-dom";
 export default function Dashboard(props) {
     let surveys = [
         {
@@ -24,6 +25,14 @@ export default function Dashboard(props) {
     })
     return (
         <div className="container">
+            <div className="row">
+                <div className="col-12">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Dashboard</BreadcrumbItem>
+                </Breadcrumb>
+                </div>
+            </div>
             <Row>
                 <Col>
                 <div className="mt-3 text-center colorAndB2" style={{ padding:'4px'}} >
@@ -33,7 +42,7 @@ export default function Dashboard(props) {
             </Row>
             <Row>
                 {prevs}
-                
+
             </Row>
         </div>
     )

@@ -49,7 +49,7 @@ class Main extends Component{
 render(){
     const Logingin=()=>{
         return(
-            <div className="col-7 col-md-12"><Login auth={this.props.auth}
+            <div className=""><Login auth={this.props.auth}
              loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
         );
     }

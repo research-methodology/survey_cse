@@ -25,7 +25,7 @@ class Home extends Component {
                         </div>
                      
                     </div>
-                    <div className="d-flex align-self-end justify-content-center mt-5"><button className="btn color2"> <NavLink className="nav-link" to='/login'>Start Now</NavLink></button></div>
+                    <div className="d-flex align-self-end justify-content-center mt-5"><button className="btn color2"> <NavLink className="nav-link" to='/signup'>Start Now</NavLink></button></div>
                 </Jumbotron></div>
                 
             </div>
