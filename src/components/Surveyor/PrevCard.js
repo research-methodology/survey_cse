@@ -5,8 +5,8 @@ export default function PrevCard(props) {
     if(props.type === 'CreateNew'){
         crd = <div>
             <Card  className="d-flex justify-content-center align-items-center color1 PrevCard1" body style={{  height:'200px'}}>
-                <CardText>
-                    <Button className="colorAndB2"><a href='/createNewSurvey'><span className="fa fa-plus"></span> Create new Survey</a></Button>
+                <CardText><a href='/createNewSurvey'>
+                    <Button className="colorAndB2"><span className="fa fa-plus"></span> Create new Survey</Button></a>
                 </CardText>
             </Card>
         </div>

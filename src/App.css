@@ -79,6 +79,12 @@
 .scrollable-x{
   overflow-x: scroll;
 }
+.scrollable-y{
+  overflow-y: scroll;
+}
+.heightOfTextfieldC{
+  height: 300px;
+}
 .scrollpart{
   min-width: 800px;
 }
