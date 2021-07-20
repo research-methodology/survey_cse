@@ -13,6 +13,7 @@ export default function SurveyPage(props) {
             
         }
     };
+    let length = surveyResult["survey"].length;
     //let questionsAsked = Object.keys(surveyResult["survey"][0]);
     let questionsAsked = surveyResult["survey"][0].map(each => each.question);
     surveyResult["survey"].forEach(each =>{
@@ -20,6 +21,7 @@ export default function SurveyPage(props) {
             if(surveyD["survey"][eachQuestion.question] === undefined){
                 surveyD["survey"][eachQuestion.question] = {};
                 surveyD["survey"][eachQuestion.question]["answers"] = {};
+                surveyD["survey"][eachQuestion.question]["wayOfAnswering"] = eachQuestion.wayOfAnswering;
                 //surveyD["survey"][eachQuestion.question]["answers"][eachQuestion.answer]=1;
                 eachQuestion.answer.forEach(eachAnswer =>{
                     surveyD["survey"][eachQuestion.question]["answers"][eachAnswer]=1;
@@ -49,12 +51,46 @@ export default function SurveyPage(props) {
 
     let questionCards =  questionsAsked.map(question =>{
         let answers = Object.keys( surveyD["survey"][question]["answers"])
-        let data= [['Task', 'Hours per Day']];
-        answers.forEach((answer) => {
+        let data= [];
+        let indexing = 0;
+        let allData = answers.map((answer) => {
             let d = [];
+            let qty = parseInt(surveyD["survey"][question]["answers"][answer]);
+            if(surveyD["survey"][question]["wayOfAnswering"] !== 'Textfield') {
             d.push(answer);
-            d.push(parseInt(surveyD["survey"][question]["answers"][answer]));
-            data.push(d);
+                d.push(qty);
+                if (surveyD["survey"][question]["wayOfAnswering"] === "Checkbox") {
+                    if ((qty / length) >= 0.9) {
+                        d.push("#09982B");
+                    } else if ((qty / length) >= 0.8) {
+                        d.push("#0DFB4C");
+                    } else if ((qty / length) >= 0.7) {
+                        d.push("#C6F113");
+                    } else if ((qty / length) >= 0.6) {
+                        d.push("#C6E159");
+                    } else if ((qty / length) >= 0.5) {
+                        d.push("#2A49C4");
+                    } else if ((qty / length) >= 0.3) {
+                        d.push("#F67373");
+                    } else {
+                        d.push("#FF0000");
+                    }
+
+                    d.push(surveyD["survey"][question]["answers"][answer]);
+                }
+
+            return d;}
+            else{
+                indexing++;
+                if(indexing % 2 === 0 ){
+                    return <div className="color1 pb-1 mr-1">{answer}</div>;
+                }
+                else{
+                    return <div className="pb-1 mr-1">{answer}</div>;
+                }
+
+
+            }
             // return(
             //     <React.Fragment>
             //     <dt class="col-6">{answer}</dt>
@@ -62,41 +98,64 @@ export default function SurveyPage(props) {
             //     </React.Fragment>
             // )
         })
-        let chart=null;
-        let wayOfAnswering=question.wayOfAnswering;
-        if(wayOfAnswering==="checkbox"){
-            console.log(wayOfAnswering);
-            chart = <Chart key={question + "dsflskdjfa"}
-            width="100%" height="300px" chartType="BarChart"
-            loader={<div><Loading/></div>}
-            data={data}
-            options={{
-                title: question,
-                // Just add this option
-                is3D: true,
-            }}
-            rootProps={{ 'data-testid': '2' }}
-        /> 
+        if(surveyD["survey"][question]["wayOfAnswering"] === "Checkbox"){
+            data = [['Element', 'Density', { role: 'style' }, {sourceColumn: 0, role: 'annotation', type: 'string', calc: 'stringify',},],...allData]
+        }
+        else if(surveyD["survey"][question]["wayOfAnswering"] === 'Textfield') {
+            data = [...allData];
+        }
+        else {
+
+            data = [['Task', 'Hours per Day'],...allData];
+        }
+
+        let chart = null;
+        if(surveyD["survey"][question]["wayOfAnswering"] === 'Checkbox'){
+            chart =
+                <Chart
+                    width={'100%'}
+                    height={'400px'}
+                    chartType="BarChart"
+                    loader={<div><Loading/></div>}
+                    data={data}
+                    options={{
+                        title: question,
+                        width: "100%",
+                        height: 400,
+                        bar: { groupWidth: '95%' },
+                        legend: { position: 'none' },
+                    }}
+                    // For tests
+                    rootProps={{ 'data-testid': '6' }}
+                />
+
+        }
+        else if(surveyD["survey"][question]["wayOfAnswering"] === 'Textfield') {
+            chart =<div >
+                <div><h4> {question} </h4></div>
+                <div className="scrollable-y heightOfTextfieldC text-center">
+                    {data}
+                </div>
+            </div>
         }
         else{
-            console.log(wayOfAnswering);
             chart = <Chart key={question + "dsflskdjfa"}
-            width="100%" height="300px" chartType="PieChart"
-            loader={<div><Loading/></div>}
-            data={data}
-            options={{
-                title: question,
-                // Just add this option
-                is3D: true,
-            }}
-            rootProps={{ 'data-testid': '2' }}
-        /> 
+                           width="100%" height="300px" chartType="PieChart"
+                           loader={<div><Loading/></div>}
+                           data={data}
+                           options={{
+                               title: question,
+                               // Just add this option
+                               is3D: true,
+                           }}
+                           rootProps={{ 'data-testid': '2' }}
+            />
         }
-     
+
 
         
         return (
-            <div class="col-12 col-sm-6" >
+            <div class="col-12 col-md-6" >
                     {/*<h3 class="card-header bg-secondary text-white">{question}</h3>*/}
                     <div class="">
                         {/*<dl class="row">*/}

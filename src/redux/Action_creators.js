@@ -276,12 +276,13 @@ export const  HandleSessionexpired=(token)=>{
         if(duration<1){
          logout(token);
         localStorage.removeItem("token");
+      
         }
-        console.log(token)
+        //console.log('at '+duration+'token is '+token);
     }
     window.addEventListener('mousemove',resetTimer);
 
     function resetTimer(){
-        duration=10;
+        duration=6000;
     }    
 }

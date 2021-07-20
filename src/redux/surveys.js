@@ -108,603 +108,624 @@ export const Surveys = (state = {
                 [
                     {
                         question:"question1",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer3", "answer1"]
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answer1"]
+                        answer:["answersa1"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2"]
+                        answer:["answere1"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1"]
+                        answer:["answers1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer12", "answer2"]
+                        answer:["answer1a", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answer11"]
+                        answer:["answer1d"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer33", "answer1"]
+                        answer:["answer3a", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answer1"]
+                        answer:["answer1dssa"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answerw1"]
+                        answer:["answer1s"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1", "answer2","answer3"]
+                        answer:["answer1s", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answer1"]
+                        answer:["answer1a"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer21", "answer2"]
+                        answer:["answer1s", "answer2a"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answerr1"]
+                        answer:["answer1a"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1aasd"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1w"]
+                        answer:["answer1s"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer1"]
+                        answer:["answer1a", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answers1"]
+                        answer:["answer1a"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer3f", "answer1"]
+                        answer:["answer3a", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answerf1"]
+                        answer:["answer1afd"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1s", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answer1"]
+                        answer:["answer1a"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1s", "answer2"]
+                        answer:["answer1a", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answers1"]
+                        answer:["answer1a"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer1", "answer2s"]
+                        answer:["answer1a", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answers1"]
+                        answer:["answer1a"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2s"]
+                        answer:["answer1s"],
+                        wayOfAnswering: 'Textfieldrg'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer3", "answer1"]
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answer1"]
+                        answer:["answer1hrd"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2"]
+                        answer:["answerads1"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer12", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answer11"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer33", "answer1"]
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answer1"]
+                        answer:["answer1dfa"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answerw1"]
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1", "answer2","answer3"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer21", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answerr1"]
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1ere"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1w"]
+                        answer:["answer1a"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer1"]
+                        answer:["answer1a", "answer2a"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answers1"]
+                        answer:["answer1a"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer3f", "answer1"]
+                        answer:["answer3a", "answer1a"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answerf1"]
+                        answer:["answer1aqqa"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1a", "answer2a"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answer1"]
+                        answer:["answer1a"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1s", "answer2"]
+                        answer:["answer1a", "answer2a"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answers1"]
+                        answer:["answer1a"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer1", "answer2s"]
+                        answer:["answer1a", "answer2a"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answers1"]
+                        answer:["answer1a"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2s"]
+                        answer:["answer1hraa"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer3", "answer1"]
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answer1"]
+                        answer:["answer1hrds"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1oiu"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer12", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answer11"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer33", "answer1"]
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answer1"]
+                        answer:["answer1iuj"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answerw1"]
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1", "answer2","answer3"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer21", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answerr1"]
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1cced"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1w"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer1"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answers1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer3f", "answer1"]
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answerf1"]
+                        answer:["answer1wqa"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1s", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answers1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer1", "answer2s"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answers1"]
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2s"]
+                        answer:["answer1erer"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ],
                 [
                     {
                         question:"question1",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question2",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question3",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question4",
-                        answer:["answer3", "answer1"]
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question5",
-                        answer:["answer1"]
+                        answer:["answer1defsa"],
+                        wayOfAnswering:'Textfield'
                     },
                     {
                         question:"question6",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question7",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
                     },
                     {
                         question:"question8",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
                     },
                     {
                         question:"question9",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
                     },
                     {
                         question:"question10",
-                        answer:["answer1", "answer2"]
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
                     },
                     {
                         question:"question11",
-                        answer:["answer1"]
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
                     },
                     {
                         question:"question12",
-                        answer:["answer1", "answer2"]
-                    }
-                ],
-                [
-                    {
-                        question:"question1",
-                        answer:["answer1"]
-                    },
-                    {
-                        question:"question2",
-                        answer:["answer12", "answer2"]
-                    },
-                    {
-                        question:"question3",
-                        answer:["answer11"]
-                    },
-                    {
-                        question:"question4",
-                        answer:["answer33", "answer1"]
-                    },
-                    {
-                        question:"question5",
-                        answer:["answer1"]
-                    },
-                    {
-                        question:"question6",
-                        answer:["answer1", "answer2"]
-                    },
-                    {
-                        question:"question7",
-                        answer:["answerw1"]
-                    },
-                    {
-                        question:"question8",
-                        answer:["answer1", "answer2","answer3"]
-                    },
-                    {
-                        question:"question9",
-                        answer:["answer1"]
-                    },
-                    {
-                        question:"question10",
-                        answer:["answer21", "answer2"]
-                    },
-                    {
-                        question:"question11",
-                        answer:["answerr1"]
-                    },
-                    {
-                        question:"question12",
-                        answer:["answer1", "answer2"]
-                    }
-                ],
-                [
-                    {
-                        question:"question1",
-                        answer:["answer1w"]
-                    },
-                    {
-                        question:"question2",
-                        answer:["answer1"]
-                    },
-                    {
-                        question:"question3",
-                        answer:["answers1"]
-                    },
-                    {
-                        question:"question4",
-                        answer:["answer3f", "answer1"]
-                    },
-                    {
-                        question:"question5",
-                        answer:["answerf1"]
-                    },
-                    {
-                        question:"question6",
-                        answer:["answer1", "answer2"]
-                    },
-                    {
-                        question:"question7",
-                        answer:["answer1"]
-                    },
-                    {
-                        question:"question8",
-                        answer:["answer1s", "answer2"]
-                    },
-                    {
-                        question:"question9",
-                        answer:["answers1"]
-                    },
-                    {
-                        question:"question10",
-                        answer:["answer1", "answer2s"]
-                    },
-                    {
-                        question:"question11",
-                        answer:["answers1"]
-                    },
-                    {
-                        question:"question12",
-                        answer:["answer1", "answer2s"]
+                        answer:["answer1dwewes"],
+                        wayOfAnswering: 'Textfield'
                     }
                 ]
+
                 
             ]
         },{

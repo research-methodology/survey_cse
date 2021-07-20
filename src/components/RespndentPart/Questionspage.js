@@ -33,7 +33,8 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
     let prevOutput = output;
     prevOutput[question]= {...prevOutput[question],
       category,
-      question
+      question,
+        wayOfAnswering: type
     };
 
     if(prevOutput[question]["answer"] === undefined){
