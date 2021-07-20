@@ -154,7 +154,8 @@ export const requestLogin = (creds) => {
 export const receiveLogin = (response) => {
     return {
         type: ActionTypes.LOGIN_SUCCESS,
-        token: response.token
+        token: response,
+        HandleSessionexpired
     }
 }
   
@@ -260,7 +261,6 @@ export const createNewSurvey=(result) =>(dispatch) =>{
         throw error;
   }).catch(error =>  { console.log('Survey', error.message); 
   dispatch({type: ActionTypes.CREATE_NEW_SURVEY_FAILURE, payload:error.message});
-
 });
 }
 
@@ -268,21 +268,25 @@ export const saveSurveyResult = (result) => (dispatch) =>{
     
 }
 // Function that manages expiration of token
-export const  HandleSessionexpired=(token)=>{
-    var duration=6000;//expires after 10 minutes
+export const  HandleSessionexpired=()=>{
+    var duration=10;//expires after 10 minutes
       setInterval(updateTimer,1000);
     function updateTimer(){
         duration--;
         if(duration<1){
-         logout(token);
+         logout(localStorage.getItem('token'));
         localStorage.removeItem("token");
-      
         }
         //console.log('at '+duration+'token is '+token);
     }
     window.addEventListener('mousemove',resetTimer);
 
     function resetTimer(){
-        duration=6000;
-    }    
+        duration=10;
+    }  
+    window.addEventListener('unload',ClosedTab);
+    function ClosedTab(){
+        logout(localStorage.getItem('token'));
+        localStorage.removeItem("token");
+    }  
 }

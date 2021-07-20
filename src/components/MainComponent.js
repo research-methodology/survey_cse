@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
     Verifyuser:(token)=>dispatch(Verifyuser(token)),
     SubmitSurveyrespons:(output)=>dispatch(SubmitSurveyrespons(output)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
-  Handelsessionexpired:(token)=>HandleSessionexpired(token),
+
 });
 const msg=null;
 //Function to handle expiration of token for inactive user
@@ -49,9 +49,9 @@ class Main extends Component{
     //     logoutUser: () => logoutUser(),
     // }
       }
-      componentDidMount(){
-        this.props.Handelsessionexpired(localStorage.getItem('token'));
-      }
+    //   componentDidMount(){
+    //     this.props.Handelsessionexpired(localStorage.getItem('token'));
+    //   }
      
   
 render(){
@@ -59,7 +59,7 @@ render(){
     const Logingin=()=>{
         return(
             <div className=""><Login auth={this.props.auth}
-             loginUser={this.props.loginUser} logoutUser={this.props.logoutUser} Handelsessionexpired={this.props.Handelsessionexpired}/></div>
+             loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
         );
     }
     // const signuphandles=()=>{
