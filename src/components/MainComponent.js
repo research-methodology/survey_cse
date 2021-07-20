@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -22,8 +22,8 @@ const mapStateToProps = state =>{
         Surveys:state.Surveys,
         respond:state.respond
     }
+    
 }
-
 const mapDispatchToProps = dispatch => ({
     createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
@@ -32,12 +32,16 @@ const mapDispatchToProps = dispatch => ({
     Verifyuser:(token)=>dispatch(Verifyuser(token)),
     SubmitSurveyrespons:(output)=>dispatch(SubmitSurveyrespons(output)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
+  Handelsessionexpired:(token)=>HandleSessionexpired(token),
 });
+const msg=null;
+//Function to handle expiration of token for inactive user
 
 
 class Main extends Component{
     constructor(props) {
         super(props);
+        
     // this.state={
     //     resetSignupForm:()=>actions.reset('signup'),
     //     Signup_form:(firstname,lastname,email,password,agree)=>Signup_form(firstname,lastname,email,password,agree),
@@ -45,12 +49,17 @@ class Main extends Component{
     //     logoutUser: () => logoutUser(),
     // }
       }
+      componentDidMount(){
+        this.props.Handelsessionexpired(localStorage.getItem('token'));
+      }
+     
   
 render(){
+ 
     const Logingin=()=>{
         return(
             <div className=""><Login auth={this.props.auth}
-             loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
+             loginUser={this.props.loginUser} logoutUser={this.props.logoutUser} Handelsessionexpired={this.props.Handelsessionexpired}/></div>
         );
     }
     // const signuphandles=()=>{
@@ -76,6 +85,8 @@ render(){
             }
         }}/>
     );
+    
+
         return(
             <div>
                 <Navigation auth={this.props.auth} logout={this.props.logout} />

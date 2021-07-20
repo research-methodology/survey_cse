@@ -1,4 +1,6 @@
 import * as ActionTypes from './ActionTypes';
+import {logout} from './Action_creators';
+
 
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,
@@ -116,3 +118,16 @@ export const Auth = (state = {
             return state
     }
 }
+/* Auto logout function*/ 
+// export const runLogoutTimer=(dispatch,timer)=>{
+
+//     setTimeout(()=>{
+//         let token = localStorage.getItem("token");
+//         dispatch(logout(token));
+//         console.log('user token=>'+token+"Expiration time="+timer);
+//     },timer)
+
+//    const msg= <div className="alert alert-primary" role="alert">
+//     Your session has been expired ! Login again
+//   </div>
+//     }

@@ -62,7 +62,25 @@ export default function SurveyPage(props) {
             //     </React.Fragment>
             // )
         })
-        let chart = <Chart key={question + "dsflskdjfa"}
+        let chart=null;
+        let wayOfAnswering=question.wayOfAnswering;
+        if(wayOfAnswering==="checkbox"){
+            console.log(wayOfAnswering);
+            chart = <Chart key={question + "dsflskdjfa"}
+            width="100%" height="300px" chartType="BarChart"
+            loader={<div><Loading/></div>}
+            data={data}
+            options={{
+                title: question,
+                // Just add this option
+                is3D: true,
+            }}
+            rootProps={{ 'data-testid': '2' }}
+        /> 
+        }
+        else{
+            console.log(wayOfAnswering);
+            chart = <Chart key={question + "dsflskdjfa"}
             width="100%" height="300px" chartType="PieChart"
             loader={<div><Loading/></div>}
             data={data}
@@ -72,7 +90,9 @@ export default function SurveyPage(props) {
                 is3D: true,
             }}
             rootProps={{ 'data-testid': '2' }}
-        />
+        /> 
+        }
+     
 
         
         return (

@@ -1,5 +1,9 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
+import { runLogoutTimer} from './auth';
+import { useState } from 'react';
+import { useHistory } from 'react-router';
+import {Auth} from './auth';
 export const SubmitSurveyrespons=(output)=>(dispatch)=>{
     dispatch({type: ActionTypes.RESIPONDING_REQUEST});
     return fetch(baseUrl+"/",{
@@ -42,6 +46,8 @@ export const logout = (token) =>(dispatch) =>{
         if(response.status === 200 || response.status === 201){
             console.log("logout successfull ")
             dispatch({type: ActionTypes.LOGOUT_SUCCESS});
+            var history=useHistory();
+            history.pushState('/login');
         }
     },error => {
         throw error;
@@ -161,6 +167,8 @@ export const loginError = (message) => {
 
 export const loginUser = (creds) => (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
+   // const expiresIn=3600000;//timeout at 1 hour
+    //const [isExpired,setExpired]=useState(false);
     dispatch(requestLogin(creds))
     //console.log(JSON.stringify(creds));
 
@@ -175,6 +183,7 @@ export const loginUser = (creds) => (dispatch) => {
     .then(response => {
         console.log(JSON.stringify(response));
         if (response.status === 201|| response.status ==='success' || response===200) {
+       
             return response;
         } else {
             var error = new Error('Error ' + ': ' + response.message);
@@ -195,6 +204,9 @@ export const loginUser = (creds) => (dispatch) => {
             //localStorage.setItem('creds', JSON.stringify(creds));
             // Dispatch the success action
             dispatch(receiveLogin(response));
+           
+            // runLogoutTimer(dispatch,expiresIn);//allow auto signout after token expiration time
+            // setExpired(true);
         }
         else {
             var error = new Error('Error ' + response.status);
@@ -227,7 +239,7 @@ export const loginUser = (creds) => (dispatch) => {
 export const createNewSurvey=(result) =>(dispatch) =>{
     dispatch({type:ActionTypes.CREATE_NEW_SURVEY});
     
-    return fetch(baseUrl + "survey/",{
+    return fetch(baseUrl + "surveys/create",{
         method:"POST",
         body:JSON.stringify(result),
         headers:{
@@ -254,4 +266,22 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 
 export const saveSurveyResult = (result) => (dispatch) =>{
     
+}
+// Function that manages expiration of token
+export const  HandleSessionexpired=(token)=>{
+    var duration=6000;//expires after 10 minutes
+      setInterval(updateTimer,1000);
+    function updateTimer(){
+        duration--;
+        if(duration<1){
+         logout(token);
+        localStorage.removeItem("token");
+        }
+        console.log(token)
+    }
+    window.addEventListener('mousemove',resetTimer);
+
+    function resetTimer(){
+        duration=10;
+    }    
 }
