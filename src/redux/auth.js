@@ -12,7 +12,8 @@ export const Auth = (state = {
         user: localStorage.getItem('creds') ? JSON.parse(localStorage.getItem('creds')) : null,
         errMess: null,
         isVerified:false,
-        isSignUpConfirmed:false
+        isSignUpConfirmed:false,
+        istimeout:false,
         
     }, action) => {
     switch (action.type) {
@@ -114,6 +115,15 @@ export const Auth = (state = {
                             errMess: action.payload,
                             isVerified:false,isSignUpConfirmed:false
             };
+            case ActionTypes.ISTIMEOUT:
+                return{
+                    ...state,
+                    istimeout:true,
+                    isLoading: false,
+                    isAuthenticated: false,
+                    errMess: "Time out please login again!",
+                    
+                }
         default:
             return state
     }

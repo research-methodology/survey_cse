@@ -11,8 +11,9 @@ class Login extends Component{
     };
     handleLogin(event) {
             this.props.loginUser({email: this.email.value, password: this.password.value});
-         
+   
         event.preventDefault();
+     
         
 
     }

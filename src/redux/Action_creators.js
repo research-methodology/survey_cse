@@ -46,8 +46,7 @@ export const logout = (token) =>(dispatch) =>{
         if(response.status === 200 || response.status === 201){
             console.log("logout successfull ")
             dispatch({type: ActionTypes.LOGOUT_SUCCESS});
-            var history=useHistory();
-            history.pushState('/login');
+            //window.location="/login";
         }
     },error => {
         throw error;
@@ -155,7 +154,6 @@ export const receiveLogin = (response) => {
     return {
         type: ActionTypes.LOGIN_SUCCESS,
         token: response,
-        HandleSessionexpired
     }
 }
   
@@ -186,6 +184,7 @@ export const loginUser = (creds) => (dispatch) => {
         if (response.status === 201|| response.status ==='success' || response===200) {
        
             return response;
+          
         } else {
             var error = new Error('Error ' + ': ' + response.message);
             error.response = response;
@@ -205,7 +204,6 @@ export const loginUser = (creds) => (dispatch) => {
             //localStorage.setItem('creds', JSON.stringify(creds));
             // Dispatch the success action
             dispatch(receiveLogin(response));
-           
             // runLogoutTimer(dispatch,expiresIn);//allow auto signout after token expiration time
             // setExpired(true);
         }
@@ -267,15 +265,17 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 export const saveSurveyResult = (result) => (dispatch) =>{
     
 }
-// Function that manages expiration of token
-export const  HandleSessionexpired=()=>{
+//Function that manages expiration of token
+
+export const  HandleSessionexpired=()=>(dispatch)=>{
     var duration=10;//expires after 10 minutes
       setInterval(updateTimer,1000);
     function updateTimer(){
         duration--;
+        console.log(duration); 
         if(duration<1){
-         logout(localStorage.getItem('token'));
-        localStorage.removeItem("token");
+            dispatch({type:ActionTypes.ISTIMEOUT})
+    //  props.setState({count:true});
         }
         //console.log('at '+duration+'token is '+token);
     }
@@ -286,7 +286,11 @@ export const  HandleSessionexpired=()=>{
     }  
     window.addEventListener('unload',ClosedTab);
     function ClosedTab(){
-        logout(localStorage.getItem('token'));
+        dispatch({type:ActionTypes.ISTIMEOUT});
+       // props.setState({count:true});
+        //dispatch( logout(localStorage.getItem('token')));
+       
         localStorage.removeItem("token");
-    }  
+    } 
+   
 }
