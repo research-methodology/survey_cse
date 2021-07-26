@@ -255,6 +255,7 @@ export const createNewSurvey=(result) =>(dispatch) =>{
               
             console.log("sending survey successfull ")
             dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:createdSurvey});
+           
         }
     },error => {
         throw error;

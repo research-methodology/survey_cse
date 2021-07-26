@@ -1,9 +1,11 @@
 import React,{useEffect, useState} from 'react';
 import { Row,Col } from 'reactstrap';
+import { baseUrl } from '../../shared/baseUrl';
 import RenderQuestions from './Questionspage';
-const surveyid="60fe89caba6e13002cb12e4b";
-const fetchURL=`https://cst-survey-backend.herokuapp.com/api/v1/surveys/${surveyid}/questions`;
-const getQuestions = () => fetch(fetchURL)
+let surveyid="60febb8863e419002ccb8e6b";
+
+const fetchURL=`${baseUrl}/surveys`;
+const getQuestions = (surveyid) => fetch(`${fetchURL}/${surveyid}/questions`)
 .then(res => res.json()
 );
 
@@ -14,7 +16,8 @@ const [surveyInfo,setsurveyInfo] = useState(Questioninfo);
 
  useEffect(() => {
     getQuestions().then(response=>{console.log('survey from backend: ',response.questions);
-//setsurveyInfo(response.questions);
+setsurveyInfo(response.questions);
+
 });
   }, []);
         return ( 
@@ -23,7 +26,7 @@ const [surveyInfo,setsurveyInfo] = useState(Questioninfo);
                 
                 <div className="">
                 <div>
-                <h2 className="m-3 p-3 d-flex justify-content-center bg-secondary">Servey title</h2>
+                <h2 className="m-3 p-3 d-flex justify-content-center bg-secondary">{surveyInfo.surveyTitle}</h2>
                 </div>
                 <Row>
                     <Col offset md={{size: 7, offset: 3}}>

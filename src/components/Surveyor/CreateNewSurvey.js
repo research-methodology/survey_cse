@@ -74,6 +74,7 @@ export default function CreateNewSurvey(props) {
         })
 
 props.createNewSurvey(readyData);
+props.getQuestions(props.location.search);
         alert(JSON.stringify(readyData));
     }
     function ChangeSurveyTitle(event){
