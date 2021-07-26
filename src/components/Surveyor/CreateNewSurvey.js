@@ -5,7 +5,7 @@ import AnswersComponet from "./AnswersComponet";
 import CategoriesComponent from "./CategoriesComponent";
 import QuestionsComponet from "./QuestionsComponet";
 import {Link} from "react-router-dom";
-export default function CreateNewSurvey() {
+export default function CreateNewSurvey(props) {
     let testInfo = {
         surveyTitle:"Testing Survey title",
         surveys:{
@@ -51,7 +51,7 @@ export default function CreateNewSurvey() {
             return
         }
         let currentSurveyInfo = surveyInfo;
-        let readyData = {};
+        let readyData = {surveyTitle};
         let categoriesA = Object.keys(currentSurveyInfo["surveys"]);
         readyData["categories"] = [];
         categoriesA.forEach(category =>{
@@ -73,6 +73,7 @@ export default function CreateNewSurvey() {
             readyData.categories.push(categ);
         })
 
+props.createNewSurvey(readyData);
         alert(JSON.stringify(readyData));
     }
     function ChangeSurveyTitle(event){

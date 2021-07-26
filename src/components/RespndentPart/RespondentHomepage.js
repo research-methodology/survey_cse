@@ -1,15 +1,22 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Row,Col } from 'reactstrap';
 import RenderQuestions from './Questionspage';
-//const getQuestions = () => fetch(fetchURL).then(res => res.json());
+const surveyid="60fe89caba6e13002cb12e4b";
+const fetchURL=`https://cst-survey-backend.herokuapp.com/api/v1/surveys/${surveyid}/questions`;
+const getQuestions = () => fetch(fetchURL)
+.then(res => res.json()
+);
+
 function RespondentHome(props) {
       let Questioninfo=props.Surveys.surveys[0];
 
-const [surveyInfo] = useState(Questioninfo);
+const [surveyInfo,setsurveyInfo] = useState(Questioninfo);
 
-// useEffect(() => {
-//     getQuestions().then(data => setsurveyInfo(data));
-//   }, []);
+ useEffect(() => {
+    getQuestions().then(response=>{console.log('survey from backend: ',response.questions);
+//setsurveyInfo(response.questions);
+});
+  }, []);
         return ( 
             
             <div className="container">

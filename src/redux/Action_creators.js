@@ -237,7 +237,7 @@ export const loginUser = (creds) => (dispatch) => {
 // }
 export const createNewSurvey=(result) =>(dispatch) =>{
     dispatch({type:ActionTypes.CREATE_NEW_SURVEY});
-    
+    console.log('Ressults=> ',result);
     return fetch(baseUrl + "surveys/create",{
         method:"POST",
         body:JSON.stringify(result),
@@ -246,19 +246,21 @@ export const createNewSurvey=(result) =>(dispatch) =>{
             'Content-Type':'application/json'
         },
         credentials: "same-origin"
-    }).then(response =>{
+    }).then(response=>response.json()).then(response =>{
+        console.log('Respons :',response);
 
         if(response.status === 200 || response.status === 201){
 
-            let createdSurvey =JSON.parse(response.body);
-
+            let createdSurvey =response;
+              
             console.log("sending survey successfull ")
             dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:createdSurvey});
         }
     },error => {
         throw error;
-  }).catch(error =>  { console.log('Survey', error.message); 
-  dispatch({type: ActionTypes.CREATE_NEW_SURVEY_FAILURE, payload:error.message});
+  }).catch(error =>  {
+    console.log('Survey', error); 
+    dispatch({type: ActionTypes.CREATE_NEW_SURVEY_FAILURE, payload:error.message});
 });
 }
 

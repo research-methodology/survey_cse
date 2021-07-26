@@ -70,17 +70,17 @@ class Main extends Component{
    
   
 render(){
-if(this.props.auth.isAuthenticated){
-    console.log("is authenticated :"+this.props.auth.isAuthenticated)
-    this.props.IStimeouthandeler();  
-    console.log('tokens so far: '+ localStorage.getItem('token'))
-}
-if(this.props.auth.istimeout)
-{
-    logout(localStorage.getItem('token'));
-    localStorage.removeItem('token'); 
-    console.log('tokens now: '+ localStorage.getItem('token'))
-}
+// if(this.props.auth.isAuthenticated){
+//     console.log("is authenticated :"+this.props.auth.isAuthenticated)
+//     this.props.IStimeouthandeler();  
+//     console.log('tokens so far: '+ localStorage.getItem('token'))
+// }
+// if(this.props.auth.istimeout)
+// {
+//     logout(localStorage.getItem('token'));
+//     localStorage.removeItem('token'); 
+//     console.log('tokens now: '+ localStorage.getItem('token'))
+// }
 
     const Logingin=()=>{
         return(
