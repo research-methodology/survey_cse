@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -22,31 +22,66 @@ const mapStateToProps = state =>{
         Surveys:state.Surveys,
         respond:state.respond
     }
+  
 }
-
 const mapDispatchToProps = dispatch => ({
     createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
-    loginUser:(crid) => dispatch(loginUser(crid)),
+    loginUser:(props,crid) => dispatch(loginUser(props,crid)),
     logout:(token) =>dispatch(logout(token)),
     Verifyuser:(token)=>dispatch(Verifyuser(token)),
     SubmitSurveyrespons:(output)=>dispatch(SubmitSurveyrespons(output)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
+  IStimeouthandeler:()=>dispatch(HandleSessionexpired())      
+
 });
+//const msg=null;
+//Function to handle expiration of token for inactive user
 
 
 class Main extends Component{
     constructor(props) {
         super(props);
+        
     // this.state={
     //     resetSignupForm:()=>actions.reset('signup'),
     //     Signup_form:(firstname,lastname,email,password,agree)=>Signup_form(firstname,lastname,email,password,agree),
     //     loginUser: (creds) => loginUser(creds),
     //     logoutUser: () => logoutUser(),
     // }
+    this.state={
+        count:false
+    }
       }
+      componentDidMount(){
+    //   if(state.timeout===true){
+    //       logout(localStorage.getItem('token'));
+    //       localStorage.removeItem('token');
+    //   }
+    window.addEventListener('beforeunload',this.onUnmount);
+      }
+      onUnmount=()=>{
+          alert('You are about to leave');
+          logout(localStorage.getItem('token'));
+      }
+      componentWillUnmount(){
+          window.removeEventListener('beforeunload',this.onUnmount);
+      }
+   
   
 render(){
+// if(this.props.auth.isAuthenticated){
+//     console.log("is authenticated :"+this.props.auth.isAuthenticated)
+//     this.props.IStimeouthandeler();  
+//     console.log('tokens so far: '+ localStorage.getItem('token'))
+// }
+// if(this.props.auth.istimeout)
+// {
+//     logout(localStorage.getItem('token'));
+//     localStorage.removeItem('token'); 
+//     console.log('tokens now: '+ localStorage.getItem('token'))
+// }
+
     const Logingin=()=>{
         return(
             <div className=""><Login auth={this.props.auth}
@@ -76,6 +111,8 @@ render(){
             }
         }}/>
     );
+    
+
         return(
             <div>
                 <Navigation auth={this.props.auth} logout={this.props.logout} />
@@ -94,7 +131,7 @@ render(){
                        <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
-                            <Route path="/respondent" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond}/>} />
+                            <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond}/>} />
                             <PrivateRoute path="/SurveyResult" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
                             
                             <Redirect to="/home" />

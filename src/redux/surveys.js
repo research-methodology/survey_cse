@@ -745,9 +745,8 @@ export const Surveys = (state = {
         case ActionTypes.CREATE_NEW_SURVEY:
             return {...state, isLoading: true, errMess: null}
         case ActionTypes.CREATE_NEW_SURVEY_SUCCESS:
-            let prevSurvey = [...state.Surveys];
-            prevSurvey.push(action.payload);
-            return {...state, isLoading: false, errMess: null, Survey: prevSurvey}
+            //let prevSurvey = [...state.Surveys];
+            return {...state, isLoading: false, errMess: null}
 
         case ActionTypes.CREATE_NEW_SURVEY_FAILURE:
             return {...state, isLoading: false, errMess: action.payload};
