@@ -251,10 +251,10 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 
         if(response.status === 200 || response.status === 201){
 
-            let createdSurvey =response;
-              
-            console.log("sending survey successfull ")
-            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:createdSurvey});
+            //let createdSurvey =response.body;
+
+            console.log("sending survey successfull ", response)
+            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:response.surveyURL});
         }
     },error => {
         throw error;

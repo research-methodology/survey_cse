@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem,
     Button} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import logo from '../assets/images/logo.png';
 export default class Navigation extends Component {
     constructor(props) {
         super(props);
@@ -59,7 +60,7 @@ export default class Navigation extends Component {
                             <div className="container-fluid">
                             <NavbarToggler onClick={this.toggleNav} />
                                 <NavbarBrand className="" href="/">
-                                     <img src="logo.png" style={{width:"60px"}} alt="logo"/>
+                                     <img src={logo} style={{width:"60px"}} alt="logo"/>
                                     <span>DoServey </span>
                                     </NavbarBrand>
                                 <Collapse isOpen={this.state.isNavOpen} navbar>
