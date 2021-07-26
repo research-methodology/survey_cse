@@ -2,26 +2,37 @@ import React,{useEffect, useState} from 'react';
 import { Row,Col } from 'reactstrap';
 import { baseUrl } from '../../shared/baseUrl';
 import RenderQuestions from './Questionspage';
-let surveyid="60febb8863e419002ccb8e6b";
+import {useLocation,useParams} from 'react-router-dom'
+var surveyid="";
 
-const fetchURL=`${baseUrl}/surveys`;
+const fetchURL='https://cst-survey-backend.herokuapp.com/api/v1/surveys/';
+
+
 const getQuestions = (surveyid) => fetch(`${fetchURL}/${surveyid}/questions`)
 .then(res => res.json()
 );
-
 function RespondentHome(props) {
-      let Questioninfo=props.Surveys.surveys[0];
+      //let Questioninfo=props.Surveys.surveys[0];
+    //   const search=useLocation().search;;
+    //     const surveyId = new URLSearchParams(search).get('surveyId');
+    //   const getQuestions = () => {
+        
+    //  }
+    const params = useParams()
+    surveyid=params.surveyId;
+    //console.log('survey id is',surveyid);
 
-const [surveyInfo,setsurveyInfo] = useState(Questioninfo);
+const [surveyInfo,setsurveyInfo] = useState({});
 
  useEffect(() => {
-    getQuestions().then(response=>{console.log('survey from backend: ',response.questions);
+    
+    getQuestions(surveyid)
+    .then(response=>{console.log('survey from backend: ',response.questions);
 setsurveyInfo(response.questions);
-
 });
   }, []);
         return ( 
-            
+            surveyInfo!==undefined?
             <div className="container">
                 
                 <div className="">
@@ -38,6 +49,7 @@ setsurveyInfo(response.questions);
                 
             </div>
             </div>
+            :null
          );
     }
 export default RespondentHome;

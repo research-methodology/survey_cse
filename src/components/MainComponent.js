@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -20,7 +20,8 @@ const mapStateToProps = state =>{
     return{
         auth: state.auth,
         Surveys:state.Surveys,
-        respond:state.respond
+        respond:state.respond,
+        requesturl:state.requesturl,
     }
   
 }
@@ -32,12 +33,11 @@ const mapDispatchToProps = dispatch => ({
     Verifyuser:(token)=>dispatch(Verifyuser(token)),
     SubmitSurveyrespons:(output)=>dispatch(SubmitSurveyrespons(output)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
-  IStimeouthandeler:()=>dispatch(HandleSessionexpired())      
+  IStimeouthandeler:()=>dispatch(HandleSessionexpired()) ,
+  GetsurveyId:(surveyId) =>dispatch(GetsurveyId(surveyId)) , 
 
 });
 //const msg=null;
-//Function to handle expiration of token for inactive user
-
 
 class Main extends Component{
     constructor(props) {
@@ -49,15 +49,30 @@ class Main extends Component{
     //     loginUser: (creds) => loginUser(creds),
     //     logoutUser: () => logoutUser(),
     // }
+
     this.state={
         count:false
     }
       }
+      
       componentDidMount(){
     //   if(state.timeout===true){
     //       logout(localStorage.getItem('token'));
     //       localStorage.removeItem('token');
     //   }
+//     if(this.props.auth.isAuthenticated){
+//     console.log("is authenticated :"+this.props.auth.isAuthenticated)
+//     this.props.IStimeouthandeler();  
+//     console.log('tokens so far: '+ localStorage.getItem('token'))
+
+// }
+// if(this.props.auth.istimeout)
+// {
+//     logout(localStorage.getItem('token'));
+//     localStorage.clear(); 
+//     console.log('tokens now: '+ localStorage.getItem('token'))
+// }
+
     window.addEventListener('beforeunload',this.onUnmount);
       }
       onUnmount=()=>{
@@ -70,17 +85,7 @@ class Main extends Component{
    
   
 render(){
-// if(this.props.auth.isAuthenticated){
-//     console.log("is authenticated :"+this.props.auth.isAuthenticated)
-//     this.props.IStimeouthandeler();  
-//     console.log('tokens so far: '+ localStorage.getItem('token'))
-// }
-// if(this.props.auth.istimeout)
-// {
-//     logout(localStorage.getItem('token'));
-//     localStorage.removeItem('token'); 
-//     console.log('tokens now: '+ localStorage.getItem('token'))
-// }
+
 
     const Logingin=()=>{
         return(
@@ -131,7 +136,7 @@ render(){
                        <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
-                            <Route path="/respondent" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond}/>} />
+                            <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
                             <PrivateRoute path="/SurveyResult" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
                             
                             <Redirect to="/home" />

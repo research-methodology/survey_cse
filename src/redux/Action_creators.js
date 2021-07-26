@@ -34,6 +34,11 @@ headers: {
     });
   
 };
+// export const Autologout=(ExpirationDate)=>(dispatch)=>{
+//     setTimeout(()=>{
+// logout(localStorage.getItem('token'));
+//     },ExpirationDate)
+// }
 export const logout = (token) =>(dispatch) =>{
     dispatch({type: ActionTypes.LOGOUT_REQUEST});
     return fetch(baseUrl + "user/logout",{
@@ -55,6 +60,36 @@ export const logout = (token) =>(dispatch) =>{
 
 });
 };
+export const GetsurveyId=(surveyid)=>(dispatch)=>{
+    dispatch({type:ActionTypes.REQUESTSURVEY});
+   // console.log("the id of the survey is: ",surveyid);
+    return fetch(`https://cst-survey-backend.herokuapp.com/api/v1/surveys/${surveyid}/questions`,{
+        method:"GET",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+
+    })
+    .then(response=>response.json())
+    .then(response=>{
+        
+        console.log('response now is is:',response);
+        if(response.status === 200 || response.status === 201){
+            console.log("survey url got successfull ")
+            dispatch({type: ActionTypes.REQUESTINGSURVEY_SUCCESS,payload:response.questions});
+            
+        }
+        else{
+            dispatch({type: ActionTypes.REQUESTINGSURVEY_FAILED, payload:response.message});
+        }
+    },error => {
+        throw error;
+    }).catch(error =>  { console.log('Requesting survey', error.message); 
+    dispatch({type: ActionTypes.REQUESTINGSURVEY_FAILED});
+    });
+    
+}
 export const Verifyuser=(token)=>(dispatch)=>{
     //console.log('Received token '+token);
     dispatch({type:ActionTypes.VERIFY_USER_REQUEST});
@@ -168,7 +203,8 @@ export const loginUser = (creds) => (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
    // const expiresIn=3600000;//timeout at 1 hour
     //const [isExpired,setExpired]=useState(false);
-    dispatch(requestLogin(creds))
+    dispatch(requestLogin(creds));
+    
     //console.log(JSON.stringify(creds));
 
     return fetch(baseUrl + 'user/login', {
@@ -180,9 +216,10 @@ export const loginUser = (creds) => (dispatch) => {
     })
     .then(response => response.json())
     .then(response => {
+     
         console.log(JSON.stringify(response));
         if (response.status === 201|| response.status ==='success' || response===200) {
-       
+           
             return response;
           
         } else {
@@ -251,11 +288,11 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 
         if(response.status === 200 || response.status === 201){
 
-            let createdSurvey =response;
-              
-            console.log("sending survey successfull ")
-            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:createdSurvey});
-           
+            //let createdSurvey =response.body;
+
+            console.log("sending survey successfull ", response)
+            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:response.surveyURL});
+
         }
     },error => {
         throw error;
@@ -293,7 +330,7 @@ export const  HandleSessionexpired=()=>(dispatch)=>{
        // props.setState({count:true});
         //dispatch( logout(localStorage.getItem('token')));
        
-        localStorage.removeItem("token");
+        localStorage.clear();
     } 
    
 }

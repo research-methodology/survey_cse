@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import {Loading} from '../LoadingComponent';
 var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
-  const categories  = items['categories']||[];
+  const categories  = items['categories'] || [];
   let answers = null;
 
 // var SubmitSurvey=(output)=>(props)=>{
