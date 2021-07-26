@@ -108,6 +108,68 @@ export const Surveys = (state = {
                 [
                     {
                         question:"question1",
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
+                    },
+                    {
+                        question:"question2",
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
+                    },
+                    {
+                        question:"question3",
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
+                    },
+                    {
+                        question:"question4",
+                        answer:["answer3", "answer1"],
+                        wayOfAnswering:'Checkbox'
+                    },
+                    {
+                        question:"question5",
+                        answer:["answersa1"],
+                        wayOfAnswering:'Textfield'
+                    },
+                    {
+                        question:"question6",
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
+                    },
+                    {
+                        question:"question7",
+                        answer:["answer1"],
+                        wayOfAnswering: "Dropdown"
+                    },
+                    {
+                        question:"question8",
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering:'Checkbox'
+                    },
+                    {
+                        question:"question9",
+                        answer:["answer1"],
+                        wayOfAnswering:'Radio'
+                    },
+                    {
+                        question:"question10",
+                        answer:["answer1", "answer2"],
+                        wayOfAnswering: 'Checkbox'
+                    },
+                    {
+                        question:"question11",
+                        answer:["answer1"],
+                        wayOfAnswering: 'Dropdown'
+                    },
+                    {
+                        question:"question12",
+                        answer:["answere1"],
+                        wayOfAnswering: 'Textfield'
+                    }
+                ],
+                [
+                    {
+                        question:"question1",
                         answer:["answers1"],
                         wayOfAnswering:'Radio'
                     },
