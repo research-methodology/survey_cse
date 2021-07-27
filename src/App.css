@@ -88,3 +88,9 @@
 .scrollpart{
   min-width: 800px;
 }
+.showIt{
+  display: block;
+}
+.hideIt{
+  display: none;
+}

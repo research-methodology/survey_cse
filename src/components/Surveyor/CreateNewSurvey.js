@@ -9,6 +9,9 @@ export default function CreateNewSurvey(props) {
     let testInfo = {
         surveyTitle:"Testing Survey title",
         surveys:{
+            Default:{
+                questions:{}
+            }
         
     }}
     function addNewCategory(newCategory){
@@ -17,13 +20,17 @@ export default function CreateNewSurvey(props) {
         setsurveyInfo(currentSurveyInfo);
     };
     function addNewQuestion(newQuestion){
+        let currentSurveyInfo = {...surveyInfo};
         if(selectedCategory !== null){
-            let currentSurveyInfo = {...surveyInfo};
-            if(currentSurveyInfo["surveys"][selectedCategory]["questions"] === (null || undefined)){
+            if(currentSurveyInfo["surveys"][selectedCategory]["questions"] === null || currentSurveyInfo["surveys"][selectedCategory]["questions"] === undefined){
                 currentSurveyInfo["surveys"][selectedCategory]["questions"] = {};
             }
             
             currentSurveyInfo["surveys"][selectedCategory]["questions"][newQuestion] ={};
+            setsurveyInfo(currentSurveyInfo);
+        }
+        else{
+            currentSurveyInfo["surveys"]["Default"]["questions"][newQuestion] ={};
             setsurveyInfo(currentSurveyInfo);
         }
     }
@@ -59,10 +66,10 @@ export default function CreateNewSurvey(props) {
                 categoryName:category,
                 questions:[]
             };
-            let questions = Object.keys(currentSurveyInfo["surveys"][category]["questions"]);
+            let questions =!currentSurveyInfo["surveys"][category]["questions"] ?[] : Object.keys(currentSurveyInfo["surveys"][category]["questions"]);
             questions.forEach(question =>{
                 
-                let answers = Object.keys(currentSurveyInfo["surveys"][category]["questions"][question]["answers"]);
+                let answers =!currentSurveyInfo["surveys"][category]["questions"][question]["answers"]?[] : Object.keys(currentSurveyInfo["surveys"][category]["questions"][question]["answers"]);
                 let quest = {
                     question:question,
                     wayOfAnswering:currentSurveyInfo["surveys"][category]["questions"][question]["wayOfAnswering"],
@@ -73,7 +80,7 @@ export default function CreateNewSurvey(props) {
             readyData.categories.push(categ);
         })
 
-props.createNewSurvey(readyData);
+//props.createNewSurvey(readyData);
         alert(JSON.stringify(readyData));
     }
     function ChangeSurveyTitle(event){
@@ -81,13 +88,25 @@ props.createNewSurvey(readyData);
         setsurveyTitle(event.target.value)
     }
     const [surveyInfo, setsurveyInfo] = useState(testInfo);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState("Default");
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const [surveyTitle, setsurveyTitle] = useState(null);
      const [wayOfAnswering, setWayOfAnswering] = useState('Choose');
+    let [showDelete,setShowDelete] = useState('null,null');
+
+    let handleEnterAndLeave = (event) =>{
+        let [category] = (event.target.id).split(',');
+        let type = event.type;
+        if(type === 'mouseenter'){
+            setShowDelete(category+',showIt');
+        }
+        else if(type === 'mouseleave'){
+            setShowDelete(category+',hideIt');
+        }
+    }
     
     let questionArray = true;
-    if(selectedCategory===null ||surveyInfo["surveys"][selectedCategory]["questions"] ===undefined){
+    if(selectedCategory===null ||surveyInfo["surveys"][selectedCategory] ===undefined || surveyInfo["surveys"][selectedCategory]["questions"] ===undefined){
         questionArray = false;
     }
     let answerArray = true;
@@ -98,7 +117,7 @@ props.createNewSurvey(readyData);
     let enableChooseWayOfAnswering = false;
     if(selectedQuestion !==null){
         let currentSurveyInfo = {...surveyInfo};
-        if(currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]===null ||currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]=== undefined){
+        if(currentSurveyInfo["surveys"][selectedCategory]["questions"] === undefined || currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]===null ||currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]=== undefined){
             enableChooseWayOfAnswering = false;
         }
         else{
@@ -145,16 +164,20 @@ props.createNewSurvey(readyData);
         <div className="row">
           <div className="col-4">
               <h6 className="m-1">Categories</h6>
-            <CategoriesComponent categories={Object.keys(surveyInfo["surveys"])}selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} addNewCategory={addNewCategory} />
+            <CategoriesComponent categories={Object.keys(surveyInfo["surveys"])}
+                                 selectedCategory={selectedCategory} handleEnterAndLeave={handleEnterAndLeave} showDelete={showDelete}
+                                 setSelectedCategory={setSelectedCategory} addNewCategory={addNewCategory} />
           </div>
           <div className="col-4">
               <h6 className="m-1"> Questions in selected category</h6>
-              <QuestionsComponet selectedQuestion={selectedQuestion} questions={questionArray ?Object.keys(surveyInfo["surveys"][selectedCategory]["questions"]):[]} 
+              <QuestionsComponet selectedQuestion={selectedQuestion}  handleEnterAndLeave={handleEnterAndLeave} showDelete={showDelete}
+                                 questions={questionArray ?Object.keys(surveyInfo["surveys"][selectedCategory]["questions"]):[]}
               setSelectedQuestion={setSelectedQuestion}  addNewQuestion={addNewQuestion}/>
           </div>
           <div className="col-4">
               <h6 className="m-1"> Answer of selected question</h6>
-            <AnswersComponet answers={answerArray?Object.keys(surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"] ):[]} addNewAnswer={addNewAnswer}
+            <AnswersComponet answers={answerArray?Object.keys(surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"] ):[]}
+                             addNewAnswer={addNewAnswer} handleEnterAndLeave={handleEnterAndLeave} showDelete={showDelete}
             setWayOfAnsweringOnSelectedQuestion={setWayOfAnsweringOnSelectedQuestion} wayOfAnswering={wayOfAnswering} selectedQuestion={selectedQuestion} enableChooseWayOfAnswering = {enableChooseWayOfAnswering}
             />
           </div>

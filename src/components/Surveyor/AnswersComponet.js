@@ -12,10 +12,27 @@ export default function AnswersComponet(props) {
         props.addNewAnswer(newAnswer);
         togglerModal();
     }
-    let answers = props.answers.map((answer) =>{
+    let answers = props.answers.map((answer, index) =>{
+        let btn = "";
+        let [cCategory,action] =  props.showDelete.split(',');
+        if(answer===cCategory && action ==='showIt'){
+            btn = <Button key={answer + index} id={answer} className="w-100 bg-secondary d-flex justify-content-end align-items-center">
+                    {answer}
+                    <div className={"btn-group ml-5 pl-5"}>
+                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
+                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                    </div>
+                </Button>
+
+        }
+        else{
+            btn = <Button key={answer + index} id={answer} className="w-100 bg-secondary categoryButton">
+                    {answer}
+                    </Button>
+        }
         return(
-            <div className="m-1">
-                <Button className="w-100">{answer}</Button>
+            <div className="m-1" onMouseEnter={props.handleEnterAndLeave} onMouseLeave={props.handleEnterAndLeave}>
+                {btn}
             </div>
             
         )

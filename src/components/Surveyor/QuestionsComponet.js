@@ -11,10 +11,32 @@ export default function QuestionsComponet(props) {
         props.setSelectedQuestion(question);
     }
     let questions = props.questions.map((question, index) =>{
+        let btn = "";
+        let [cCategory,action] =  props.showDelete.split(',');
+        if(question===cCategory && action ==='showIt'){
+            btn = question===props.selectedQuestion?<Button key={question + index} id={question} onClick={handleClick} className="w-100 bg-light text-dark d-flex justify-content-end align-items-center">
+                    {question}
+                    <div className={"btn-group ml-5 pl-5"}>
+                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
+                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                    </div>
+                </Button>
+                :<Button key={question + index} id={question} onClick={handleClick} className="w-100 d-flex justify-content-end align-items-center">{question}
+                    <div className={"btn-group  ml-5 pl-5"}>
+                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
+                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                    </div>
+                </Button>
+        }
+        else{
+            btn = question===props.selectedQuestion?<Button key={question + index} id={question} onClick={handleClick} className="w-100 bg-light text-dark categoryButton">
+                    {question}
+                    <i class="fa fa-angle-double-right ml-3 "></i></Button>
+                :<Button key={question + index} id={question} onClick={handleClick} className="w-100 categoryButton">{question} </Button>
+        }
         return(
-            <div className="m-1">
-                {question === props.selectedQuestion?<Button key={question + index} id={question} onClick={handleClick} className="w-100 bg-light text-dark">{question} <i class="fa fa-angle-double-right ml-3"></i></Button>:<Button key={question + index} id={question} onClick={handleClick} className="w-100">{question}</Button>}
-                
+            <div className="m-1" onMouseEnter={props.handleEnterAndLeave} onMouseLeave={props.handleEnterAndLeave}>
+                {btn}
             </div>
             
         )
