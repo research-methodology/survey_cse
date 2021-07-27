@@ -49,7 +49,7 @@ setsurveyInfo(response.questions);
                 
             </div>
             </div>
-            :null
+            :<div><h4>Survey not yet found</h4></div>
          );
     }
 export default RespondentHome;
