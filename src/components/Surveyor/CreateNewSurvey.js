@@ -80,7 +80,7 @@ export default function CreateNewSurvey(props) {
             readyData.categories.push(categ);
         })
 
-//props.createNewSurvey(readyData);
+props.createNewSurvey(readyData);
         alert(JSON.stringify(readyData));
     }
     function ChangeSurveyTitle(event){
