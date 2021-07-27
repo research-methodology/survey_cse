@@ -74,17 +74,17 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
  results = categories.slice(start, (start + 1)).map((category) => {
     var questions = category.questions.map((question) => {
         let answersField = "";
-      if (question.wayOfAnswering === "TextField"){
-          if(answerStates[category.categoryName +","+question.question+",TextFeld,null" === undefined]){
+      if (question.wayOfAnswering === "Textfield"){
+          if(answerStates[category.categoryName +","+question.question+",Textfield,null"] === undefined){
               let prev =answerStates;
-              prev[category.categoryName +","+question.question+",TextFeld,null"] = "";
+              prev[category.categoryName +","+question.question+",Textfield,null"] = "";
               setAnswerStates(prev);
           }
         answersField = (
                   <Input onChange={handleChange} type="textarea" className="form-control"
-                         value={answerStates[category.categoryName +","+question.question+",TextFeld,null"]}
-                         name={category.categoryName +","+question.question+",TextFeld,null"}
-                  key={category.categoryName +","+question.question+",TextFeld,null"}
+                         value={answerStates[category.categoryName +","+question.question+",Textfield,null"]}
+                         name={category.categoryName +","+question.question+",Textfield,null"}
+                  key={category.categoryName +","+question.question+",Textfield,null"}
 
                   />
         );
