@@ -6,18 +6,19 @@ import CategoriesComponent from "./CategoriesComponent";
 import QuestionsComponet from "./QuestionsComponet";
 import {Link} from "react-router-dom";
 export default function CreateNewSurvey(props) {
-    let testInfo = {
-        surveyTitle:"Testing Survey title",
-        surveys:{
-            Default:{
-                questions:{}
-            }
-        
-    }}
+    let testInfo = localStorage.getItem('surveyInfo') === null ?{
+            surveyTitle:"Testing Survey title",
+            surveys:{
+                Default:{
+                    questions:{}
+                }
+
+            }} : JSON.parse(localStorage.getItem('surveyInfo'));
     function addNewCategory(newCategory){
         let currentSurveyInfo = {...surveyInfo};
         currentSurveyInfo["surveys"][newCategory] ={};
         setsurveyInfo(currentSurveyInfo);
+        localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
     };
     function addNewQuestion(newQuestion){
         let currentSurveyInfo = {...surveyInfo};
@@ -28,10 +29,12 @@ export default function CreateNewSurvey(props) {
             
             currentSurveyInfo["surveys"][selectedCategory]["questions"][newQuestion] ={};
             setsurveyInfo(currentSurveyInfo);
+            localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
         }
         else{
             currentSurveyInfo["surveys"]["Default"]["questions"][newQuestion] ={};
             setsurveyInfo(currentSurveyInfo);
+            localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
         }
     }
     function addNewAnswer(newAnswer){
@@ -42,6 +45,7 @@ export default function CreateNewSurvey(props) {
             }
             currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][newAnswer]={};
             setsurveyInfo(currentSurveyInfo);
+            localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
         }
     }
     function setWayOfAnsweringOnSelectedQuestion(selected){
@@ -49,6 +53,7 @@ export default function CreateNewSurvey(props) {
         let currentSurveyInfo = {...surveyInfo};
         currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["wayOfAnswering"] = selected;
         setsurveyInfo(currentSurveyInfo);
+        localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
 
         
     }
@@ -81,7 +86,7 @@ export default function CreateNewSurvey(props) {
         })
 
 props.createNewSurvey(readyData);
-        alert(JSON.stringify(readyData));
+        localStorage.removeItem('surveyInfo');
     }
     function ChangeSurveyTitle(event){
         //currentSurveyInfo.surveyTitle = event.value;
