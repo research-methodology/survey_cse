@@ -19,7 +19,7 @@ class Home extends Component {
                         <div className="row row-header">
                             <div className="col-12">
                                 <h1>Serveying Appliction</h1>
-                                <p>We bring you all the required needs for conducting research and we also get ypu in touch with people you want to be your respondents!</p>
+                                <p>We bring you all the required needs for conducting research and we also get you in touch with people you want to be your respondents!</p>
                             </div>
 
                         </div>

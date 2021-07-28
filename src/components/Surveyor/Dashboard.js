@@ -2,7 +2,14 @@ import React from 'react'
 import PrevCard from './PrevCard'
 import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap'
 import {Link} from "react-router-dom";
+import { useEffect } from 'react';
+import { Loading } from '../LoadingComponent';
+
+   
 export default function Dashboard(props) {
+    useEffect(()=>{
+        props.fetchSurveys();
+    },[]);
     let surveys = [
         {
             type: "CreateNew",
@@ -23,6 +30,20 @@ export default function Dashboard(props) {
                 </Col>
         )
     })
+    if(props.Surveys.errMess){
+        return (
+
+            <Row>
+                
+            <h4>Failed to fetch surveys!</h4>
+
+            </Row>
+        );
+    }
+    if( props.Surveys.isLoading)
+    {
+        return <Loading/>
+    }
     return (
         <div className="container">
             <div className="row">
@@ -40,8 +61,10 @@ export default function Dashboard(props) {
                 </div>
                 </Col>
             </Row>
+            
             <Row>
-                {prevs}
+                
+            {prevs}
 
             </Row>
         </div>
