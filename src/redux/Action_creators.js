@@ -304,7 +304,7 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 }
 export const fetchSurveys=()=>(dispatch)=>{
     dispatch({type:ActionTypes.SURVEYS_LOADING});
-    return fetch("https://cst-survey-backend.herokuapp.com/api/v1/surveys/al",{
+    return fetch(baseUrl+"surveys/all",{
         method:"GET",
           headers:{
             "Authorization":localStorage.getItem('token'),

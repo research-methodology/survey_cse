@@ -16,6 +16,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
   // console.log({...categorycount});
   let handleFinish = (event)=>{
     alert(JSON.stringify(output));
+    console.log('Resiponses from respondent is: ',output);
     SubmitSurveyrespons(output);
     event.preventDefault();
   }
