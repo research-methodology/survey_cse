@@ -745,13 +745,13 @@ export const Surveys = (state = {
     switch (action.type) {
 
         case ActionTypes.CREATE_NEW_SURVEY:
-            return {...state, isLoading: true, errMess: null,surveyurl:[]}
+            return {...state, isLoading: true, errMess: null,surveyurl:null}
         case ActionTypes.CREATE_NEW_SURVEY_SUCCESS:
             //let prevSurvey = [...state.Surveys];
             return {...state, isLoading: false, errMess: null,surveyurl:action.payload}
 
         case ActionTypes.CREATE_NEW_SURVEY_FAILURE:
-            return {...state, isLoading: false, errMess: action.payload,surveyurl:[]};
+            return {...state, isLoading: false, errMess: action.payload,surveyurl:null};
         case ActionTypes.SURVEYS_LOADING:
             return {...state,isLoading:true,errMess:null,surveys:[]}
         case ActionTypes.LOADING_SURVEYS_FAILED:
