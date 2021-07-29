@@ -3,7 +3,7 @@ import { Row,Col } from 'reactstrap';
 import { baseUrl } from '../../shared/baseUrl';
 import RenderQuestions from './Questionspage';
 import {useLocation,useParams} from 'react-router-dom'
-var surveyid="";
+let surveyid="";
 
 const fetchURL='https://cst-survey-backend.herokuapp.com/api/v1/surveys/';
 

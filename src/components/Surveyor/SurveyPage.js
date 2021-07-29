@@ -4,9 +4,11 @@ import SurveyDetails from './SurveyDetails'
 import {Chart} from "react-google-charts";
 import {Loading} from "../LoadingComponent";
 export default function SurveyPage(props) {
+    let title = props.Surveys.surveys[0] === undefined ? null : props.Surveys.surveys[0].surveyTitle;
+    let surv = props.Surveys.surveys[0] === undefined? []: props.Surveys.surveys[0].survey;
     let surveyResult ={
-        surveyTitle:props.Surveys.surveys[0].surveyTitle,
-        survey:props.Surveys.surveys[0].survey}
+        surveyTitle:title,
+        survey:[[]]}
 
     let surveyD = {
         survey:{
