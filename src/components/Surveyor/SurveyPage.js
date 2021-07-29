@@ -3,9 +3,12 @@ import React from 'react'
 import SurveyDetails from './SurveyDetails'
 import {Chart} from "react-google-charts";
 import {Loading} from "../LoadingComponent";
+import {useParams} from "react-router-dom";
 export default function SurveyPage(props) {
-    let title = props.Surveys.surveys[0] === undefined ? null : props.Surveys.surveys[0].surveyTitle;
-    let results = props.Surveys.surveys[0] === undefined? []: props.Surveys.surveys[0].results;
+    const params = useParams()
+    let index=params.index;
+    let title = props.Surveys.surveys[index] === undefined ? null : props.Surveys.surveys[index].surveyTitle;
+    let results = props.Surveys.surveys[index] === undefined? []: props.Surveys.surveys[index].results;
     console.log("this is survey ", props.Surveys);
     let surveyResult ={
         surveyTitle:title,
