@@ -3,7 +3,7 @@ import * as ActionTypes from './ActionTypes';
 export const Surveys = (state = {
     isLoading:false,
     errMess: null,
-    surveys:[],
+    surveys: localStorage.getItem('surveys') === null ? []: JSON.parse(localStorage.getItem('surveys')),
     surveyurl:null,
     // surveys: [
     //     {
@@ -753,11 +753,11 @@ export const Surveys = (state = {
         case ActionTypes.CREATE_NEW_SURVEY_FAILURE:
             return {...state, isLoading: false, errMess: action.payload,surveyurl:null};
         case ActionTypes.SURVEYS_LOADING:
-            return {...state,isLoading:true,errMess:null,surveys:[]}
+            return {...state,isLoading:true,errMess:null}
         case ActionTypes.LOADING_SURVEYS_FAILED:
-            return{...state,isLoading:false,errMess:action.payload, surveys:[]}
+            return{...state,isLoading:false,errMess:action.payload}
         case ActionTypes.GET_SURVEYS:
-            return{...state,isLoading:false,errMess:null, surveys:action.payload}
+            return{...state,isLoading:false,errMess:null, surveys:[...action.payload]}
         default:
             return state;
     }

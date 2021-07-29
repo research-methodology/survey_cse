@@ -94,3 +94,7 @@
 .hideIt{
   display: none;
 }
+.styling1{
+overflow-y: scroll;
+  height: 400px;
+}

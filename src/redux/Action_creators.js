@@ -317,6 +317,7 @@ export const fetchSurveys=()=>(dispatch)=>{
         console.log('your surveys before are :',response);
        if(response.status === 200 || response.status === 201){
         console.log('your surveys are :',response.data);
+        localStorage.setItem('surveys',JSON.stringify(response.data));
             dispatch({type: ActionTypes.GET_SURVEYS,payload:response.data});
         
        }

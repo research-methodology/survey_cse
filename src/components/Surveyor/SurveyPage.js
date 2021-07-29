@@ -3,12 +3,16 @@ import React from 'react'
 import SurveyDetails from './SurveyDetails'
 import {Chart} from "react-google-charts";
 import {Loading} from "../LoadingComponent";
+import {useParams} from "react-router-dom";
 export default function SurveyPage(props) {
-    let title = props.Surveys.surveys[0] === undefined ? null : props.Surveys.surveys[0].surveyTitle;
-    let surv = props.Surveys.surveys[0] === undefined? []: props.Surveys.surveys[0].survey;
+    const params = useParams()
+    let index=params.index;
+    let title = props.Surveys.surveys[index] === undefined ? null : props.Surveys.surveys[index].surveyTitle;
+    let results = props.Surveys.surveys[index] === undefined? []: props.Surveys.surveys[index].results;
+    console.log("this is survey ", props.Surveys);
     let surveyResult ={
         surveyTitle:title,
-        survey:[[]]}
+        survey:results}
 
     let surveyD = {
         survey:{
@@ -17,7 +21,15 @@ export default function SurveyPage(props) {
     };
     let length = surveyResult["survey"].length;
     //let questionsAsked = Object.keys(surveyResult["survey"][0]);
-    let questionsAsked = surveyResult["survey"][0].map(each => each.question);
+    let questionsAsked;
+    if(surveyResult["survey"].length === 0)
+    {
+        questionsAsked = [];
+    }
+    else{
+        questionsAsked = surveyResult["survey"][0].map(each => each.question);
+    }
+
     surveyResult["survey"].forEach(each =>{
         each.forEach(eachQuestion =>{
             if(surveyD["survey"][eachQuestion.question] === undefined){
@@ -51,11 +63,11 @@ export default function SurveyPage(props) {
         })
     })
 
-    let questionCards =  questionsAsked.map(question =>{
+    let questionCards =  questionsAsked.map((question,index1) =>{
         let answers = Object.keys( surveyD["survey"][question]["answers"])
         let data= [];
         let indexing = 0;
-        let allData = answers.map((answer) => {
+        let allData = answers.map((answer, index) => {
             let d = [];
             let qty = parseInt(surveyD["survey"][question]["answers"][answer]);
             if(surveyD["survey"][question]["wayOfAnswering"] !== 'Textfield') {
@@ -85,10 +97,10 @@ export default function SurveyPage(props) {
             else{
                 indexing++;
                 if(indexing % 2 === 0 ){
-                    return <div className="color1 pb-1 mr-1">{answer}</div>;
+                    return <div key={answer+index +"dlkajfljiog"} className="color1 pb-1 mr-1">{answer}</div>;
                 }
                 else{
-                    return <div className="pb-1 mr-1">{answer}</div>;
+                    return <div key={answer+ index +"dlkajfljiog"} className="pb-1 mr-1">{answer}</div>;
                 }
 
 
@@ -114,6 +126,7 @@ export default function SurveyPage(props) {
         let chart = null;
         if(surveyD["survey"][question]["wayOfAnswering"] === 'Checkbox'){
             chart =
+                <React.Fragment key={question + index1 + "vidsa"}>
                 <Chart
                     width={'100%'}
                     height={'400px'}
@@ -130,10 +143,11 @@ export default function SurveyPage(props) {
                     // For tests
                     rootProps={{ 'data-testid': '6' }}
                 />
+                </React.Fragment>
 
         }
         else if(surveyD["survey"][question]["wayOfAnswering"] === 'Textfield') {
-            chart =<div >
+            chart =<div key={question + index1 + "vidadadsa"}>
                 <div><h4> {question} </h4></div>
                 <div className="scrollable-y heightOfTextfieldC text-center">
                     {data}
@@ -141,23 +155,26 @@ export default function SurveyPage(props) {
             </div>
         }
         else{
-            chart = <Chart key={question + "dsflskdjfa"}
-                           width="100%" height="300px" chartType="PieChart"
-                           loader={<div><Loading/></div>}
-                           data={data}
-                           options={{
-                               title: question,
-                               // Just add this option
-                               is3D: true,
-                           }}
-                           rootProps={{ 'data-testid': '2' }}
-            />
+            chart =<React.Fragment key={question + "dsflskdjfa"}>
+                <Chart
+                       width="100%" height="300px" chartType="PieChart"
+                       loader={<div><Loading/></div>}
+                       data={data}
+                       options={{
+                           title: question,
+                           // Just add this option
+                           is3D: true,
+                       }}
+                       rootProps={{ 'data-testid': '2' }}
+                />
+            </React.Fragment>
+
         }
 
 
         
         return (
-            <div class="col-12 col-md-6" >
+            <div key={question + index1 + "keyOnQuestionsSa"} class="col-12 col-md-6" >
                     {/*<h3 class="card-header bg-secondary text-white">{question}</h3>*/}
                     <div class="">
                         {/*<dl class="row">*/}

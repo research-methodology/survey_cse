@@ -31,12 +31,12 @@ export default function Dashboard(props) {
         </div>
     }
 
-    let prevs = surveys.map(survey =>{
+    let prevs = surveys.map((survey, index) =>{
         return (
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard type={survey.type?survey.type:"survey"} surveyTitle={survey.surveyTitle} description={survey.description} />
+            <PrevCard type={survey.type?survey.type:"survey"} index={index} surveyTitle={survey.surveyTitle} description={survey.description} />
 
             </div>
 
