@@ -5,15 +5,16 @@ import {Link} from "react-router-dom";
 import { useEffect } from 'react';
 import { Loading } from '../LoadingComponent';
 
-   
+//    const [surveys,setsurveys]=useState([]);
 export default function Dashboard(props) {
-     useEffect(()=>{
-    //     props.fetchSurveys();
-         if(props.Surveys.surveys.length === 0 && !props.Surveys.isLoading){
-             props.fetchSurveys();
-         }
-         console.log(props.Surveys.surveys);
-     },[]);
+    //  useEffect(()=>{
+    // //     props.fetchSurveys();
+      
+    //  },[]);
+     if(props.Surveys.surveys.length === 0 && !props.Surveys.isLoading){
+        props.fetchSurveys();
+    }
+    console.log(props.Surveys.surveys);
     let surveys = [
         {
             type: "CreateNew",

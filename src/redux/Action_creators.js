@@ -303,6 +303,7 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 });
 }
 export const fetchSurveys=()=>(dispatch)=>{
+ 
     dispatch({type:ActionTypes.SURVEYS_LOADING});
     return fetch(baseUrl+"surveys/all",{
         method:"GET",
@@ -317,6 +318,7 @@ export const fetchSurveys=()=>(dispatch)=>{
        if(response.status === 200 || response.status === 201){
         console.log('your surveys are :',response.data);
             dispatch({type: ActionTypes.GET_SURVEYS,payload:response.data});
+        
        }
    },error => {
        throw error;
@@ -324,6 +326,7 @@ export const fetchSurveys=()=>(dispatch)=>{
    console.log('your surveys ', error); 
    dispatch({type: ActionTypes.LOADING_SURVEYS_FAILED, payload:error.message});
 });
+
 }
 export const saveSurveyResult = (result) => (dispatch) =>{
     
