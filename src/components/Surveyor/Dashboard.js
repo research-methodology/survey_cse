@@ -5,15 +5,20 @@ import {Link} from "react-router-dom";
 import { useEffect } from 'react';
 import { Loading } from '../LoadingComponent';
 
-   
+//    const [surveys,setsurveys]=useState([]);
 export default function Dashboard(props) {
      useEffect(()=>{
-    //     props.fetchSurveys();
-         if(props.Surveys.surveys.length === 0 && !props.Surveys.isLoading){
-             props.fetchSurveys();
-         }
-         console.log(props.Surveys.surveys);
+        
+          // localStorage.removeItem('surveys');
+            if(props.Surveys.surveys.length===0 && !props.Surveys.isLoading){
+                props.fetchSurveys(); 
+                console.log("Surveys of the user is ",props.Surveys.Surveys);
+               
+            }
+        
      },[]);
+  
+   
     let surveys = [
         {
             type: "CreateNew",
@@ -35,12 +40,12 @@ export default function Dashboard(props) {
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard type={survey.type?survey.type:"survey"} index={index} surveyTitle={survey.surveyTitle} description={survey.description} />
+            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} />
 
             </div>
 
                 </Col>
-                {loading === null ? null : <Col> {loading}</Col>}
+                {/* {loading === null ? null : <Col> {loading}</Col>} */}
             </React.Fragment>
         )
     })

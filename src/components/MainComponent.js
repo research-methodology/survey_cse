@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId,fetchSurveys} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -36,6 +36,7 @@ const mapDispatchToProps = dispatch => ({
   IStimeouthandeler:()=>dispatch(HandleSessionexpired()) ,
   GetsurveyId:(surveyId) =>dispatch(GetsurveyId(surveyId)) , 
   fetchSurveys:()=>dispatch(fetchSurveys()),
+  Userprofile:()=>dispatch(Userprofile()),
 
 });
 //const msg=null;
@@ -121,7 +122,7 @@ render(){
 
         return(
             <div>
-                <Navigation auth={this.props.auth} logout={this.props.logout} />
+                <Navigation auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile}/>
                 <TransitionGroup>
                     <CSSTransition
                     appear

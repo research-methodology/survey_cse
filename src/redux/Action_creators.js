@@ -57,6 +57,31 @@ export const logout = (token) =>(dispatch) =>{
 
 });
 };
+//Function to fetch user data for setting profile
+export const Userprofile=()=>(dispatch)=>{
+    dispatch({type:ActionTypes.USERPROFILE_LOADING});
+    return fetch(baseUrl+'user/profile',{
+        method:"GET",
+        headers:{
+            "Authorization":localStorage.getItem('token'),
+            'Content-Type':'application/json'
+        },
+        credentials: "same-origin"
+    }).then(response=>response.json())
+    .then(response=>{
+        console.log('Users credentials',response.data);
+        if(response.data!==null){
+            localStorage.setItem('usercreds',response.data);
+            dispatch({type:ActionTypes.GOT_USERPROFILE,payload:response.data});
+        
+        }
+    },error => {
+        throw error;
+  }).catch(error =>  {
+    console.log('your profile ', error); 
+    dispatch({type: ActionTypes.USERPROFILE_FAILED, payload:error.message});
+ });
+}
 export const GetsurveyId=(surveyid)=>(dispatch)=>{
     dispatch({type:ActionTypes.REQUESTSURVEY});
    // console.log("the id of the survey is: ",surveyid);
@@ -122,7 +147,7 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
         confirm_password:confirm_password
     }
     //console.log(JSON.stringify(newUser));
-
+// export const fetchUser=()
     return fetch(baseUrl + "user/signup", {
        
         method: "POST",
@@ -300,8 +325,10 @@ export const createNewSurvey=(result) =>(dispatch) =>{
 });
 }
 export const fetchSurveys=()=>(dispatch)=>{
+ 
     dispatch({type:ActionTypes.SURVEYS_LOADING});
-    return fetch(baseUrl+"surveys/all",{
+    //localStorage.removeItem('surveys');
+    return fetch(baseUrl+"surveys/user/surveys",{
         method:"GET",
           headers:{
             "Authorization":localStorage.getItem('token'),
@@ -310,11 +337,13 @@ export const fetchSurveys=()=>(dispatch)=>{
         credentials: "same-origin"
     })
     .then(surveys=>surveys.json()).then(response =>{
+        //console.log("the status is ",response.status);
         console.log('your surveys before are :',response);
-       if(response.status === 200 || response.status === 201){
-        console.log('your surveys are :',response.data);
-        localStorage.setItem('surveys',JSON.stringify(response.data));
-            dispatch({type: ActionTypes.GET_SURVEYS,payload:response.data});
+       if(response){
+        console.log('your surveys are :',response);
+        localStorage.setItem('surveys',JSON.stringify(response));
+            dispatch({type: ActionTypes.GET_SURVEYS,payload:response});
+        
        }
    },error => {
        throw error;
@@ -322,6 +351,7 @@ export const fetchSurveys=()=>(dispatch)=>{
    console.log('your surveys ', error); 
    dispatch({type: ActionTypes.LOADING_SURVEYS_FAILED, payload:error.message});
 });
+
 }
 export const saveSurveyResult = (result) => (dispatch) =>{
     
