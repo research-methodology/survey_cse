@@ -38,7 +38,7 @@ export default class Navigation extends Component {
         localStorage.removeItem("token");
     }
         render(){
-            let modelbody=null;
+            let modelbody={};
            
             
             if(this.props.auth.isLoading){
@@ -58,8 +58,7 @@ export default class Navigation extends Component {
                         <FormGroup>
                         <Label>Email: </Label><Label><h5>{this.props.auth.usercreds.email}</h5></Label>
                         </FormGroup>
-                       
-        
+
                     </Form>
                 </ModalBody>);
             }
