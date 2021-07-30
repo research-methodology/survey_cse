@@ -1,10 +1,13 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
+import React from 'react';
 
-export const SubmitSurveyrespons=(output)=>(dispatch)=>{
+
+export const SubmitSurveyrespons=({output,surveyid})=>(dispatch)=>{
     dispatch({type: ActionTypes.RESIPONDING_REQUEST});
-    return fetch(baseUrl+"/",{
-method:"POST",
+    console.log("Survey id is: ",surveyid);
+    return fetch(`${baseUrl}surveys/answers/${surveyid}`,{
+method:"PUT",
 body:JSON.stringify(output),
 headers: {
     "Content-Type": "application/json"
@@ -12,7 +15,8 @@ headers: {
   credentials: "same-origin"
     })
     .then((response)=>{
-        if (response.ok) {
+        console.log('Response from the user: ',response)
+        if (response.status===200||response.status===201 || response.ok) {
             dispatch({type: ActionTypes.RESIPONDING_SUCCESS})
             return response;
           } else {
@@ -70,7 +74,7 @@ export const Userprofile=(token = localStorage.getItem('token'))=>(dispatch)=>{
     }).then(response=>response.json())
     .then(response=>{
         console.log('Users credentials',response.data);
-        if(response.data!==null){
+        if(response.status===200||response.status===201){
             localStorage.setItem('usercreds',JSON.stringify(response.data));
             dispatch({type:ActionTypes.GOT_USERPROFILE,payload:response.data});
         

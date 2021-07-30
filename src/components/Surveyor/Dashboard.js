@@ -99,7 +99,7 @@ export default function Dashboard(props) {
         <div className="container">
             <div className="row">
                 <div className="col-12">
-                  <div ><Button className="btn-lg bg-warning" onclick={toggleModal()}>User profile</Button></div>  
+                  <div ><Button className="btn-lg bg-warning" onclick={toggleModal}>User profile</Button></div>  
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                     <BreadcrumbItem active>Dashboard</BreadcrumbItem>
@@ -119,8 +119,8 @@ export default function Dashboard(props) {
             {prevs}
 
             </Row>     
-            <Modal isOpen={isModalOpen} toggle={toggleModal()}>
-         <ModalHeader toggle={toggleModal()}>User profile</ModalHeader>
+            <Modal isOpen={isModalOpen} toggle={toggleModal}>
+         <ModalHeader toggle={toggleModal}>User profile</ModalHeader>
          {modelbody}
        
      </Modal>

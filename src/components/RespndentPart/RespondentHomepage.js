@@ -42,7 +42,7 @@ setsurveyInfo(response.questions);
                 <Row>
                     <Col offset md={{size: 7, offset: 3}}>
                     <div className="surveyContainer d-flex justify-content-center">
-            <div><RenderQuestions  QuestionInfo={surveyInfo} Respond={props.respond} SubmitSurveyrespons={props.SubmitSurveyrespons}/></div>
+            <div><RenderQuestions  QuestionInfo={surveyInfo} Respond={props.respond} SubmitSurveyrespons={props.SubmitSurveyrespons} sid={surveyid}/></div>
                 </div>
                     </Col>
                 </Row>
