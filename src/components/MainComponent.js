@@ -91,7 +91,7 @@ render(){
 
     const Logingin=()=>{
         return(
-            <div className=""><Login auth={this.props.auth}
+            <div className=""><Login auth={this.props.auth} 
              loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
         );
     }
@@ -122,7 +122,7 @@ render(){
 
         return(
             <div>
-                <Navigation auth={this.props.auth} logout={this.props.logout} />
+                <Navigation auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile} />
                 <TransitionGroup>
                     <CSSTransition
                     appear

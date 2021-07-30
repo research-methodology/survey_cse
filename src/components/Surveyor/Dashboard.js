@@ -7,6 +7,9 @@ import { Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup,Label,Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 //    const [surveys,setsurveys]=useState([]);
+
+  
+
 export default function Dashboard(props) {
      useEffect(()=>{
         
@@ -19,14 +22,12 @@ export default function Dashboard(props) {
         
      },[]);
      const [isModalOpen,setModelopen]=useState(false);
-  
-     const toggleModal=()=>{
-        console.log("Button clicked!");
-           setModelopen(!isModalOpen);
-           if(props.auth.usercreds==={}){
-               props.Userprofile(); 
-           } 
-    }
+     function toggleModal(){
+    
+        setModelopen({isModalOpen:!isModalOpen});
+        
+        
+  }
     let surveys = [
         {
             type: "CreateNew",
@@ -62,7 +63,7 @@ export default function Dashboard(props) {
     if(props.auth.profileLoading){
         modelbody=<Label color="light"><Loading/></Label>
     }
-    else{
+    else if(props.auth.usercreds && !props.auth.profileLoading){
         modelbody=(  <ModalBody>
             <Form>
 
