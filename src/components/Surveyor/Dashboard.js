@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import PrevCard from './PrevCard'
-import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap'
 import {Link} from "react-router-dom";
 import { useEffect } from 'react';
 import { Loading } from '../LoadingComponent';
+import { Button, Modal, ModalHeader, ModalBody,
+    Form, FormGroup,Label,Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 //    const [surveys,setsurveys]=useState([]);
 export default function Dashboard(props) {
@@ -17,8 +18,15 @@ export default function Dashboard(props) {
             }
         
      },[]);
+     const [isModalOpen,setModelopen]=useState(false);
   
-   
+     const toggleModal=()=>{
+        console.log("Button clicked!");
+           setModelopen(!isModalOpen);
+           if(props.auth.usercreds==={}){
+               props.Userprofile(); 
+           } 
+    }
     let surveys = [
         {
             type: "CreateNew",
@@ -49,6 +57,29 @@ export default function Dashboard(props) {
             </React.Fragment>
         )
     })
+    let modelbody=null;
+
+    if(props.auth.profileLoading){
+        modelbody=<Label color="light"><Loading/></Label>
+    }
+    else{
+        modelbody=(  <ModalBody>
+            <Form>
+
+                <FormGroup>
+                    <Label>First_name: </Label><Label><h5>{props.auth.usercreds.first_name}</h5></Label>
+                  
+                </FormGroup>
+                <FormGroup>
+                    <Label>Last_name: </Label><Label><h5>{props.auth.usercreds.last_name}</h5></Label>
+                </FormGroup>
+                <FormGroup>
+                <Label>Email: </Label><Label><h5>{props.auth.usercreds.email}</h5></Label>
+                </FormGroup>
+
+            </Form>
+        </ModalBody>);
+    }
     // if(props.Surveys.errMess){
     //     return (
     //
@@ -67,6 +98,7 @@ export default function Dashboard(props) {
         <div className="container">
             <div className="row">
                 <div className="col-12">
+                  <div ><Button className="btn-lg bg-warning" onclick={toggleModal()}>User profile</Button></div>  
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                     <BreadcrumbItem active>Dashboard</BreadcrumbItem>
@@ -85,7 +117,13 @@ export default function Dashboard(props) {
                 
             {prevs}
 
-            </Row>
+            </Row>     
+            <Modal isOpen={isModalOpen} toggle={toggleModal()}>
+         <ModalHeader toggle={toggleModal()}>User profile</ModalHeader>
+         {modelbody}
+       
+     </Modal>
         </div>
+    
     )
 }

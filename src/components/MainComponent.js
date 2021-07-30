@@ -122,7 +122,7 @@ render(){
 
         return(
             <div>
-                <Navigation auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile}/>
+                <Navigation auth={this.props.auth} logout={this.props.logout} />
                 <TransitionGroup>
                     <CSSTransition
                     appear
@@ -135,7 +135,7 @@ render(){
                         
                        />
                        <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} auth={this.props.auth} />}/>
-                       <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} />} />
+                       <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth} />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />

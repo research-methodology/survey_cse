@@ -339,10 +339,10 @@ export const fetchSurveys=()=>(dispatch)=>{
     .then(surveys=>surveys.json()).then(response =>{
         //console.log("the status is ",response.status);
         console.log('your surveys before are :',response);
-       if(response){
+       if(response.status===200||response.status === 201){
         console.log('your surveys are :',response);
-        localStorage.setItem('surveys',JSON.stringify(response));
-            dispatch({type: ActionTypes.GET_SURVEYS,payload:response});
+        localStorage.setItem('surveys',JSON.stringify(response.surveys));
+            dispatch({type: ActionTypes.GET_SURVEYS,payload:response.surveys});
         
        }
    },error => {
