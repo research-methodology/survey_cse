@@ -44,7 +44,7 @@ export default class Navigation extends Component {
             if(this.props.auth.profileLoading){
                 modelbody=<Label color="light"><Loading/></Label>
             }
-            else{
+            else if(this.props.auth.usercreds && !this.props.auth.profileLoading){
                 modelbody=(  <ModalBody>
                     <Form>
     

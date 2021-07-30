@@ -10,7 +10,7 @@ export const Auth = (state = {
         isAuthenticated: localStorage.getItem('token') ? true : false,
         token: localStorage.getItem('token'),
         user: localStorage.getItem('creds') ? JSON.parse(localStorage.getItem('creds')) : null,
-        usercreds:localStorage.getItem('usercreds') !== null ? JSON.parse(localStorage.getItem('usercreds')) : {},
+        usercreds: {},
         errMess: null,
         isVerified:false,
         isSignUpConfirmed:false,
