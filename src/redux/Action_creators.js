@@ -1,9 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
-import { runLogoutTimer} from './auth';
-import { useState } from 'react';
-import { useHistory } from 'react-router';
-import {Auth} from './auth';
+
 export const SubmitSurveyrespons=(output)=>(dispatch)=>{
     dispatch({type: ActionTypes.RESIPONDING_REQUEST});
     return fetch(baseUrl+"/",{
@@ -61,12 +58,12 @@ export const logout = (token) =>(dispatch) =>{
 });
 };
 //Function to fetch user data for setting profile
-export const Userprofile=()=>(dispatch)=>{
+export const Userprofile=(token = localStorage.getItem('token'))=>(dispatch)=>{
     dispatch({type:ActionTypes.USERPROFILE_LOADING});
     return fetch(baseUrl+'user/profile',{
         method:"GET",
         headers:{
-            "Authorization":localStorage.getItem('token'),
+            "Authorization":token,
             'Content-Type':'application/json'
         },
         credentials: "same-origin"
@@ -74,7 +71,7 @@ export const Userprofile=()=>(dispatch)=>{
     .then(response=>{
         console.log('Users credentials',response.data);
         if(response.data!==null){
-            localStorage.setItem('usercreds',response.data);
+            localStorage.setItem('usercreds',JSON.stringify(response.data));
             dispatch({type:ActionTypes.GOT_USERPROFILE,payload:response.data});
         
         }

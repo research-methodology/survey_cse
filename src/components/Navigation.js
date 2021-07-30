@@ -41,7 +41,7 @@ export default class Navigation extends Component {
             let modelbody={};
            
             
-            if(this.props.auth.isLoading){
+            if(this.props.auth.profileLoading){
                 modelbody=<Label color="light"><Loading/></Label>
             }
             else{
@@ -61,6 +61,14 @@ export default class Navigation extends Component {
 
                     </Form>
                 </ModalBody>);
+            }
+            let user=null;
+            if(this.props.auth.isLoading)
+            {
+                user="Profile";
+            }
+            else{
+                user=(this.props.auth.usercreds.first_name);
             }
             let toggling = (<Nav className="ml-auto" navbar>
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -84,7 +92,7 @@ export default class Navigation extends Component {
              <NavItem>
              <NavLink className="nav-link" to='/dashboard' ><span className="fa fa-dashboard fa-lg"></span>Dashboard</NavLink>
              </NavItem>  <NavItem> 
-                &nbsp;<Button onClick={this.toggleModal}><span className="fa fa-user fa-lg"></span>Profile</Button>
+                &nbsp;<Button onClick={this.toggleModal}><span className="fa fa-user fa-lg"></span>{user}</Button>
             </NavItem> 
             &nbsp;                  
              {logoutB}

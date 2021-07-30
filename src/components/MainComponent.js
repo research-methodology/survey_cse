@@ -124,7 +124,7 @@ render(){
             <div>
                 <Navigation auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile}/>
                 <TransitionGroup>
-                    <CSSTransition 
+                    <CSSTransition
                     appear
                     classNames="fade" timeout ={{enter: 300, exit: 200}}>
                         <Switch>
