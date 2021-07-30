@@ -1,9 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
-import { runLogoutTimer} from './auth';
-import { useState } from 'react';
-import { useHistory } from 'react-router';
-import {Auth} from './auth';
+
 export const SubmitSurveyrespons=(output)=>(dispatch)=>{
     dispatch({type: ActionTypes.RESIPONDING_REQUEST});
     return fetch(baseUrl+"/",{

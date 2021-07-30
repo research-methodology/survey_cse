@@ -5,7 +5,7 @@ import Signuppage from './SignupPage';
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId,fetchSurveys} from '../redux/Action_creators';
+import {Signup_form,loginUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId,fetchSurveys} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -123,7 +123,7 @@ render(){
             <div>
                 <Navigation auth={this.props.auth} logout={this.props.logout} />
                 <TransitionGroup>
-                    <CSSTransition 
+                    <CSSTransition
                     appear
                     classNames="fade" timeout ={{enter: 300, exit: 200}}>
                         <Switch>
