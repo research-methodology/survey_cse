@@ -41,7 +41,7 @@ export default class Navigation extends Component {
             let modelbody=null;
            
             
-            if(this.props.auth.isLoading){
+            if(this.props.auth.profileLoading){
                 modelbody=<Label color="light"><Loading/></Label>
             }
             else{

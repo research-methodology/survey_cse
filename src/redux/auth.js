@@ -10,11 +10,12 @@ export const Auth = (state = {
         isAuthenticated: localStorage.getItem('token') ? true : false,
         token: localStorage.getItem('token'),
         user: localStorage.getItem('creds') ? JSON.parse(localStorage.getItem('creds')) : null,
-        usercreds:localStorage.getItem('usercreds') ? JSON.parse(localStorage.getItem('usercreds')) : null,
+        usercreds:localStorage.getItem('usercreds') !== null ? JSON.parse(localStorage.getItem('usercreds')) : {},
         errMess: null,
         isVerified:false,
         isSignUpConfirmed:false,
         istimeout:false,
+        profileLoading:false
        
     }, action) => {
     switch (action.type) {
@@ -118,21 +119,24 @@ export const Auth = (state = {
             };
             case ActionTypes.USERPROFILE_LOADING:
                 return{
-                    isLoading: true,
+                    profileLoading: true,
                     errMess: null,
                     usercreds:null,
+                    isAuthenticated:true
                 }
             case ActionTypes.GOT_USERPROFILE:
                 return {
-                    isLoading:false,
+                    profileLoading:false,
                     errMess:null,
                     usercreds:action.payload,
+                    isAuthenticated:true
                 }
             case ActionTypes.USERPROFILE_FAILED:
                 return{
-                    isLoading:false,
+                    profileLoading:false,
                     errMess:action.payload,
-                    usercreds:null
+                    usercreds:null,
+                    isAuthenticated:true
                 }
             case ActionTypes.ISTIMEOUT:
                 return{
