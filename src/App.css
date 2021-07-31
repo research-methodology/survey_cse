@@ -98,3 +98,18 @@
 overflow-y: scroll;
   height: 400px;
 }
+#map{
+  z-index: -1;
+}
+.mapouter{
+  position:relative;
+  text-align:left;
+  height:300px;
+  width: 500px;
+  margin-top: 40px;
+}
+.gmap_canvas {
+  overflow:hidden;
+  background:none!important;
+  height:300px;width:400px;
+}

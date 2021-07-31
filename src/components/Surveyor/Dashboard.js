@@ -11,16 +11,16 @@ import { Button, Modal, ModalHeader, ModalBody,
   
 
 export default function Dashboard(props) {
-     useEffect(()=>{
+    //  useEffect(()=>{
         
-          // localStorage.removeItem('surveys');
-            if(props.Surveys.surveys.length===0 && !props.Surveys.isLoading){
-                props.fetchSurveys(); 
-                console.log("Surveys of the user is ",props.Surveys.Surveys);
+    //       // localStorage.removeItem('surveys');
+    //         if(props.Surveys.surveys.length===0 && !props.Surveys.isLoading){
+    //             props.fetchSurveys(); 
+    //             console.log("Surveys of the user is ",props.Surveys.Surveys);
                
-            }
+    //         }
         
-     },[]);
+    //  },[]);
      const [isModalOpen,setModelopen]=useState(false);
      function toggleModal(){
     

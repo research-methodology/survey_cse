@@ -15,10 +15,10 @@ export default class Navigation extends Component {
         this.toggleNav = this.toggleNav.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
     };
-    componentDidMount(){
-        this.props.Userprofile();
-        console.log('User info for profile is',this.props.auth.usercreds);
-    }
+    // componentDidMount(){
+    //     this.props.Userprofile();
+    //     console.log('User info for profile is',this.props.auth.usercreds);
+    // }
 
     toggleNav() {
         this.setState({

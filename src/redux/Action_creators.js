@@ -344,7 +344,7 @@ export const fetchSurveys=()=>(dispatch)=>{
         //console.log("the status is ",response.status);
         console.log('your surveys before are :',response);
        if(response.status===200||response.status === 201){
-        console.log('your surveys are :',response);
+        console.log('your surveys are :',response.surveys);
         localStorage.setItem('surveys',JSON.stringify(response.surveys));
             dispatch({type: ActionTypes.GET_SURVEYS,payload:response.surveys});
         
@@ -389,4 +389,31 @@ export const  HandleSessionexpired=()=>(dispatch)=>{
     } 
    
 }
+export const postFeedback = (feedback) => (dispatch) => {
+        dispatch({type:ActionTypes.LOADING_FEEDBACK});
+    return fetch(baseUrl + 'feedback', {
+        method: "POST",
+        body: JSON.stringify(feedback),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response => { console.log('Feedback', response); alert('Thank you for your feedback!\n'+JSON.stringify(response)); })
+    .catch(error =>  { console.log('Feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
+};
+
 

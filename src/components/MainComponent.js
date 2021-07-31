@@ -4,8 +4,9 @@ import RespondentHome from './RespndentPart/RespondentHomepage'
 import Signuppage from './SignupPage'; 
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
+import Contact from './COntactCOmponent';
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -27,6 +28,8 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps = dispatch => ({
     createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
+    postFeedback: (feedback) => dispatch(postFeedback(feedback)),
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
     loginUser:(props,crid) => dispatch(loginUser(props,crid)),
     logout:(token) =>dispatch(logout(token)),
@@ -58,6 +61,8 @@ class Main extends Component{
       }
       
       componentDidMount(){
+          this.props.fetchSurveys();
+         this.props.Userprofile();
     //   if(state.timeout===true){
     //       logout(localStorage.getItem('token'));
     //       localStorage.removeItem('token');
@@ -140,7 +145,7 @@ render(){
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
                             <PrivateRoute path="/SurveyResult/:index" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
-                            
+                            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
                             <Redirect to="/home" />
                         </Switch>
                     </CSSTransition>

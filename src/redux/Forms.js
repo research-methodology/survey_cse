@@ -10,3 +10,12 @@ export const Initial_Login_fields={
     agree:false,
     password:''
 };
+export const InitialFeedback = {
+    firstname: '',
+    lastname: '',
+    telnum: '',
+    email: '',
+    agree: false,
+    contactType: 'Tel.',
+    message: ''
+}
