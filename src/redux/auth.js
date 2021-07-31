@@ -141,7 +141,7 @@ export const Auth = (state = {
             case ActionTypes.ISTIMEOUT:
                 return{
                     ...state,
-                    istimeout:true,
+                   istimeout:true,
                     isLoading: false,
                     isAuthenticated: false,
                     errMess: "Time out please login again!",

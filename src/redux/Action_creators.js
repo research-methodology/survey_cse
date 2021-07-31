@@ -369,7 +369,9 @@ export const  HandleSessionexpired=()=>(dispatch)=>{
         duration--;
         console.log(duration); 
         if(duration<1){
-            dispatch({type:ActionTypes.ISTIMEOUT})
+            dispatch({type:ActionTypes.ISTIMEOUT});
+            dispatch(logout(localStorage.getItem('token')));
+            localStorage.clear();
     //  props.setState({count:true});
         }
         //console.log('at '+duration+'token is '+token);

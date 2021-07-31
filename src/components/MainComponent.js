@@ -6,7 +6,7 @@ import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import Contact from './COntactCOmponent';
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,HandleSession,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -63,10 +63,10 @@ class Main extends Component{
       componentDidMount(){
           this.props.fetchSurveys();
          this.props.Userprofile();
-    //   if(state.timeout===true){
-    //       logout(localStorage.getItem('token'));
-    //       localStorage.removeItem('token');
-    //   }
+//       if(state.timeout===true){
+//           logout(localStorage.getItem('token'));
+//           localStorage.removeItem('token');
+//       }
 //     if(this.props.auth.isAuthenticated){
 //     console.log("is authenticated :"+this.props.auth.isAuthenticated)
 //     this.props.IStimeouthandeler();  
@@ -140,7 +140,7 @@ render(){
                         
                        />
                        <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} auth={this.props.auth} />}/>
-                       <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth} />} />
+                       <PrivateRoute path="/dashboard" onEnter={()=>this.props.IStimeouthandeler()} onChange={()=>this.props.IStimeouthandeler()} component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth} />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
@@ -155,6 +155,7 @@ render(){
             </div>
         )
     }
+    
 
 }
 

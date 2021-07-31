@@ -22,12 +22,7 @@ export default function Dashboard(props) {
         
     //  },[]);
      const [isModalOpen,setModelopen]=useState(false);
-     function toggleModal(){
-    
-        setModelopen({isModalOpen:!isModalOpen});
-        
-        
-  }
+
     let surveys = [
         {
             type: "CreateNew",
@@ -95,11 +90,14 @@ export default function Dashboard(props) {
     // {
     //     return <Loading/>
     // }
+    const toggleModal=()=>{
+            setModelopen(!isModalOpen);     
+      }
     return (
         <div className="container">
             <div className="row">
                 <div className="col-12">
-                  <div ><Button className="btn-lg bg-warning" onclick={toggleModal}>User profile</Button></div>  
+                  <div ><button className="btn-lg bg-warning" type="button" onClick={toggleModal}>User profile</button></div>  
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                     <BreadcrumbItem active>Dashboard</BreadcrumbItem>
