@@ -351,7 +351,7 @@ export const fetchSurveys=()=>(dispatch)=>{
         
        }
        else{
-        localStorage.setItem('surveys',JSON.stringify({}));
+        localStorage.setItem('surveys',JSON.stringify([]));
        }
    },error => {
        throw error;
