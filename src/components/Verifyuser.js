@@ -24,7 +24,7 @@ class Verifyemail extends Component {
         }
         }
     render() { 
-        let btn = <Button className="btn-block bg-secondary" onClick={this.Handleverify}>confrim registration</Button>
+        let btn = <Button className="btn-block bg-secondary" onClick={this.Handleverify}>confirm registration</Button>
         if(this.props.auth.isLoading){
             btn = <Button className="btn-block bg-secondary"><Loading/></Button>
         }

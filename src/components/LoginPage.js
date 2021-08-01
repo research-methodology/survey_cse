@@ -25,9 +25,11 @@ class Login extends Component{
             </div>
           }
           else if(this.props.auth.isAuthenticated){
-    //             msg= <div className="alert alert-primary" role="alert">
-    //    you are logged in
-     <Redirect to="/dashboard"/>
+                msg= <div className="alert alert-primary" role="alert">
+       you are logged in
+       <Redirect to="/dashboard"/>
+       </div>
+    
     
      
              }

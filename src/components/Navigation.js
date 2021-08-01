@@ -29,6 +29,7 @@ export default class Navigation extends Component {
         let token = localStorage.getItem("token");
         this.props.logout(token);
         localStorage.removeItem("token");
+        localStorage.clear()
     }
         render(){
    

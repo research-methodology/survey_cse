@@ -53,6 +53,7 @@ export const logout = (token) =>(dispatch) =>{
             console.log("logout successfull ")
             dispatch({type: ActionTypes.LOGOUT_SUCCESS});
             //window.location="/login";
+            localStorage.clear();
         }
     },error => {
         throw error;
@@ -348,6 +349,9 @@ export const fetchSurveys=()=>(dispatch)=>{
         localStorage.setItem('surveys',JSON.stringify(response.surveys));
             dispatch({type: ActionTypes.GET_SURVEYS,payload:response.surveys});
         
+       }
+       else{
+        localStorage.setItem('surveys',JSON.stringify({}));
        }
    },error => {
        throw error;

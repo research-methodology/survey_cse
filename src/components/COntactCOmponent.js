@@ -39,13 +39,22 @@ class Contact extends React.Component {
             SendButton =<Button color="light"><Loading/></Button>     
         }
        let msg=null;
-       if(this.props.sendingError!==null){
+       if(this.props.auth.sendingError!==null){
            msg=(
             <div className="alert alert-danger" role="alert">
             {this.props.auth.sendingError} 
           </div>
            )
        }
+       else if(this.props.auth.feedbacksent)
+       {
+        msg=(
+            <div className="alert alert-primary" role="alert">
+            Thank your for you feedback
+          </div>
+           ) 
+       }
+       else msg=null;
         return(
             <div className="container">
      

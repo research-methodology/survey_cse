@@ -4,13 +4,14 @@ import { Breadcrumb, BreadcrumbItem, Button,  Label, Col,Row} from 'reactstrap';
 import { Control,Form,Errors,actions } from "react-redux-form";
 import { Link,Redirect} from 'react-router-dom';
 import { withRouter } from 'react-router';
+import {Loading} from './LoadingComponent'
 
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-  
+const validPassword=(val)=>new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{5,})").test(val);
 const verifypassword=()=>{
     const password=document.getElementById('password').value;
     const confirmpassword=document.getElementById('confirm-password').value;
@@ -48,6 +49,12 @@ render(){
             {this.props.auth.errMess}
         </div>
     }
+   
+    let signupButton = (<Button type="submit" value="submit" color="primary">Create account</Button>);
+    if(this.props.auth.isLoading){
+        signupButton =<Button color="light"><Loading/></Button>     
+    }
+  
     return(
 
     <div className="container text-center">
@@ -141,7 +148,7 @@ render(){
                                         className="form-control"
                                         type="password"
                                         validators={{
-                                            required, minLength: minLength(5), maxLength: maxLength(15)
+                                            required, minLength: minLength(5), maxLength: maxLength(15),validPassword
                                         }}
                                          />
                                     <Errors
@@ -150,8 +157,9 @@ render(){
                                         show="touched"
                                         messages={{
                                             required: 'Required',
-                                            minLength: 'Must be greater than 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
+                                            minLength: 'Must be greater than or equal 5 characters',
+                                            maxLength: 'Must be 15 characters or less',
+                                            validPassword: 'password should be strong with atleast 1 lower and uper case letter and 1 special character and 1 number'
                                         }}
                                      />
                                 </Col>
@@ -199,9 +207,7 @@ render(){
 
                             <Row className="form-group">
                                 <Col md={{size: 10, offset: 2}}>
-                                    <Button type="submit" className="color2">
-                                        Create account
-                                    </Button>
+                                 {signupButton}
                                 </Col>
                            </Row>
             </Form>
