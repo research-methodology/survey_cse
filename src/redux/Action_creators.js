@@ -393,7 +393,7 @@ export const  HandleSessionexpired=()=>(dispatch)=>{
 }
 export const postFeedback = (feedback) => (dispatch) => {
         dispatch({type:ActionTypes.LOADING_FEEDBACK});
-    return fetch(baseUrl + 'feedback', {
+    return fetch(baseUrl + 'user/feedback', {
         method: "POST",
         body: JSON.stringify(feedback),
         headers: {
@@ -402,8 +402,10 @@ export const postFeedback = (feedback) => (dispatch) => {
         credentials: "same-origin"
     })
     .then(response => {
-        if (response.ok) {
+        if (response.ok|| response.status===200 || response.status===201) {
+            dispatch({type:ActionTypes.FEEDBACK_SENT});
           return response;
+          
         } else {
           var error = new Error('Error ' + response.status + ': ' + response.statusText);
           error.response = response;
@@ -415,7 +417,9 @@ export const postFeedback = (feedback) => (dispatch) => {
       })
     .then(response => response.json())
     .then(response => { console.log('Feedback', response); alert('Thank you for your feedback!\n'+JSON.stringify(response)); })
-    .catch(error =>  { console.log('Feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
+    .catch(error =>  { console.log('Feedback', error.message); 
+    dispatch({type:ActionTypes.FEEDBACK_FAILED,payload:error.message}); 
+});
 };
 
 

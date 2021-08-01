@@ -3,15 +3,12 @@ import * as React from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, Form, Errors } from 'react-redux-form';
+import {Loading} from './LoadingComponent';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-const mapStyles = {
-    width: '100%',
-    height: '100%'
-  };
 class Contact extends React.Component {
       location = {
         address: 'UR College of Science and Technology.University of Rwanda KN 7 Ave 0788 592 152',
@@ -28,36 +25,30 @@ class Contact extends React.Component {
 
     }
    
-    
-    
-    
-
     handleSubmit(values) {
         console.log("Current State is: " + JSON.stringify(values));
         this.props.postFeedback(values);
         this.props.resetFeedbackForm();
     }
-    onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
 
-  onClose = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
-    }
-  };
 
     render() {
         
-       
+        let SendButton = <Button type="submit" value="submit" color="primary">Send Feedback</Button>;
+        if(this.props.auth.loadingfeedback){
+            SendButton =<Button color="light"><Loading/></Button>     
+        }
+       let msg=null;
+       if(this.props.sendingError!==null){
+           msg=(
+            <div className="alert alert-danger" role="alert">
+            {this.props.auth.sendingError} 
+          </div>
+           )
+       }
         return(
             <div className="container">
+     
                 <div className="row">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
@@ -89,7 +80,7 @@ class Contact extends React.Component {
                     <div className="col-12 col-sm-6 offset-sm-1 col-md">
                         <div id="map">
                         <h5>Map of our Location</h5>
-                        <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" 
+                        <div className="mapouter"><div className="gmap_canvas"><iframe class="gmap_iframe" 
                         frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                          src="https://maps.google.com/maps?q=University of Rwanda CST&amp;t=h&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                          frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
@@ -109,9 +100,13 @@ class Contact extends React.Component {
                 </div>
                 <div className="row row-content">
                     <div className="col-12">
+                    <div className="text-center">
+                        {msg}
+                     </div>
                         <h3>Send us Your Feedback</h3>
                     </div>
                     <div className="col-12 col-md-9">
+                    
                         <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
@@ -230,9 +225,7 @@ class Contact extends React.Component {
                             </Row>
                             <Row className="form-group">
                                 <Col md={{size:10, offset: 2}}>
-                                    <Button type="submit" color="primary">
-                                    Send Feedback
-                                    </Button>
+                                    {SendButton}
                                 </Col>
                             </Row>
                         </Form>

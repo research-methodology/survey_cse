@@ -145,7 +145,7 @@ render(){
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
                             <PrivateRoute path="/SurveyResult/:index" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
-                            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
+                            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} auth={this.props.auth} postFeedback={this.props.postFeedback} />} />
                             <Redirect to="/home" />
                         </Switch>
                     </CSSTransition>

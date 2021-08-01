@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {  Button,Form, FormGroup, Input, Label, Breadcrumb, BreadcrumbItem} from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link ,Redirect } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
 class Login extends Component{
@@ -25,9 +25,11 @@ class Login extends Component{
             </div>
           }
           else if(this.props.auth.isAuthenticated){
-                msg= <div className="alert alert-primary" role="alert">
-       you are logged in
-     </div>
+    //             msg= <div className="alert alert-primary" role="alert">
+    //    you are logged in
+     <Redirect to="/dashboard"/>
+    
+     
              }
         let loginB = <Button type="submit" value="submit" color="primary">Login</Button>;
         if(this.props.auth.isLoading){

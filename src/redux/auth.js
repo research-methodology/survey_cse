@@ -15,7 +15,11 @@ export const Auth = (state = {
         isVerified:false,
         isSignUpConfirmed:false,
         istimeout:false,
-        profileLoading:false
+        profileLoading:false,
+        loadingfeedback:false,
+        feedbacksent:false,
+        feedbackfailed:false,
+        sendingError:null,
        
     }, action) => {
     switch (action.type) {
@@ -146,6 +150,30 @@ export const Auth = (state = {
                     isAuthenticated: false,
                     errMess: "Time out please login again!",
                     
+                }
+            case ActionTypes.LOADING_FEEDBACK:
+                return{
+                    ...state,
+                    feedbackfailed:false,
+                    loadingfeedback:true,
+                    feedbacksent:false,
+                    sendingError:null
+                }
+            case ActionTypes.FEEDBACK_FAILED:
+               return{
+                ...state,
+                feedbackfailed:true,
+                loadingfeedback:false,
+                feedbacksent:false,
+                sendingError:action.payload
+               }
+            case ActionTypes.FEEDBACK_SENT:
+                return{
+                    ...state,
+                    feedbackfailed:false,
+                    loadingfeedback:false,
+                    feedbacksent:true,
+                    sendingError:null
                 }
         default:
             return state
