@@ -61,8 +61,13 @@ class Main extends Component{
       }
       
       componentDidMount(){
-          this.props.fetchSurveys();
-         this.props.Userprofile();
+          
+          if(this.props.auth.isAuthenticated){
+               this.props.Userprofile();  
+               this.props.fetchSurveys();
+          }
+          
+      
 //       if(state.timeout===true){
 //           logout(localStorage.getItem('token'));
 //           localStorage.removeItem('token');

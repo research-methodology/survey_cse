@@ -63,14 +63,14 @@ export default function Dashboard(props) {
             <Form>
 
                 <FormGroup>
-                    <Label>First_name: </Label><Label><h5>{props.auth.usercreds.first_name}</h5></Label>
+                    <Label>First_name: </Label><Label><h6>{props.auth.usercreds.first_name}</h6></Label>
                   
                 </FormGroup>
                 <FormGroup>
-                    <Label>Last_name: </Label><Label><h5>{props.auth.usercreds.last_name}</h5></Label>
+                    <Label>Last_name: </Label><Label><h6>{props.auth.usercreds.last_name}</h6></Label>
                 </FormGroup>
                 <FormGroup>
-                <Label>Email: </Label><Label><h5>{props.auth.usercreds.email}</h5></Label>
+                <Label>Email: </Label><Label><h6>{props.auth.usercreds.email}</h6></Label>
                 </FormGroup>
 
             </Form>
@@ -113,7 +113,7 @@ export default function Dashboard(props) {
             </Row>
             
             <Row>
-                
+            {loading}
             {prevs}
 
             </Row>     

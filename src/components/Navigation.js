@@ -29,17 +29,18 @@ export default class Navigation extends Component {
         let token = localStorage.getItem("token");
         this.props.logout(token);
         localStorage.removeItem("token");
-        localStorage.clear()
+        localStorage.removeItem('usercreds');
+        localStorage.removeItem('surveys');
     }
         render(){
    
             let user=(<Label></Label>);
      
-            if(this.props.auth.profileLoading || !this.props.auth.usercreds){
+            if(this.props.auth.profileLoading){
              
                 user=(<Label>Profile</Label>);
             }
-            else if(!this.props.auth.profileLoading && this.props.auth.usercreds){
+            else if(this.props.auth.usercreds){
               
                 user=(this.props.auth.usercreds.first_name);
  
