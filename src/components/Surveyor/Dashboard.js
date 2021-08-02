@@ -94,10 +94,13 @@ export default function Dashboard(props) {
             setModelopen(!isModalOpen);     
       }
     return (
+        <React.Fragment>
+            <div className="d-flex justify-content-end mt-3 mr-4" ><Button className="btn-lg colorAndB2" type="button" onClick={toggleModal}>View your profile</Button></div>
+
         <div className="container">
             <div className="row">
                 <div className="col-12">
-                  <div ><button className="btn-lg bg-warning" type="button" onClick={toggleModal}>User profile</button></div>  
+
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                     <BreadcrumbItem active>Dashboard</BreadcrumbItem>
@@ -123,6 +126,6 @@ export default function Dashboard(props) {
        
      </Modal>
         </div>
-    
+        </React.Fragment>
     )
 }

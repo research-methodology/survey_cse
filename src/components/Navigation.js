@@ -66,11 +66,12 @@ export default class Navigation extends Component {
             
                 <Nav className="ml-auto" navbar>
              <NavItem>
-             {/* <NavLink className="nav-link" to='/dashboard' ><span className="fa fa-dashboard fa-lg"></span>Dashboard</NavLink>
-             </NavItem>  <NavItem>  */}
-                &nbsp;<Button><a href="/dashboard"><span className="fa fa-user fa-lg"></span>&nbsp;<Label color="light"> {user} </Label></a></Button>
-            </NavItem> 
-            &nbsp;  &nbsp;                
+             <NavLink className="nav-link" to='/dashboard' ><span className="fa fa-user fa-lg"></span>&nbsp;{user}</NavLink>
+             </NavItem>
+            {/*        <NavItem>*/}
+            {/*    &nbsp;<Button><a href="/dashboard"><span className="fa fa-user fa-lg"></span>&nbsp;<Label color="light"> {user} </Label></a></Button>*/}
+            {/*</NavItem> */}
+            {/*&nbsp;  &nbsp;                */}
              {logoutB}
             
              
