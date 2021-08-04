@@ -63,9 +63,11 @@ class Main extends Component{
       componentDidMount(){
           
           if(this.props.auth.isAuthenticated){
-               this.props.Userprofile();  
                this.props.fetchSurveys();
           }
+          if(this.props.auth.isAuthenticated&&localStorage.getItem('usercreds')=={}){
+            this.props.Userprofile();
+       }
           
       
 //       if(state.timeout===true){
