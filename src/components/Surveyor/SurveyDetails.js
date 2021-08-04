@@ -32,7 +32,7 @@ export default function SurveyDetails(props) {
             //     data.push(<td>{oneSurvey[question]}</td>);
             // })
             return (
-                <tr key={oneSurvey.id}>
+                <tr key={oneSurvey +index + "oneSurvey"}>
                     <th> {indexing === 0 ? (index + 1) : (++indexing)}</th>
                     {data}
                 </tr>
@@ -114,7 +114,7 @@ export default function SurveyDetails(props) {
                             <div>
 
                                 <div id="scrollableDivInDailyResourcesReports"
-                                     className="card fixedDiv square scrollbar-cyan bordered-cyan" style = {{"overflow-y": "scroll",height: "400px"}}>
+                                     className="card fixedDiv square scrollbar-cyan bordered-cyan styling1">
                                     <div className="card-body">
                                         <div className="mt-2">
                                             <InfiniteScroll

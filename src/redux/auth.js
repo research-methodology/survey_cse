@@ -10,11 +10,17 @@ export const Auth = (state = {
         isAuthenticated: localStorage.getItem('token') ? true : false,
         token: localStorage.getItem('token'),
         user: localStorage.getItem('creds') ? JSON.parse(localStorage.getItem('creds')) : null,
+        usercreds:localStorage.getItem('usercreds') ? JSON.parse(localStorage.getItem('usercreds')) : {},
         errMess: null,
         isVerified:false,
         isSignUpConfirmed:false,
         istimeout:false,
-        
+        profileLoading:false,
+        loadingfeedback:false,
+        feedbacksent:false,
+        feedbackfailed:false,
+        sendingError:null,
+       
     }, action) => {
     switch (action.type) {
         case ActionTypes.LOGIN_REQUEST:
@@ -115,14 +121,59 @@ export const Auth = (state = {
                             errMess: action.payload,
                             isVerified:false,isSignUpConfirmed:false
             };
+            case ActionTypes.USERPROFILE_LOADING:
+                return{
+                    profileLoading: true,
+                    errMess: null,
+                    usercreds:null,
+                    isAuthenticated:true
+                }
+            case ActionTypes.GOT_USERPROFILE:
+                return {
+                    profileLoading:false,
+                    errMess:null,
+                    usercreds:action.payload,
+                    isAuthenticated:true
+                }
+            case ActionTypes.USERPROFILE_FAILED:
+                return{
+                    profileLoading:false,
+                    errMess:action.payload,
+                    usercreds:null,
+                    isAuthenticated:true
+                }
             case ActionTypes.ISTIMEOUT:
                 return{
                     ...state,
-                    istimeout:true,
+                   istimeout:true,
                     isLoading: false,
                     isAuthenticated: false,
                     errMess: "Time out please login again!",
                     
+                }
+            case ActionTypes.LOADING_FEEDBACK:
+                return{
+                    ...state,
+                    feedbackfailed:false,
+                    loadingfeedback:true,
+                    feedbacksent:false,
+                    sendingError:null
+                }
+            case ActionTypes.FEEDBACK_FAILED:
+               return{
+                ...state,
+                feedbackfailed:true,
+                loadingfeedback:false,
+                feedbacksent:false,
+                sendingError:action.payload
+               }
+            case ActionTypes.FEEDBACK_SENT:
+                return{
+                    ...state,
+                    feedbackfailed:false,
+                    loadingfeedback:false,
+                    feedbacksent:true,
+                    sendingError:null
                 }
         default:
             return state

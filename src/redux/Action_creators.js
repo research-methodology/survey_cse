@@ -1,13 +1,13 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
-import { runLogoutTimer} from './auth';
-import { useState } from 'react';
-import { useHistory } from 'react-router';
-import {Auth} from './auth';
-export const SubmitSurveyrespons=(output)=>(dispatch)=>{
+import React from 'react';
+
+
+export const SubmitSurveyrespons=({output,surveyid})=>(dispatch)=>{
     dispatch({type: ActionTypes.RESIPONDING_REQUEST});
-    return fetch(baseUrl+"/",{
-method:"POST",
+    console.log("Survey id is: ",surveyid);
+    return fetch(`${baseUrl}surveys/answers/${surveyid}`,{
+method:"PUT",
 body:JSON.stringify(output),
 headers: {
     "Content-Type": "application/json"
@@ -15,7 +15,8 @@ headers: {
   credentials: "same-origin"
     })
     .then((response)=>{
-        if (response.ok) {
+        console.log('Response from the user: ',response)
+        if (response.status===200||response.status===201 || response.ok) {
             dispatch({type: ActionTypes.RESIPONDING_SUCCESS})
             return response;
           } else {
@@ -52,6 +53,7 @@ export const logout = (token) =>(dispatch) =>{
             console.log("logout successfull ")
             dispatch({type: ActionTypes.LOGOUT_SUCCESS});
             //window.location="/login";
+            localStorage.clear();
         }
     },error => {
         throw error;
@@ -60,6 +62,31 @@ export const logout = (token) =>(dispatch) =>{
 
 });
 };
+//Function to fetch user data for setting profile
+export const Userprofile=(token = localStorage.getItem('token'))=>(dispatch)=>{
+    dispatch({type:ActionTypes.USERPROFILE_LOADING});
+    return fetch(baseUrl+'user/profile',{
+        method:"GET",
+        headers:{
+            "Authorization":token,
+            'Content-Type':'application/json'
+        },
+        credentials: "same-origin"
+    }).then(response=>response.json())
+    .then(response=>{
+        console.log('Users credentials',response.data);
+        if(response.status===200||response.status===201){
+            localStorage.setItem('usercreds',JSON.stringify(response.data));
+            dispatch({type:ActionTypes.GOT_USERPROFILE,payload:response.data});
+        
+        }
+    },error => {
+        throw error;
+  }).catch(error =>  {
+    console.log('your profile ', error); 
+    dispatch({type: ActionTypes.USERPROFILE_FAILED, payload:error.message});
+ });
+}
 export const GetsurveyId=(surveyid)=>(dispatch)=>{
     dispatch({type:ActionTypes.REQUESTSURVEY});
    // console.log("the id of the survey is: ",surveyid);
@@ -125,7 +152,7 @@ export const  Signup_form=(first_name,last_name,email,password,confirm_password)
         confirm_password:confirm_password
     }
     //console.log(JSON.stringify(newUser));
-
+// export const fetchUser=()
     return fetch(baseUrl + "user/signup", {
        
         method: "POST",
@@ -302,7 +329,41 @@ export const createNewSurvey=(result) =>(dispatch) =>{
     dispatch({type: ActionTypes.CREATE_NEW_SURVEY_FAILURE, payload:error.message});
 });
 }
+export const fetchSurveys=()=>(dispatch)=>{
+ 
+    dispatch({type:ActionTypes.SURVEYS_LOADING});
+    //localStorage.removeItem('surveys');
+    return fetch(baseUrl+"surveys/user/surveys",{
+        method:"GET",
+          headers:{
+            "Authorization":localStorage.getItem('token'),
+            'Content-Type':'application/json'
+        },
+        credentials: "same-origin"
+    })
+    .then(surveys=>surveys.json()).then(response =>{
+        //console.log("the status is ",response.status);
+        console.log('your surveys before are :',response);
+       if(response.status===200||response.status === 201){
+        console.log('your surveys are :',response.surveys);
+        localStorage.setItem('surveys',JSON.stringify(response.surveys));
+            dispatch({type: ActionTypes.GET_SURVEYS,payload:response.surveys});
+        
+       }
+       else if(response.status === 404){
+           dispatch({type: ActionTypes.GET_SURVEYS, payload:[]});
+       }
+       else{
+        localStorage.setItem('surveys',JSON.stringify([]));
+       }
+   },error => {
+       throw error;
+ }).catch(error =>  {
+   console.log('your surveys ', error); 
+   dispatch({type: ActionTypes.LOADING_SURVEYS_FAILED, payload:error.message});
+});
 
+}
 export const saveSurveyResult = (result) => (dispatch) =>{
     
 }
@@ -315,7 +376,9 @@ export const  HandleSessionexpired=()=>(dispatch)=>{
         duration--;
         console.log(duration); 
         if(duration<1){
-            dispatch({type:ActionTypes.ISTIMEOUT})
+            dispatch({type:ActionTypes.ISTIMEOUT});
+            dispatch(logout(localStorage.getItem('token')));
+            localStorage.clear();
     //  props.setState({count:true});
         }
         //console.log('at '+duration+'token is '+token);
@@ -335,3 +398,35 @@ export const  HandleSessionexpired=()=>(dispatch)=>{
     } 
    
 }
+export const postFeedback = (feedback) => (dispatch) => {
+        dispatch({type:ActionTypes.LOADING_FEEDBACK});
+    return fetch(baseUrl + 'user/feedback', {
+        method: "POST",
+        body: JSON.stringify(feedback),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok|| response.status===200 || response.status===201) {
+            dispatch({type:ActionTypes.FEEDBACK_SENT});
+          return response;
+          
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response => { console.log('Feedback', response); alert('Thank you for your feedback!\n'+JSON.stringify(response)); })
+    .catch(error =>  { console.log('Feedback', error.message); 
+    dispatch({type:ActionTypes.FEEDBACK_FAILED,payload:error.message}); 
+});
+};
+
+

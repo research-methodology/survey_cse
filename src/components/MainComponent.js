@@ -4,8 +4,9 @@ import RespondentHome from './RespndentPart/RespondentHomepage'
 import Signuppage from './SignupPage'; 
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
+import Contact from './COntactCOmponent';
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser, logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,GetsurveyId} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,HandleSession,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -27,6 +28,8 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps = dispatch => ({
     createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
+    postFeedback: (feedback) => dispatch(postFeedback(feedback)),
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
     loginUser:(props,crid) => dispatch(loginUser(props,crid)),
     logout:(token) =>dispatch(logout(token)),
@@ -35,6 +38,8 @@ const mapDispatchToProps = dispatch => ({
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
   IStimeouthandeler:()=>dispatch(HandleSessionexpired()) ,
   GetsurveyId:(surveyId) =>dispatch(GetsurveyId(surveyId)) , 
+  fetchSurveys:()=>dispatch(fetchSurveys()),
+  Userprofile:()=>dispatch(Userprofile()),
 
 });
 //const msg=null;
@@ -56,10 +61,17 @@ class Main extends Component{
       }
       
       componentDidMount(){
-    //   if(state.timeout===true){
-    //       logout(localStorage.getItem('token'));
-    //       localStorage.removeItem('token');
-    //   }
+          
+          if(this.props.auth.isAuthenticated){
+               this.props.Userprofile();  
+               this.props.fetchSurveys();
+          }
+          
+      
+//       if(state.timeout===true){
+//           logout(localStorage.getItem('token'));
+//           localStorage.removeItem('token');
+//       }
 //     if(this.props.auth.isAuthenticated){
 //     console.log("is authenticated :"+this.props.auth.isAuthenticated)
 //     this.props.IStimeouthandeler();  
@@ -89,7 +101,7 @@ render(){
 
     const Logingin=()=>{
         return(
-            <div className=""><Login auth={this.props.auth}
+            <div className=""><Login auth={this.props.auth} 
              loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}/></div>
         );
     }
@@ -120,9 +132,9 @@ render(){
 
         return(
             <div>
-                <Navigation auth={this.props.auth} logout={this.props.logout} />
+                <Navigation auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile} />
                 <TransitionGroup>
-                    <CSSTransition 
+                    <CSSTransition
                     appear
                     classNames="fade" timeout ={{enter: 300, exit: 200}}>
                         <Switch>
@@ -133,12 +145,12 @@ render(){
                         
                        />
                        <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} auth={this.props.auth} />}/>
-                       <PrivateRoute path="/dashboard" component={() => <Dashboard Surveys={this.props.Surveys}  />} />
+                       <PrivateRoute path="/dashboard" onEnter={()=>this.props.IStimeouthandeler()} onChange={()=>this.props.IStimeouthandeler()} component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth} />} />
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} />} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
-                            <PrivateRoute path="/SurveyResult" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
-                            
+                            <PrivateRoute path="/SurveyResult/:index" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
+                            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} auth={this.props.auth} postFeedback={this.props.postFeedback} />} />
                             <Redirect to="/home" />
                         </Switch>
                     </CSSTransition>
@@ -148,6 +160,7 @@ render(){
             </div>
         )
     }
+    
 
 }
 

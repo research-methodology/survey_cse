@@ -3,7 +3,7 @@ import { Row,Col } from 'reactstrap';
 import { baseUrl } from '../../shared/baseUrl';
 import RenderQuestions from './Questionspage';
 import {useLocation,useParams} from 'react-router-dom'
-var surveyid="";
+let surveyid="";
 
 const fetchURL='https://cst-survey-backend.herokuapp.com/api/v1/surveys/';
 
@@ -42,7 +42,7 @@ setsurveyInfo(response.questions);
                 <Row>
                     <Col offset md={{size: 7, offset: 3}}>
                     <div className="surveyContainer d-flex justify-content-center">
-            <div><RenderQuestions  QuestionInfo={surveyInfo} Respond={props.respond} SubmitSurveyrespons={props.SubmitSurveyrespons}/></div>
+            <div><RenderQuestions  QuestionInfo={surveyInfo} Respond={props.respond} SubmitSurveyrespons={props.SubmitSurveyrespons} sid={surveyid}/></div>
                 </div>
                     </Col>
                 </Row>

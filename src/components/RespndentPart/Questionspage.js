@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import {Loading} from '../LoadingComponent';
+import { useParams } from "react-router";
 var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
   const categories  = items['categories'] || [];
   let answers = null;
@@ -10,13 +11,16 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
 // }
   const [start, setStart] = useState(0);
   const [output,setOutput] = useState({});
-  const [answerStates,setAnswerStates] = useState({})
+  const [answerStates,setAnswerStates] = useState({});
+  const params = useParams()
+  const surveyid=params.surveyId;
   // var [SubmitSurveyrespons,setSubmitSurveyrespons]=useState(SubmitSurvey({}));
   // var categorycount=categories[count-1];
   // console.log({...categorycount});
   let handleFinish = (event)=>{
     alert(JSON.stringify(output));
-    SubmitSurveyrespons(output);
+    console.log('Resiponses from respondent is: ',output);
+    SubmitSurveyrespons({output,surveyid});
     event.preventDefault();
   }
   let handleShowMore = () => {
@@ -264,7 +268,7 @@ Your survey results uploaded successful
         
       <Renderitems
         items={props.QuestionInfo}
-        questionsToDiplay={questionsToDiplay} SubmitSurveyrespons={props.SubmitSurveyrespons} Respond={props.Respond}
+        questionsToDiplay={questionsToDiplay} SubmitSurveyrespons={props.SubmitSurveyrespons} Respond={props.Respond} 
       />
     </div>
   );

@@ -129,6 +129,7 @@ props.createNewSurvey(readyData);
             enableChooseWayOfAnswering = true;
         }
     }
+
   return (
     <div>
       <div className="">
