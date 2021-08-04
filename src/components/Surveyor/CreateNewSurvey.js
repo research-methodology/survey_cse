@@ -5,6 +5,7 @@ import AnswersComponet from "./AnswersComponet";
 import CategoriesComponent from "./CategoriesComponent";
 import QuestionsComponet from "./QuestionsComponet";
 import {Link} from "react-router-dom";
+import { Loading } from "../LoadingComponent";
 export default function CreateNewSurvey(props) {
     let testInfo = localStorage.getItem('surveyInfo') === null ?{
             surveyTitle:"Testing Survey title",
@@ -98,7 +99,15 @@ props.createNewSurvey(readyData);
     const [surveyTitle, setsurveyTitle] = useState(null);
      const [wayOfAnswering, setWayOfAnswering] = useState('Choose');
     let [showDelete,setShowDelete] = useState('null,null');
-
+    
+  let Finish=(<Button></Button>);
+  if(props.Surveys.isLoading){
+      Finish=(<Button><Loading/></Button>);
+  }
+  else Finish=
+  (<Button onClick={handleFinish}>
+                Finish
+            </Button> )
     let handleEnterAndLeave = (event) =>{
         let [category] = (event.target.id).split(',');
         let type = event.type;
@@ -189,9 +198,7 @@ props.createNewSurvey(readyData);
           </div>
         </div>
         <div className="d-flex justify-content-end mt-3">
-            <Button onClick={handleFinish}>
-                Finish
-            </Button>
+            {Finish}
         </div>
       </div>
     </div></div>
