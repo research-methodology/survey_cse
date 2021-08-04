@@ -165,7 +165,7 @@ render(){
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="password" md={2}>confirm_password</Label>
+                                <Label htmlFor="password" md={2}>Confirm</Label>
                                 <Col md={10}>
                                     <Control.password model=".confirm_password" id="confirm-password" name="confirm_password"
                                         placeholder="confirm-Password"

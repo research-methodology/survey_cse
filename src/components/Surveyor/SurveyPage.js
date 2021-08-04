@@ -205,7 +205,7 @@ export default function SurveyPage(props) {
     }
     return (
         <div className="container">
-            <div className="bg-secondary text-light p-3 w-100 m-3 d-flex justify-content-center">
+            <div className="bg-secondary text-light p-3 w-100 mt-5 ml-3 mr-3 mb-3 d-flex justify-content-center">
                 <h2>{surveyResult.surveyTitle}</h2>
             </div>
             <div>

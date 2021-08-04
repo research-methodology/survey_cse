@@ -12,6 +12,7 @@ class Home extends Component {
 
     render() {
         return(
+            
             <div className="text-center">
              <div className="container mt-3">
                  <Jumbotron className="colorAndB1" >
