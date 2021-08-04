@@ -19,8 +19,14 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
   // console.log({...categorycount});
   let handleFinish = (event)=>{
     alert(JSON.stringify(output));
-    console.log('Resiponses from respondent is: ',output);
-    SubmitSurveyrespons({output,surveyid});
+    let lastOutput = [];
+    let keyQuestion = Object.keys(output);
+    keyQuestion.forEach(qtn =>{
+        lastOutput.push(output[qtn]);
+    })
+    //console.log('Resiponses from respondent is: ',lastOutput);
+    console.log('response in string', JSON.stringify(lastOutput));
+    SubmitSurveyrespons(lastOutput,surveyid);
     event.preventDefault();
   }
   let handleShowMore = () => {
@@ -34,8 +40,8 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
     let name = event.target.name;
     let value = event.target.value;
     let [category, question,type] = name.split(',');
-    let prevOutput = output;
-    prevOutput[question]= {...prevOutput[question],
+    let prevOutput = {...output};
+    prevOutput[question]= {
       category,
       question,
         wayOfAnswering: type

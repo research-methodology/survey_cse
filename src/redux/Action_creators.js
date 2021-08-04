@@ -3,7 +3,7 @@ import {baseUrl} from '../shared/baseUrl';
 import React from 'react';
 
 
-export const SubmitSurveyrespons=({output,surveyid})=>(dispatch)=>{
+export const SubmitSurveyrespons=(output,surveyid)=>(dispatch)=>{
     dispatch({type: ActionTypes.RESIPONDING_REQUEST});
     console.log("Survey id is: ",surveyid);
     return fetch(`${baseUrl}surveys/answers/${surveyid}`,{

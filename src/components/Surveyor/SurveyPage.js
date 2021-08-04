@@ -9,7 +9,7 @@ export default function SurveyPage(props) {
     let index=params.index;
     let title = props.Surveys.surveys[index] === undefined ? null : props.Surveys.surveys[index].surveyTitle;
     let results = props.Surveys.surveys[index] === undefined? []: props.Surveys.surveys[index].results;
-    console.log("this is survey ", props.Surveys);
+    console.log("this is survey ", results);
     let surveyResult ={
         surveyTitle:title,
         survey:results}

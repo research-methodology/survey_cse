@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
     loginUser:(props,crid) => dispatch(loginUser(props,crid)),
     logout:(token) =>dispatch(logout(token)),
     Verifyuser:(token)=>dispatch(Verifyuser(token)),
-    SubmitSurveyrespons:(output)=>dispatch(SubmitSurveyrespons(output)),
+    SubmitSurveyrespons:(output,surveyId)=>dispatch(SubmitSurveyrespons(output,surveyId)),
   Signup_form: (first_name,last_name,email,password,confirm_password) => dispatch(Signup_form(first_name,last_name,email,password,confirm_password)),
   IStimeouthandeler:()=>dispatch(HandleSessionexpired()) ,
   GetsurveyId:(surveyId) =>dispatch(GetsurveyId(surveyId)) , 
