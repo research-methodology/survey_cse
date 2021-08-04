@@ -34,11 +34,11 @@ export default class Navigation extends Component {
     }
         render(){
    
-            let user=(<Label></Label>);
+            let user=(<Label>Profile</Label>);
      
             if(this.props.auth.profileLoading){
              
-                user=(<Label>Profile</Label>);
+                user=(<Label>Profile...</Label>);
             }
             else if(this.props.auth.usercreds){
               
@@ -83,7 +83,7 @@ export default class Navigation extends Component {
             return(
                 
                 <React.Fragment>
-                                 <Navbar dark expand="md">
+                                 <Navbar dark expand="md fixed-top">
             
                             <div className="container-fluid">
                             <NavbarToggler onClick={this.toggleNav} />
