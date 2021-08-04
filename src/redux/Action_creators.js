@@ -350,6 +350,9 @@ export const fetchSurveys=()=>(dispatch)=>{
             dispatch({type: ActionTypes.GET_SURVEYS,payload:response.surveys});
         
        }
+       else if(response.status === 404){
+           dispatch({type: ActionTypes.GET_SURVEYS, payload:[]});
+       }
        else{
         localStorage.setItem('surveys',JSON.stringify([]));
        }
