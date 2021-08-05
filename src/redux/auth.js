@@ -57,7 +57,7 @@ export const Auth = (state = {
             return {...state,
                 isLoading: false,
                 isAuthenticated: false,
-                token: '',
+                token: null,
                 user: null,
                 errMess:null,
                 isVerified:false,isSignUpConfirmed:false

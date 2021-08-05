@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {ConfigureStore} from './redux/configureStore';
 import './App.css';
 import MainComponent from './components/MainComponent';
+import IdleTimerCounter from './redux/Action_creators';
 
 
 
@@ -19,6 +20,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App color1">
          <MainComponent />
+         <IdleTimerCounter/>
         </div>
       </BrowserRouter>
       </Provider>

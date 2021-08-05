@@ -1,6 +1,10 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
-import React from 'react';
+import React , {useRef,useState}from 'react';
+import IdleTimer from 'react-idle-timer';
+import Modal from 'react-modal';
+import { Button } from 'reactstrap';
+Modal.setAppElement('#root');
 
 
 export const SubmitSurveyrespons=(output,surveyid)=>(dispatch)=>{
@@ -53,7 +57,7 @@ export const logout = (token) =>(dispatch) =>{
             console.log("logout successfull ")
             dispatch({type: ActionTypes.LOGOUT_SUCCESS});
             //window.location="/login";
-            localStorage.clear();
+            localStorage.removeItem('token');
         }
     },error => {
         throw error;
@@ -62,6 +66,71 @@ export const logout = (token) =>(dispatch) =>{
 
 });
 };
+// const logmeoutout=()=>{
+//     console.log("User is logging out");
+//     logout(localStorage.getItem('token'));
+   
+// }
+
+export default function IdleTimerCounter(props){
+  
+    const [modalIsopen,setmodelopen]=useState(false);
+    const IdleTimerRef=useRef(null);
+    const SessionTimeoutRef=useRef(null);
+   
+    const ClosedTab=()=>(dispatch)=>{
+        dispatch({type:ActionTypes.ISTIMEOUT});
+       // props.setState({count:true});
+        dispatch( logout(localStorage.getItem('token')));
+       
+        localStorage.clear();
+    } 
+    window.addEventListener('beforeunload',ClosedTab);
+
+   const logmeout=()=>{
+    fetch(baseUrl + "user/logout",{
+        method:"POST",
+        headers:{
+            "Authorization":localStorage.getItem('token')
+        },
+        credentials: "same-origin"
+    }).then(response =>{
+        if(response.status === 200 || response.status === 201){
+            console.log("logout successfull ");
+            localStorage.removeItem('token');
+            window.location='/login';
+            setmodelopen(false);
+            clearTimeout(SessionTimeoutRef.current);
+        }
+        },error => {
+            throw error;
+      }).catch(error =>  { console.log('Logout', error.message); 
+    });
+  
+    
+   }
+   const onIdle=()=>{
+    console.log("User is idle");
+   setmodelopen(true);
+   SessionTimeoutRef.current=setTimeout(logmeout,15000);
+   }
+
+   const StayActive=()=>{
+       setmodelopen(false);
+       clearTimeout(SessionTimeoutRef.current);
+   }
+    return(
+       localStorage.getItem('token')!==null?
+        <div>
+            <Modal isOpen={modalIsopen}><h2>You've been idle for a while!</h2>
+            <p>You will be logged out soon</p>
+            <div><Button onClick={logmeout}>Log me out</Button><Button onClick={StayActive}>Keep me signed in</Button></div>
+            </Modal>
+            <IdleTimer ref={IdleTimerRef} timeout={600*1000} onIdle={onIdle}> </IdleTimer>
+        </div>:null
+    )
+}
+
 //Function to fetch user data for setting profile
 export const Userprofile=(token = localStorage.getItem('token'))=>(dispatch)=>{
     dispatch({type:ActionTypes.USERPROFILE_LOADING});
@@ -246,7 +315,7 @@ export const loginUser = (creds) => (dispatch) => {
      
         console.log(JSON.stringify(response));
         if (response.status === 201|| response.status ==='success' || response===200) {
-           
+            
             return response;
           
         } else {
@@ -268,6 +337,7 @@ export const loginUser = (creds) => (dispatch) => {
             //localStorage.setItem('creds', JSON.stringify(creds));
             // Dispatch the success action
             dispatch(receiveLogin(response));
+            dispatch({type:ActionTypes.LOGIN_SUCCESS})
             // runLogoutTimer(dispatch,expiresIn);//allow auto signout after token expiration time
             // setExpired(true);
         }
@@ -369,10 +439,10 @@ export const saveSurveyResult = (result) => (dispatch) =>{
 }
 //Function that manages expiration of token
 
-export const  HandleSessionexpired=()=>(dispatch)=>{
+export  const HandleSessionexpired=()=>(dispatch)=>{
     var duration=10;//expires after 10 minutes
       setInterval(updateTimer,1000);
-    function updateTimer(){
+    function updateTimer(){ 
         duration--;
         console.log(duration); 
         if(duration<1){
@@ -398,6 +468,7 @@ export const  HandleSessionexpired=()=>(dispatch)=>{
     } 
    
 }
+
 export const postFeedback = (feedback) => (dispatch) => {
         dispatch({type:ActionTypes.LOADING_FEEDBACK});
     return fetch(baseUrl + 'user/feedback', {

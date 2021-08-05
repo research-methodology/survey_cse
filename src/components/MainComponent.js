@@ -64,10 +64,11 @@ class Main extends Component{
           
           if(this.props.auth.isAuthenticated){
                this.props.fetchSurveys();
+               if(localStorage.getItem('usercreds')=={}||localStorage.getItem('usercreds')==null ||localStorage.getItem('usercreds')==undefined){
+                this.props.Userprofile();
+           }
           }
-          if(this.props.auth.isAuthenticated&&localStorage.getItem('usercreds')=={}){
-            this.props.Userprofile();
-       }
+       
           
       
 //       if(state.timeout===true){
