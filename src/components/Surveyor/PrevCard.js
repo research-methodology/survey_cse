@@ -1,6 +1,8 @@
 import React from 'react'
-import { CardText, Card, Button, CardTitle } from 'reactstrap';
+import { CardText, Card, Button, CardTitle, Label } from 'reactstrap';
+
 export default function PrevCard(props) {
+   const SurveyUrl=`http://cst-survey-frontend.herokuapp.com/respondent/${props.surveyId}`;
     var crd = '';
     if(props.type === 'CreateNew'){
         crd = <div>
@@ -17,6 +19,7 @@ export default function PrevCard(props) {
         <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
         <CardText>{props.description}</CardText>
         <Button href={"/SurveyResult/" + (props.index)} > View </Button>
+        <Label className="mt-2">Share your survey via :<a href={SurveyUrl}>{SurveyUrl}</a></Label>
       </Card>
         </div>
     }

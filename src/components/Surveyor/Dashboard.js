@@ -44,9 +44,11 @@ export default function Dashboard(props) {
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} />
+            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}/>
 
             </div>
+
+        
 
                 </Col>
                 {/* {loading === null ? null : <Col> {loading}</Col>} */}

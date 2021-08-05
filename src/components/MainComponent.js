@@ -68,9 +68,8 @@ class Main extends Component{
                 this.props.Userprofile();
            }
           }
+        }
        
-          
-      
 //       if(state.timeout===true){
 //           logout(localStorage.getItem('token'));
 //           localStorage.removeItem('token');
@@ -88,16 +87,16 @@ class Main extends Component{
 //     console.log('tokens now: '+ localStorage.getItem('token'))
 // }
 
-    window.addEventListener('beforeunload',this.onUnmount);
-      }
-      onUnmount=()=>{
-          alert('You are about to leave');
-          logout(localStorage.getItem('token'));
-      }
-      componentWillUnmount(){
-          window.removeEventListener('beforeunload',this.onUnmount);
-      }
-   
+    // window.addEventListener('beforeunload',this.onUnmount);
+    //   }
+    //   onUnmount=()=>{
+    //       alert('You are about to leave');
+    //       logout(localStorage.getItem('token'));
+    //   }
+    //   componentWillUnmount(){
+    //       window.removeEventListener('beforeunload',this.onUnmount);
+    //   }
+        
   
 render(){
 
