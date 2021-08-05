@@ -17,6 +17,7 @@ import CreateNewSurvey from './Surveyor/CreateNewSurvey';
 import SurveyPage from './Surveyor/SurveyPage';
 import confirmemail from './confirmemailpage';
 import Verifyemail from './Verifyuser';
+import {FRONT_LOGOUT} from "../redux/ActionTypes";
 const mapStateToProps = state =>{
     return{
         auth: state.auth,
@@ -27,6 +28,7 @@ const mapStateToProps = state =>{
   
 }
 const mapDispatchToProps = dispatch => ({
+    frontLogout:() =>{dispatch({type:FRONT_LOGOUT})},
     createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
     postFeedback: (feedback) => dispatch(postFeedback(feedback)),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
@@ -59,45 +61,32 @@ class Main extends Component{
         count:false
     }
       }
-      
-      componentDidMount(){
-          
-          if(this.props.auth.isAuthenticated){
-               this.props.fetchSurveys();
-               if(localStorage.getItem('usercreds')=={}||localStorage.getItem('usercreds')==null ||localStorage.getItem('usercreds')==undefined){
-                this.props.Userprofile();
-           }
+
+      componentDidMount() {
+
+          if (this.props.auth.isAuthenticated) {
+              this.props.fetchSurveys();
+              if (localStorage.getItem('usercreds') == {} || localStorage.getItem('usercreds') == null || localStorage.getItem('usercreds') == undefined) {
+                  this.props.Userprofile();
+              }
           }
-       
-          
-      
-//       if(state.timeout===true){
-//           logout(localStorage.getItem('token'));
-//           localStorage.removeItem('token');
-//       }
-//     if(this.props.auth.isAuthenticated){
-//     console.log("is authenticated :"+this.props.auth.isAuthenticated)
-//     this.props.IStimeouthandeler();  
-//     console.log('tokens so far: '+ localStorage.getItem('token'))
-
-// }
-// if(this.props.auth.istimeout)
-// {
-//     logout(localStorage.getItem('token'));
-//     localStorage.clear(); 
-//     console.log('tokens now: '+ localStorage.getItem('token'))
-// }
-
-    window.addEventListener('beforeunload',this.onUnmount);
-      }
-      onUnmount=()=>{
-          alert('You are about to leave');
-          logout(localStorage.getItem('token'));
-      }
-      componentWillUnmount(){
-          window.removeEventListener('beforeunload',this.onUnmount);
-      }
-   
+          window.addEventListener("unload", (ev) =>
+          {
+                  localStorage['myUnloadEventFlag']=new Date().getTime();
+          });
+          window.addEventListener("load", (ev) =>
+          {
+                  let t0 = Number(localStorage['myUnloadEventFlag']);
+                  if (isNaN(t0)) t0=0;
+                  let t1=new Date().getTime();
+                  let duration=t1-t0;
+                  if (duration<10*1000) {
+                  } else {
+                      this.props.frontLogout();
+                  }
+             // }
+          });
+            }
   
 render(){
 
