@@ -175,6 +175,11 @@ export const Auth = (state = {
                     feedbacksent:true,
                     sendingError:null
                 }
+        case ActionTypes.FRONT_LOGOUT:
+            localStorage.removeItem('token');
+            return {
+                ...state,isAuthenticated: false
+            }
         default:
             return state
     }
