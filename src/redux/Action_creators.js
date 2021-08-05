@@ -78,14 +78,14 @@ export default function IdleTimerCounter(props){
     const IdleTimerRef=useRef(null);
     const SessionTimeoutRef=useRef(null);
    
-    const ClosedTab=()=>(dispatch)=>{
-        dispatch({type:ActionTypes.ISTIMEOUT});
-       // props.setState({count:true});
-        dispatch( logout(localStorage.getItem('token')));
-       
-        localStorage.clear();
-    } 
-    window.addEventListener('beforeunload',ClosedTab);
+    // const ClosedTab=()=>(dispatch)=>{
+    //     dispatch({type:ActionTypes.ISTIMEOUT});
+    //    // props.setState({count:true});
+    //     dispatch( logout(localStorage.getItem('token')));
+    //
+    //     localStorage.clear();
+    // }
+    //window.addEventListener('beforeunload',ClosedTab);
 
    const logmeout=()=>{
     fetch(baseUrl + "user/logout",{
@@ -126,7 +126,7 @@ export default function IdleTimerCounter(props){
             <p>You will be logged out soon</p>
             <div><Button onClick={logmeout}>Log me out</Button><Button onClick={StayActive}>Keep me signed in</Button></div>
             </Modal>
-            <IdleTimer ref={IdleTimerRef} timeout={600*1000} onIdle={onIdle}> </IdleTimer>
+            <IdleTimer ref={IdleTimerRef} timeout={1200*1000} onIdle={onIdle}> </IdleTimer>
         </div>:null
     )
 }
