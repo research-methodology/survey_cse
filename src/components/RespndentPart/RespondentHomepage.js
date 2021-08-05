@@ -33,7 +33,7 @@ setsurveyInfo(response.questions);
   }, []);
         return ( 
             surveyInfo!==undefined?
-            <div className="container">
+            <div className="container mt-5">
                 
                 <div className="">
                 <div>

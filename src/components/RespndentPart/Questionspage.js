@@ -18,7 +18,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
   // var categorycount=categories[count-1];
   // console.log({...categorycount});
   let handleFinish = (event)=>{
-    alert(JSON.stringify(output));
+    //alert(JSON.stringify(output));
     let lastOutput = [];
     let keyQuestion = Object.keys(output);
     keyQuestion.forEach(qtn =>{

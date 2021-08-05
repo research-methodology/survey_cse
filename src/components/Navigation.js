@@ -36,7 +36,7 @@ export default class Navigation extends Component {
    
             let user=(<Label>Profile</Label>);
      
-            if(this.props.auth.profileLoading){
+            if(this.props.auth.profileLoading || this.props.auth.usercreds=={}){
              
                 user=(<Label>Profile...</Label>);
             }
