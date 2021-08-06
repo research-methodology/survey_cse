@@ -112,7 +112,7 @@ export default function IdleTimerCounter(props){
    const onIdle=()=>{
     console.log("User is idle");
    setmodelopen(true);
-   SessionTimeoutRef.current=setTimeout(logmeout,15000);
+   SessionTimeoutRef.current=setTimeout(logmeout,15*1000);
    }
 
    const StayActive=()=>{
