@@ -1,8 +1,29 @@
 import React from 'react'
 import { CardText, Card, Button, CardTitle, Label } from 'reactstrap';
+import {Loading} from './../LoadingComponent';
 
 export default function PrevCard(props) {
    const SurveyUrl=`http://cst-survey-frontend.herokuapp.com/respondent/${props.surveyId}`;
+   const deleteSingleSurvey=()=>{
+       if(window.confirm('Do you really want to delete this survey?')){
+         props.deleteSingleSurvey(props.surveyId);
+       }
+   }
+   let deltesurveybtn =  <Button onClick={deleteSingleSurvey} className="bg-warning mt-2"> Delete survey </Button>;
+   if(props.survey.deletesurveyloading){
+    deltesurveybtn  =<Button color="light"><Loading/></Button>     
+   }
+   let msg = null;
+          if(props.survey.errMess !== null){
+              msg =<div className="alert alert-danger" role="alert">
+              {props.survey.errMess} 
+            </div>
+          }
+          else if(props.survey.surveydeleted){
+            msg =<div className="alert alert-primary" role="alert">
+           Survey is deleted successfully
+          </div>
+          }
     var crd = '';
     if(props.type === 'CreateNew'){
         crd = <div>
@@ -15,16 +36,17 @@ export default function PrevCard(props) {
     }
     else{
         crd = <div>
-            <Card className="colorAndB2 PrevCard1" body style={{ borderColor: '#333', height:'200px'}}>
+            <Card className="colorAndB2 PrevCard1" body style={{ borderColor: '#333', height:'250px'}}>
         <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
-        <CardText>{props.description}</CardText>
-        <Button href={"/SurveyResult/" + (props.index)} > View </Button>
-        <Label className="mt-2">Share your survey via :<a href={SurveyUrl}>{SurveyUrl}</a></Label>
+        <CardText>Share your survey via :<a href={SurveyUrl}>{SurveyUrl}</a></CardText>
+        <Button href={"/SurveyResult/" + (props.index)} > View results</Button>
+       {deltesurveybtn}
       </Card>
         </div>
     }
     return (
         <div>
+        {msg}
         {crd}
         </div>
     )

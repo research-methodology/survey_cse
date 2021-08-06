@@ -740,7 +740,10 @@ export const Surveys = (state = {
     //         description:"this survey is for peaple in Nyamirambo"
     //     }
     // ],
-    results:[]
+    results:[],
+    surveydeleted:false,
+    deletesurveyloading:false
+
 }, action) => {
     switch (action.type) {
 
@@ -758,6 +761,12 @@ export const Surveys = (state = {
             return{...state,isLoading:false,errMess:action.payload}
         case ActionTypes.GET_SURVEYS:
             return{...state,isLoading:false,errMess:null, surveys:[...action.payload]}
+        case ActionTypes.DELETESURVEY_REQUEST:
+            return{...state, deletesurveyloading:true,surveydeleted:false,errMess:null}
+        case ActionTypes.SURVEYDELETED:
+            return {...state, deletesurveyloading:false,surveydeleted:true,errMess:null}
+        case ActionTypes.DELETSURVEY_FAILED:
+            return {...state, deletesurveyloading:false,surveydeleted:false,errMess:action.payload}
         default:
             return state;
     }

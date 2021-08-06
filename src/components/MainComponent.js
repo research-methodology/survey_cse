@@ -6,7 +6,7 @@ import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import Contact from './COntactCOmponent';
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,HandleSession,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,HandleSession,GetsurveyId,fetchSurveys,Userprofile,deleteSingleSurvey} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -42,6 +42,8 @@ const mapDispatchToProps = dispatch => ({
   GetsurveyId:(surveyId) =>dispatch(GetsurveyId(surveyId)) , 
   fetchSurveys:()=>dispatch(fetchSurveys()),
   Userprofile:()=>dispatch(Userprofile()),
+  deleteSingleSurvey:(SurveyId)=>dispatch(deleteSingleSurvey(SurveyId))
+  
 
 });
 //const msg=null;
@@ -137,8 +139,8 @@ render(){
                         
                        />
                        <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} auth={this.props.auth} />}/>
-                       <PrivateRoute path="/dashboard" onEnter={()=>this.props.IStimeouthandeler()} onChange={()=>this.props.IStimeouthandeler()} component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth} />} />
-                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} Surveys={this.props.Surveys}/>} />
+                       <PrivateRoute path="/dashboard"  component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth} deleteSingleSurvey={this.props.deleteSingleSurvey}/>} />
+                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} Surveys={this.props.Surveys} fetchSurveys={this.props.fetchSurveys}/>} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
                             <PrivateRoute path="/SurveyResult/:index" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />

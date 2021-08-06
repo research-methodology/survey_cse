@@ -112,7 +112,7 @@ export default function IdleTimerCounter(props){
    const onIdle=()=>{
     console.log("User is idle");
    setmodelopen(true);
-   SessionTimeoutRef.current=setTimeout(logmeout,15*1000);
+   SessionTimeoutRef.current=setTimeout(logmeout,60*1000);
    }
 
    const StayActive=()=>{
@@ -126,7 +126,7 @@ export default function IdleTimerCounter(props){
             <p>You will be logged out soon</p>
             <div><Button onClick={logmeout}>Log me out</Button><Button onClick={StayActive}>Keep me signed in</Button></div>
             </Modal>
-            <IdleTimer ref={IdleTimerRef} timeout={1200*1000} onIdle={onIdle}> </IdleTimer>
+            <IdleTimer ref={IdleTimerRef} timeout={1200000} onIdle={onIdle}> </IdleTimer>
         </div>:null
     )
 }
@@ -433,6 +433,31 @@ export const fetchSurveys=()=>(dispatch)=>{
    dispatch({type: ActionTypes.LOADING_SURVEYS_FAILED, payload:error.message});
 });
 
+}
+export const deleteSingleSurvey=(surveyId)=>(dispatch)=>{
+    dispatch({type:ActionTypes.DELETESURVEY_REQUEST});
+    return fetch(baseUrl+`surveys/delete/${surveyId}`,{
+        method:'DELETE',
+        headers:{
+            "Authorization":localStorage.getItem('token'),
+            'Content-Type':'application/json'
+        },
+        credentials: "same-origin"
+    })
+    .then(response=>response.json())
+    .then(response=>{
+        if(response.status===200||response.status===201||response.ok){
+            dispatch({type:ActionTypes.SURVEYDELETED});
+           dispatch(fetchSurveys());
+        }
+    },error => {
+        throw error;
+  }).catch(error =>  {
+    console.log('your surveys ', error); 
+    dispatch({type: ActionTypes.DELETSURVEY_FAILED, payload:error.message});
+  }
+    )
+  
 }
 export const saveSurveyResult = (result) => (dispatch) =>{
     

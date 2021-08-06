@@ -148,7 +148,7 @@ props.createNewSurvey(readyData);
                   <div className="col-12 ">
                       <Breadcrumb>
                           <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                          <BreadcrumbItem><Link to="/dashboard">Dashboard</Link></BreadcrumbItem>
+                          <BreadcrumbItem><Link to="/dashboard" onClick={props.fetchSurveys}>Dashboard</Link></BreadcrumbItem>
                           <BreadcrumbItem active>Create new survey</BreadcrumbItem>
                       </Breadcrumb>
                   </div>
