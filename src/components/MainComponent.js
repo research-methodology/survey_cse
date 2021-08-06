@@ -124,7 +124,7 @@ render(){
 
         return(
             <div>
-                <Navigation auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile} />
+                <Navigation fetchSurveys={this.props.fetchSurveys} auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile} />
                 <TransitionGroup>
                     <CSSTransition
                     appear

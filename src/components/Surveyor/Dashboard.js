@@ -34,7 +34,7 @@ export default function Dashboard(props) {
     let loading = null;
     if(props.Surveys.isLoading){
         loading = <div className="m-3">
-            <h2>Previous Surveys</h2>
+            <b>Previous Surveys</b>
             <Loading/>
         </div>
     }
@@ -119,8 +119,8 @@ export default function Dashboard(props) {
             </Row>
             
             <Row>
-            {loading}
-            {prevs}
+                {prevs}
+                {loading}
 
             </Row>     
             <Modal isOpen={isModalOpen} toggle={toggleModal}>
