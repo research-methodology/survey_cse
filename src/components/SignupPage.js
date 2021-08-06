@@ -15,6 +15,8 @@ const validPassword=(val)=>new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!
 const verifypassword=()=>{
     const password=document.getElementById('password').value;
     const confirmpassword=document.getElementById('confirm-password').value;
+    console.log("password: ",password);
+    console.log("Confirmed password ",confirmpassword);
   return(
     confirmpassword===password
   ); 

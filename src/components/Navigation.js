@@ -83,7 +83,7 @@ export default class Navigation extends Component {
             return(
                 
                 <React.Fragment>
-                                 <Navbar dark expand="md fixed-top">
+                                 <Navbar dark expand="md">
             
                             <div className="container-fluid">
                             <NavbarToggler onClick={this.toggleNav} />

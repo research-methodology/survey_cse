@@ -206,8 +206,7 @@ export default function SurveyPage(props) {
     }
     return (
         <div className="container">
-            <div className="row mt-5"></div>
-                 <div className="row mt-3">
+                 <div className="row">
                 <div className="col-12 ">
 
                 <Breadcrumb>

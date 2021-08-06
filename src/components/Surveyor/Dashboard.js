@@ -97,10 +97,11 @@ export default function Dashboard(props) {
       }
     return (
         <React.Fragment>
+           
             <div className="d-flex justify-content-end mt-3 mr-4" ><Button className="btn-lg colorAndB2" type="button" onClick={toggleModal}>View your profile</Button></div>
 
         <div className="container">
-            <div className="row">
+        <div className="row">
                 <div className="col-12">
 
                 <Breadcrumb>
