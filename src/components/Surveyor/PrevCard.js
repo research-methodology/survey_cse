@@ -36,6 +36,7 @@ export default function PrevCard(props) {
     }
     else{
         crd = <div>
+              {msg}
             <Card className="colorAndB2 PrevCard1" body style={{ borderColor: '#333', height:'250px'}}>
         <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
         <CardText>Share your survey via :<a href={SurveyUrl}>{SurveyUrl}</a></CardText>
@@ -46,7 +47,7 @@ export default function PrevCard(props) {
     }
     return (
         <div>
-        {msg}
+      
         {crd}
         </div>
     )
