@@ -18,7 +18,7 @@ export default function PrevCard(props) {
             <Card className="colorAndB2 PrevCard1" body style={{ borderColor: '#333', height:'200px'}}>
         <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
         <CardText>{props.description}</CardText>
-        <Button href={"/SurveyResult/" + (props.index)} > View </Button>
+        <Button href={"/dashboard/SurveyResult/" + (props.index)} > View </Button>
         <Label className="mt-2">Share your survey via :<a href={SurveyUrl}>{SurveyUrl}</a></Label>
       </Card>
         </div>

@@ -64,12 +64,12 @@ class Main extends Component{
 
       componentDidMount() {
 
-          if (this.props.auth.isAuthenticated) {
-              this.props.fetchSurveys();
-              if (localStorage.getItem('usercreds') == {} || localStorage.getItem('usercreds') == null || localStorage.getItem('usercreds') == undefined) {
-                  this.props.Userprofile();
-              }
-          }
+          // if (this.props.auth.isAuthenticated) {
+          //     this.props.fetchSurveys();
+          //     if (localStorage.getItem('usercreds') == {} || localStorage.getItem('usercreds') == null || localStorage.getItem('usercreds') == undefined) {
+          //         this.props.Userprofile();
+          //     }
+          // }
           window.addEventListener("unload", (ev) =>
           {
                   localStorage['myUnloadEventFlag']=new Date().getTime();
@@ -80,7 +80,7 @@ class Main extends Component{
                   if (isNaN(t0)) t0=0;
                   let t1=new Date().getTime();
                   let duration=t1-t0;
-                  if (duration<10*1000) {
+                  if (duration<600*1000) {
                   } else {
                       this.props.frontLogout();
                   }
@@ -141,7 +141,6 @@ render(){
                             <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} Surveys={this.props.Surveys}/>} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
-                            <PrivateRoute path="/SurveyResult/:index" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
                             <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} auth={this.props.auth} postFeedback={this.props.postFeedback} />} />
                             <Redirect to="/home" />
                         </Switch>
