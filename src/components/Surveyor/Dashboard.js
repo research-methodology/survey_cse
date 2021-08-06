@@ -1,45 +1,60 @@
 import React, {useState} from 'react'
 import PrevCard from './PrevCard'
-import {Link, Redirect, Route, Switch} from "react-router-dom";
+import {Link} from "react-router-dom";
 import { useEffect } from 'react';
 import { Loading } from '../LoadingComponent';
 import { Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup,Label,Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import {baseUrl} from "../../shared/baseUrl";
-import SurveyPage from "./SurveyPage";
 
 //    const [surveys,setsurveys]=useState([]);
 
+  
 
- let DashboardHome = (props) => {
-
+export default function Dashboard(props) {
+    //  useEffect(()=>{
+        
+    //       // localStorage.removeItem('surveys');
+    //         if(props.Surveys.surveys.length===0 && !props.Surveys.isLoading){
+    //             props.fetchSurveys(); 
+    //             console.log("Surveys of the user is ",props.Surveys.Surveys);
+               
+    //         }
+        
+    //  },[]);
      const [isModalOpen,setModelopen]=useState(false);
 
+    let surveys = [
+        {
+            type: "CreateNew",
+            goto: "createNewSurvey"
+        },
+        ...props.Surveys.surveys
+        
+    ];
     let loading = null;
-    if(props.surveys.isLoading){
+    if(props.Surveys.isLoading){
         loading = <div className="m-3">
-            <b>Fetching</b>
+            <h2>Previous Surveys</h2>
             <Loading/>
         </div>
     }
-    let prevs = props.surveys.surveys.map((survey, index) =>{
+
+    let prevs = surveys.map((survey, index) =>{
         return (
             <React.Fragment>
-                <Col>
-                    <div className="m-3">
-                        <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}/>
+            <Col>
+            <div className="m-3">
+            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}/>
 
-                    </div>
+            </div>
 
-
+        
 
                 </Col>
                 {/* {loading === null ? null : <Col> {loading}</Col>} */}
             </React.Fragment>
         )
     })
-
-
     let modelbody=null;
 
     if(props.auth.profileLoading){
@@ -63,6 +78,20 @@ import SurveyPage from "./SurveyPage";
             </Form>
         </ModalBody>);
     }
+    // if(props.Surveys.errMess){
+    //     return (
+    //
+    //         <Row>
+    //
+    //         <h4>Failed to fetch surveys!</h4>
+    //
+    //         </Row>
+    //     );
+    // }
+    // if( props.Surveys.isLoading)
+    // {
+    //     return <Loading/>
+    // }
     const toggleModal=()=>{
             setModelopen(!isModalOpen);     
       }
@@ -90,8 +119,8 @@ import SurveyPage from "./SurveyPage";
             </Row>
             
             <Row>
-                {prevs}
-                {loading}
+            {loading}
+            {prevs}
 
             </Row>     
             <Modal isOpen={isModalOpen} toggle={toggleModal}>
@@ -103,71 +132,3 @@ import SurveyPage from "./SurveyPage";
         </React.Fragment>
     )
 }
-
-let Dashboard = props =>{
-    const [surveys,setSurveys] = useState({
-        isLoading:false,
-        errMess: null,
-        surveys:localStorage.getItem('surveys') === null ? [{type: "CreateNew", goto: "createNewSurvey"}]: JSON.parse(localStorage.getItem('surveys')) ,
-        surveyurl:null,
-        surveyChangeToggle:false,
-        results:[]
-    });
-    let fetchSurveys=()=>{
-        setSurveys({...surveys,isLoading: true});
-        fetch(baseUrl+"surveys/user/surveys",{
-            method:"GET",
-            headers:{
-                "Authorization":localStorage.getItem('token'),
-                'Content-Type':'application/json'
-            },
-            credentials: "same-origin"
-        })
-            .then(surveys=>surveys.json()).then(response =>{
-            //console.log("the status is ",response.status);
-            console.log('your surveys before are :',response);
-            if(response.status===200||response.status === 201){
-                console.log('your surveys are :',response.surveys);
-                props.setSurveys({...surveys,surveys: [{
-                        type: "CreateNew",
-                        goto: "createNewSurvey"
-                    }, ...response.surveys]})
-                localStorage.setItem('surveys',JSON.stringify([{
-                    type: "CreateNew",
-                    goto: "createNewSurvey"
-                }, ...response.surveys]));
-
-
-
-
-            }
-            else if(response.status === 404){
-
-                props.setSurveys({...surveys,isLoading: false, surveys: []});
-            }
-            else{
-                localStorage.setItem('surveys',JSON.stringify([]));
-            }
-        },error => {
-            throw error;
-        }).catch(error =>  {
-            console.log('your surveys ', error);
-            setSurveys({...surveys,isLoading: false, errMess: error.message});
-        });
-
-    }
-    useEffect(() =>{
-        fetchSurveys();
-    }, [surveys.surveyChangeToggle])
-     return(
-         <div>
-             <Switch>
-                 <Route exact path="/dashboard/SurveyResult/:index" component={() => <SurveyPage Surveys={surveys} /> } />
-                 <Route exact path="/dashboard"component={() => <DashboardHome surveys={surveys} setSurveys={setSurveys} Userprofile={props.Userprofile} auth={props.auth}/>} />
-
-                 <Redirect to="/dashboard"/>
-             </Switch>
-         </div>
-     )
-}
-export default Dashboard;
