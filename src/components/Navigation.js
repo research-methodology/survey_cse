@@ -14,7 +14,16 @@ export default class Navigation extends Component {
        // this.toggleModal = this.toggleModal.bind(this);
         this.toggleNav = this.toggleNav.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.fetchSurveys = this.fetchSurveys.bind(this);
     };
+    fetchSurveys(){
+        if (this.props.auth.isAuthenticated) {
+            this.props.fetchSurveys();
+            if (localStorage.getItem('usercreds') == {} || localStorage.getItem('usercreds') == null || localStorage.getItem('usercreds') == undefined) {
+                this.props.Userprofile();
+            }
+        }
+    }
     // componentDidMount(){
     //     this.props.Userprofile();
     //     console.log('User info for profile is',this.props.auth.usercreds);
@@ -65,7 +74,7 @@ export default class Navigation extends Component {
             toggling = (
             
                 <Nav className="ml-auto" navbar>
-             <NavItem>
+             <NavItem onClick={this.fetchSurveys}>
              <NavLink className="nav-link" to='/dashboard' ><span className="fa fa-user fa-lg"></span>&nbsp;{user}</NavLink>
              </NavItem>
             {/*        <NavItem>*/}
@@ -83,7 +92,7 @@ export default class Navigation extends Component {
             return(
                 
                 <React.Fragment>
-                                 <Navbar dark expand="md fixed-top">
+                                 <Navbar dark expand="md">
             
                             <div className="container-fluid">
                             <NavbarToggler onClick={this.toggleNav} />

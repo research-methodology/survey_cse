@@ -34,7 +34,7 @@ export default function Dashboard(props) {
     let loading = null;
     if(props.Surveys.isLoading){
         loading = <div className="m-3">
-            <h2>Previous Surveys</h2>
+            <b>Previous Surveys</b>
             <Loading/>
         </div>
     }
@@ -44,9 +44,11 @@ export default function Dashboard(props) {
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} />
+            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}/>
 
             </div>
+
+        
 
                 </Col>
                 {/* {loading === null ? null : <Col> {loading}</Col>} */}
@@ -95,10 +97,11 @@ export default function Dashboard(props) {
       }
     return (
         <React.Fragment>
+           
             <div className="d-flex justify-content-end mt-3 mr-4" ><Button className="btn-lg colorAndB2" type="button" onClick={toggleModal}>View your profile</Button></div>
 
         <div className="container">
-            <div className="row">
+        <div className="row">
                 <div className="col-12">
 
                 <Breadcrumb>
@@ -116,8 +119,8 @@ export default function Dashboard(props) {
             </Row>
             
             <Row>
-            {loading}
-            {prevs}
+                {prevs}
+                {loading}
 
             </Row>     
             <Modal isOpen={isModalOpen} toggle={toggleModal}>

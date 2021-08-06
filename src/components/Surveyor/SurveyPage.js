@@ -1,9 +1,10 @@
-import { Button } from 'reactstrap';
+import { Button,Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import React from 'react'
 import SurveyDetails from './SurveyDetails'
 import {Chart} from "react-google-charts";
 import {Loading} from "../LoadingComponent";
 import {useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 export default function SurveyPage(props) {
     const params = useParams()
     let index=params.index;
@@ -205,7 +206,16 @@ export default function SurveyPage(props) {
     }
     return (
         <div className="container">
-            <div className="bg-secondary text-light p-3 w-100 mt-5 ml-3 mr-3 mb-3 d-flex justify-content-center">
+                 <div className="row">
+                <div className="col-12 ">
+
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to="/dashboard">Dashboard</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Results</BreadcrumbItem>
+                </Breadcrumb>
+                </div>
+            </div>
+            <div className="bg-secondary text-light p-3 w-100 mt-4 ml-3 mr-3 mb-3 d-flex justify-content-center">
                 <h2>{surveyResult.surveyTitle}</h2>
             </div>
             <div>

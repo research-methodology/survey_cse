@@ -143,8 +143,9 @@ props.createNewSurvey(readyData);
     <div>
       <div className="">
           <div className="container">
+             
               <div className="row">
-                  <div className="col-12">
+                  <div className="col-12 ">
                       <Breadcrumb>
                           <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                           <BreadcrumbItem><Link to="/dashboard">Dashboard</Link></BreadcrumbItem>
