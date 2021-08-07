@@ -101,7 +101,7 @@ props.createNewSurvey(readyData);
     let [showDelete,setShowDelete] = useState('null,null');
     
   let Finish=(<Button></Button>);
-  if(props.Surveys.isLoading){
+  if(props.Surveys.submitisLoading){
       Finish=(<Button><Loading/></Button>);
   }
   else Finish=

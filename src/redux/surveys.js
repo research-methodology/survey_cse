@@ -742,31 +742,27 @@ export const Surveys = (state = {
     // ],
     results:[],
     surveydeleted:false,
-    deletesurveyloading:false
+    deletesurveyloading:false,
+    submitisLoading:false
 
 }, action) => {
     switch (action.type) {
 
         case ActionTypes.CREATE_NEW_SURVEY:
-            return {...state, isLoading: true, errMess: null,surveyurl:null}
+            return {...state, submitisLoading: true, errMess: null,surveyurl:null}
         case ActionTypes.CREATE_NEW_SURVEY_SUCCESS:
             //let prevSurvey = [...state.Surveys];
-            return {...state, isLoading: false, errMess: null,surveyurl:action.payload}
+            return {...state, submitisLoading: false, errMess: null,surveyurl:action.payload}
 
         case ActionTypes.CREATE_NEW_SURVEY_FAILURE:
-            return {...state, isLoading: false, errMess: action.payload,surveyurl:null};
+            return {...state, submitisLoading: false, errMess: action.payload,surveyurl:null};
         case ActionTypes.SURVEYS_LOADING:
             return {...state,isLoading:true,errMess:null}
         case ActionTypes.LOADING_SURVEYS_FAILED:
             return{...state,isLoading:false,errMess:action.payload}
         case ActionTypes.GET_SURVEYS:
             return{...state,isLoading:false,errMess:null, surveys:[...action.payload]}
-        case ActionTypes.DELETESURVEY_REQUEST:
-            return{...state, deletesurveyloading:true,surveydeleted:false,errMess:null}
-        case ActionTypes.SURVEYDELETED:
-            return {...state, deletesurveyloading:false,surveydeleted:true,errMess:null}
-        case ActionTypes.DELETSURVEY_FAILED:
-            return {...state, deletesurveyloading:false,surveydeleted:false,errMess:action.payload}
+        
         default:
             return state;
     }

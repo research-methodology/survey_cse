@@ -434,31 +434,6 @@ export const fetchSurveys=()=>(dispatch)=>{
 });
 
 }
-export const deleteSingleSurvey=(surveyId)=>(dispatch)=>{
-    dispatch({type:ActionTypes.DELETESURVEY_REQUEST});
-    return fetch(baseUrl+`surveys/delete/${surveyId}`,{
-        method:'DELETE',
-        headers:{
-            "Authorization":localStorage.getItem('token'),
-            'Content-Type':'application/json'
-        },
-        credentials: "same-origin"
-    })
-    .then(response=>response.json())
-    .then(response=>{
-        if(response.status===200||response.status===201||response.ok){
-            dispatch({type:ActionTypes.SURVEYDELETED});
-           dispatch(fetchSurveys());
-        }
-    },error => {
-        throw error;
-  }).catch(error =>  {
-    console.log('your surveys ', error); 
-    dispatch({type: ActionTypes.DELETSURVEY_FAILED, payload:error.message});
-  }
-    )
-  
-}
 export const saveSurveyResult = (result) => (dispatch) =>{
     
 }

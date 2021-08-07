@@ -45,7 +45,7 @@ export default function Dashboard(props) {
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id} deleteSingleSurvey={props.deleteSingleSurvey} survey={props.Surveys}/>
+            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}  survey={props.Surveys} fetchSurveys={props.fetchSurveys}/>
             </div>
 
         
