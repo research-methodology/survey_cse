@@ -1,15 +1,18 @@
 import React,{useState} from 'react'
 import { CardText, Card, Button, CardTitle, Label } from 'reactstrap';
 import {Loading} from './../LoadingComponent';
-import * as ActionTypes from '../../redux/ActionTypes';
+//import * as ActionTypes from '../../redux/ActionTypes';
 import {baseUrl} from '../../shared/baseUrl'
 
 export default function PrevCard(props) {
-    let type=null;
-    let deletionError=null;
+   // let type=null;
+    //let deletionError=null;
+    const [deleteloading,setdeleteloading]=useState(false);
+    const [surveydeleted,setsurveydeleted]=useState(false);
+    const [deletionerror,setdeletionerror]=useState(null);
+    let msg = null;
     const deleteSingleSurvey=(surveyId)=>{
-        
-        type=ActionTypes.DELETESURVEY_REQUEST
+        setdeleteloading(true);
     
         return fetch(baseUrl+`surveys/delete/${surveyId}`,{
             method:'DELETE',
@@ -22,51 +25,55 @@ export default function PrevCard(props) {
         .then(response=>response.json())
         .then(response=>{
             if(response.status===200||response.status===201||response.ok){
-               type=ActionTypes.SURVEYDELETED;
-               (props.fetchSurveys());
+          
+                setsurveydeleted(true);
+               return response;
             }
-            else{
-                type= ActionTypes.DELETSURVEY_FAILED;
-            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+              }
         },error => {
             throw error;
-      }).catch(error =>  {
-        console.log('your surveys ', error); 
-        deletionError=error;
-      type= ActionTypes.DELETSURVEY_FAILED;
-     
+      })
+      .then(response => { console.log('Survey deletion', response); alert(response.message); (props.fetchSurveys()); 
+      })
+      .catch(error =>  { console.log('Survey deletion ', error.message); 
+     setdeletionerror(error);
+    
       }
         )
       
     }
     
-   const [deleteloading,setdeleteloading]=useState(false);
-   const [surveydeleted,setsurveydeleted]=useState(false);
-   const [deletionerror,setdeletionerror]=useState(null);
-console.log("deleted? ",surveydeleted);
+ 
+//console.log("deleted? ",surveydeleted);
   
    const SurveyUrl=`http://cst-survey-frontend.herokuapp.com/respondent/${props.surveyId}`;
    const deleteSurvey=()=>{
        if(window.confirm('Do you really want to delete this survey?')){
          deleteSingleSurvey(props.surveyId);
-         switch(type){
-            case ActionTypes.DELETESURVEY_REQUEST:
-              
-                 setdeleteloading(true);
-           
-             case ActionTypes.DELETSURVEY_FAILED:
-                 setdeletionerror(deletionError);
-             case ActionTypes.SURVEYDELETED:
-                 setsurveydeleted(true);
-             default:
-                 console.log("Nothing shown");
-        }
        }
-   }
-   let msg = null;
+    }
+    //      switch(type){
+    //         case ActionTypes.DELETESURVEY_REQUEST:
+              
+    //              setdeleteloading(true);
+           
+    //          case ActionTypes.DELETSURVEY_FAILED:
+    //              setdeletionerror(deletionError);
+    //          case ActionTypes.SURVEYDELETED:
+    //              setsurveydeleted(true);
+    //          default:
+    //              console.log("Nothing shown");
+    //     }
+    //    }
+   
+
    let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-warning mt-2"> Delete survey </Button>;
    if(deleteloading){
-       console.log("it is loading");
+      // console.log("it is loading");
     deltesurveybtn  =(<Button color="light"><Loading/></Button> ); 
    }
    
@@ -76,13 +83,10 @@ console.log("deleted? ",surveydeleted);
             </div>
           }
           else if(surveydeleted){
-            console.log("deleted now? ",surveydeleted);
+            console.log("Survey deleted successfully!");
             msg =<div className="alert alert-primary" role="alert">
            Survey is deleted successfully
           </div>
-          }
-          else{
-              msg=null
           }
     var crd = '';
     if(props.type === 'CreateNew'){
