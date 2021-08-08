@@ -72,7 +72,7 @@ export const logout = (token) =>(dispatch) =>{
    
 // }
 
-export default function IdleTimerCounter(props){
+export default function IdleTimerCounter(){
   
     const [modalIsopen,setmodelopen]=useState(false);
     const IdleTimerRef=useRef(null);
@@ -86,7 +86,7 @@ export default function IdleTimerCounter(props){
     //     localStorage.clear();
     // }
     //window.addEventListener('beforeunload',ClosedTab);
-
+ var currentlocation=window.location.href;
    const logmeout=()=>{
     fetch(baseUrl + "user/logout",{
         method:"POST",
@@ -124,6 +124,7 @@ export default function IdleTimerCounter(props){
         <div>
             <Modal isOpen={modalIsopen}><h2>You've been idle for a while!</h2>
             <p>You will be logged out soon</p>
+            {  localStorage.setItem('currentlocation',currentlocation)}
             <div><Button onClick={logmeout}>Log me out</Button><Button onClick={StayActive}>Keep me signed in</Button></div>
             </Modal>
             <IdleTimer ref={IdleTimerRef} timeout={1200000} onIdle={onIdle}> </IdleTimer>
