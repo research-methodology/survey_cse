@@ -39,7 +39,7 @@ export default function Dashboard(props) {
             <Loading/>
         </div>
     }
-
+let msg=null;
     let prevs = surveys.map((survey, index) =>{
         return (
             <React.Fragment>

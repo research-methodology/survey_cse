@@ -10,7 +10,7 @@ export default function PrevCard(props) {
     const [deleteloading,setdeleteloading]=useState(false);
     const [surveydeleted,setsurveydeleted]=useState(false);
     const [deletionerror,setdeletionerror]=useState(null);
-    let msg = null;
+
     const deleteSingleSurvey=(surveyId)=>{
         setdeleteloading(true);
     
@@ -25,8 +25,7 @@ export default function PrevCard(props) {
         .then(response=>response.json())
         .then(response=>{
             if(response.status===200||response.status===201||response.ok){
-          
-                setsurveydeleted(true);
+                (props.fetchSurveys()); 
                return response;
             }
             else {
@@ -37,7 +36,7 @@ export default function PrevCard(props) {
         },error => {
             throw error;
       })
-      .then(response => { console.log('Survey deletion', response); alert(response.message); (props.fetchSurveys()); 
+      .then(response => { console.log('Survey deletion', response); alert(response.message);    setsurveydeleted(true);
       })
       .catch(error =>  { console.log('Survey deletion ', error.message); 
      setdeletionerror(error);
@@ -70,8 +69,8 @@ export default function PrevCard(props) {
     //     }
     //    }
    
-
-   let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-warning mt-2"> Delete survey </Button>;
+let msg=null;
+   let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-danger mt-2"> Delete survey </Button>;
    if(deleteloading){
       // console.log("it is loading");
     deltesurveybtn  =(<Button color="light"><Loading/></Button> ); 

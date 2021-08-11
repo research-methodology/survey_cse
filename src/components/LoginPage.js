@@ -29,11 +29,8 @@ class Login extends Component{
           }
 
           else if(this.props.auth.isAuthenticated){
-              if(currentlocation===null){
-                              msg= <div className="alert alert-primary" role="alert">
-       you are logged in
-       <Redirect to="/dashboard"/>
-       </div>
+              if(currentlocation=='/home' || currentlocation=='/'){
+              window.location='/dashboard';
               }
               else{
                      window.location=currentlocation;

@@ -86,7 +86,8 @@ export default function IdleTimerCounter(){
     //     localStorage.clear();
     // }
     //window.addEventListener('beforeunload',ClosedTab);
- var currentlocation=window.location.href;
+    
+ var currentlocation=window.location.pathname;
    const logmeout=()=>{
     fetch(baseUrl + "user/logout",{
         method:"POST",
@@ -102,9 +103,10 @@ export default function IdleTimerCounter(){
             setmodelopen(false);
             clearTimeout(SessionTimeoutRef.current);
         }
+        
         },error => {
             throw error;
-      }).catch(error =>  { console.log('Logout', error.message); 
+      }).catch(error =>  { console.log('Logout', error.message); localStorage.removeItem('token'); window.location='/login';
     });
   
     
