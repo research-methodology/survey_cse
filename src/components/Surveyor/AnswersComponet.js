@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { Button, Modal, ModalBody,ModalHeader ,Form, FormGroup,Label, Input, Row} from 'reactstrap'
-
+import {HandleTrashAnswer} from './HandleTrashComponent'
 export default function AnswersComponet(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const togglerModal = () => setIsModalOpen(!isModalOpen);
@@ -20,7 +20,7 @@ export default function AnswersComponet(props) {
                     {answer}
                     <div className={"btn-group ml-5 pl-5"}>
                         <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                        <Button onClick={HandleTrashAnswer(answer,props.answers)} className="bg-danger"><span className="fa fa-trash"></span></Button>
                     </div>
                 </Button>
 

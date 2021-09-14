@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react'
 import { Button, Modal, ModalBody,ModalHeader ,Form, FormGroup,Label, Input} from 'reactstrap'
-import HandleTrash from './HandleTrashComponent'
+import {HandleTrashCategory} from './HandleTrashComponent'
 export default function CategoriesComponent(props) {
     
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,7 +71,7 @@ export default function CategoriesComponent(props) {
                     {category}
                     <div className={"btn-group ml-5 pl-5"}>
                         <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <Button onClick={HandleTrash(category,props.categories)} className="bg-danger"><span className="fa fa-trash"></span></Button>
+                        <span onClick={HandleTrashCategory(category,props.categories)} className="bg-danger"><span className="fa fa-trash"></span></span>
                     </div>
                    </Button>
                 :<Button key={category + index} id={category} onClick={handleClick} className="w-100 d-flex justify-content-end align-items-center">{category}
