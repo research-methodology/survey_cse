@@ -14,13 +14,19 @@ export default function AnswersComponet(props) {
     }
     let answers = props.answers.map((answer, index) =>{
         let btn = "";
+        function HandleDelete(event){
+            console.log(event.target);
+            event.stopPropagation();
+            HandleTrashAnswer(answer,props.answers);
+            window.location.reload();
+           }
         let [cCategory,action] =  props.showDelete.split(',');
         if(answer===cCategory && action ==='showIt'){
             btn = <Button key={answer + index} id={answer} className="w-100 bg-secondary d-flex justify-content-end align-items-center">
                     {answer}
                     <div className={"btn-group ml-5 pl-5"}>
                         <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <Button onClick={HandleTrashAnswer(answer,props.answers)} className="bg-danger"><span className="fa fa-trash"></span></Button>
+                        <Button onClick={event=>HandleDelete(event)} className="bg-danger"><span className="fa fa-trash"></span></Button>
                     </div>
                 </Button>
 

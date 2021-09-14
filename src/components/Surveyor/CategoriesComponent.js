@@ -63,26 +63,34 @@ export default function CategoriesComponent(props) {
         props.addNewCategory(newCategory);
         togglerModal();
     }
+  
     let categories = props.categories.map((category, index) =>{
+        function HandleDelete(event){
+            console.log(event.target);
+            event.stopPropagation();
+            HandleTrashCategory(category,props.categories);
+            window.location.reload();
+           }
         let btn = "";
         let [cCategory,action] =  props.showDelete.split(',');
         if(category===cCategory && action ==='showIt' && category !=='Default'){
-            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark d-flex justify-content-end align-items-center">
+            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark d-flex justify-content-end align-items-center mainbtn">
                     {category}
                     <div className={"btn-group ml-5 pl-5"}>
-                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <span onClick={HandleTrashCategory(category,props.categories)} className="bg-danger"><span className="fa fa-trash"></span></span>
+                         
+                        <Button className="bg-light text-dark innerbtn"><span className="fa fa-edit"></span></Button>
+                        <Button onClick={event=>HandleDelete(event)} className="bg-danger innerbtn"><span className="fa fa-trash"></span></Button>
                     </div>
                    </Button>
-                :<Button key={category + index} id={category} onClick={handleClick} className="w-100 d-flex justify-content-end align-items-center">{category}
+                :<Button key={category + index} id={category} onClick={handleClick} className="w-100 d-flex justify-content-end align-items-center mainbtn">{category}
                     <div className={"btn-group  ml-5 pl-5"}>
-                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                        <Button className="bg-light text-dark innerbtn"><span className="fa fa-edit"></span></Button>
+                        <Button className="bg-danger innerbtn"><span className="fa fa-trash"></span></Button>
                     </div>
                 </Button>
         }
         else{
-            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark categoryButton">
+            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark categoryButton mainbtn">
                     {category}
                     <i class="fa fa-angle-double-right ml-3 "></i></Button>
                 :<Button key={category + index} id={category} onClick={handleClick} className="w-100 categoryButton">{category} </Button>

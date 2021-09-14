@@ -113,3 +113,13 @@ overflow-y: scroll;
   background:none!important;
   height:300px;width:400px;
 }
+.mainbtn{
+  z-index: 1;
+background-color:chartreuse;
+}
+.innerbtn{
+  z-index: 99;
+  
+}
+
+
