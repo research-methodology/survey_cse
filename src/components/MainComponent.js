@@ -43,6 +43,8 @@ const mapDispatchToProps = dispatch => ({
   fetchSurveys:()=>dispatch(fetchSurveys()),
   Userprofile:()=>dispatch(Userprofile()),
 
+  
+
 });
 //const msg=null;
 
@@ -137,8 +139,8 @@ render(){
                         
                        />
                        <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} auth={this.props.auth} />}/>
-                       <PrivateRoute path="/dashboard" onEnter={()=>this.props.IStimeouthandeler()} onChange={()=>this.props.IStimeouthandeler()} component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth} />} />
-                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} Surveys={this.props.Surveys}/>} />
+                       <PrivateRoute path="/dashboard"  component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth}/>} />
+                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} Surveys={this.props.Surveys} fetchSurveys={this.props.fetchSurveys}/>} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
                             <PrivateRoute path="/SurveyResult/:index" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />

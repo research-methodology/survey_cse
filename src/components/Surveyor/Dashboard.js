@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import PrevCard from './PrevCard'
 import {Link} from "react-router-dom";
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { Loading } from '../LoadingComponent';
 import { Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup,Label,Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+
 
 //    const [surveys,setsurveys]=useState([]);
 
@@ -38,14 +39,13 @@ export default function Dashboard(props) {
             <Loading/>
         </div>
     }
-
+const [msg,setMsg]=useState(null);
     let prevs = surveys.map((survey, index) =>{
         return (
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}/>
-
+            <PrevCard setMsg={setMsg} type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}  survey={props.Surveys} fetchSurveys={props.fetchSurveys}/>
             </div>
 
         
@@ -97,7 +97,7 @@ export default function Dashboard(props) {
       }
     return (
         <React.Fragment>
-           
+          
             <div className="d-flex justify-content-end mt-3 mr-4" ><Button className="btn-lg colorAndB2" type="button" onClick={toggleModal}>View your profile</Button></div>
 
         <div className="container">
@@ -110,6 +110,9 @@ export default function Dashboard(props) {
                 </Breadcrumb>
                 </div>
             </div>
+            <Row>
+                <Col> {msg}</Col>
+            </Row>
             <Row>
                 <Col>
                 <div className="mt-3 text-center colorAndB2" style={{ padding:'4px'}} >

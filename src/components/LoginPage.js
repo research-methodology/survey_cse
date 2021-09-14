@@ -18,19 +18,23 @@ class Login extends Component{
 
     }
       render(){
+          let currentlocation=localStorage.getItem('currentlocation');
           let msg = null;
+          console.log("current location is ",currentlocation); 
           if(this.props.auth.errMess !== null){
+              
               msg =<div className="alert alert-danger" role="alert">
               {this.props.auth.errMess} 
             </div>
           }
+
           else if(this.props.auth.isAuthenticated){
-                msg= <div className="alert alert-primary" role="alert">
-       you are logged in
-       <Redirect to="/dashboard"/>
-       </div>
-    
-    
+              if(currentlocation=='/home' || currentlocation=='/'){
+              window.location='/dashboard';
+              }
+              else{
+                     window.location=currentlocation;
+              }
      
              }
         let loginB = <Button type="submit" value="submit" color="primary">Login</Button>;

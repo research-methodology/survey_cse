@@ -101,7 +101,7 @@ props.createNewSurvey(readyData);
     let [showDelete,setShowDelete] = useState('null,null');
     
   let Finish=(<Button></Button>);
-  if(props.Surveys.isLoading){
+  if(props.Surveys.submitisLoading){
       Finish=(<Button><Loading/></Button>);
   }
   else Finish=
@@ -148,7 +148,7 @@ props.createNewSurvey(readyData);
                   <div className="col-12 ">
                       <Breadcrumb>
                           <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                          <BreadcrumbItem><Link to="/dashboard">Dashboard</Link></BreadcrumbItem>
+                          <BreadcrumbItem><Link to="/dashboard" onClick={props.fetchSurveys}>Dashboard</Link></BreadcrumbItem>
                           <BreadcrumbItem active>Create new survey</BreadcrumbItem>
                       </Breadcrumb>
                   </div>

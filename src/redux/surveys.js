@@ -740,24 +740,29 @@ export const Surveys = (state = {
     //         description:"this survey is for peaple in Nyamirambo"
     //     }
     // ],
-    results:[]
+    results:[],
+    surveydeleted:false,
+    deletesurveyloading:false,
+    submitisLoading:false
+
 }, action) => {
     switch (action.type) {
 
         case ActionTypes.CREATE_NEW_SURVEY:
-            return {...state, isLoading: true, errMess: null,surveyurl:null}
+            return {...state, submitisLoading: true, errMess: null,surveyurl:null}
         case ActionTypes.CREATE_NEW_SURVEY_SUCCESS:
             //let prevSurvey = [...state.Surveys];
-            return {...state, isLoading: false, errMess: null,surveyurl:action.payload}
+            return {...state, submitisLoading: false, errMess: null,surveyurl:action.payload}
 
         case ActionTypes.CREATE_NEW_SURVEY_FAILURE:
-            return {...state, isLoading: false, errMess: action.payload,surveyurl:null};
+            return {...state, submitisLoading: false, errMess: action.payload,surveyurl:null};
         case ActionTypes.SURVEYS_LOADING:
             return {...state,isLoading:true,errMess:null}
         case ActionTypes.LOADING_SURVEYS_FAILED:
             return{...state,isLoading:false,errMess:action.payload}
         case ActionTypes.GET_SURVEYS:
             return{...state,isLoading:false,errMess:null, surveys:[...action.payload]}
+        
         default:
             return state;
     }
