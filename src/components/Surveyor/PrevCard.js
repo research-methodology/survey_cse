@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { CardText, Card, Button, CardTitle, Label } from 'reactstrap';
 import {Loading} from './../LoadingComponent';
 //import * as ActionTypes from '../../redux/ActionTypes';
@@ -8,7 +8,7 @@ export default function PrevCard(props) {
    // let type=null;
     //let deletionError=null;
     const [deleteloading,setdeleteloading]=useState(false);
-    const [surveydeleted,setsurveydeleted]=useState(false);
+    //const [surveydeleted,setsurveydeleted]=useState(false);
     const [deletionerror,setdeletionerror]=useState(null);
 
     const deleteSingleSurvey=(surveyId)=>{
@@ -36,7 +36,12 @@ export default function PrevCard(props) {
         },error => {
             throw error;
       })
-      .then(response => { console.log('Survey deletion', response); alert(response.message);    setsurveydeleted(true);
+      .then(response => { console.log('Survey deletion', response); 
+      //alert(response.message);
+      //setsurveydeleted(true);
+      localStorage.removeItem("surveys");
+      localStorage.setItem("deleteMessage",response.message);
+      props.setDeleteMessage(response.message)
       })
       .catch(error =>  { console.log('Survey deletion ', error.message); 
      setdeletionerror(error);
@@ -81,12 +86,12 @@ let msg=null;
               {deletionerror} 
             </div>
           }
-          else if(surveydeleted){
-            console.log("Survey deleted successfully!");
-            msg =<div className="alert alert-primary" role="alert">
-           Survey is deleted successfully
-          </div>
-          }
+          // else if(surveydeleted){
+          //   console.log("Survey deleted successfully!");
+          //   msg =<div className="alert alert-primary" role="alert">
+          //  Survey is deleted successfully
+          // </div>
+          // }
     var crd = '';
     if(props.type === 'CreateNew'){
         crd = <div>

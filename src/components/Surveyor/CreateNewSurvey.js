@@ -203,6 +203,11 @@ props.createNewSurvey(readyData);
         <div className="d-flex justify-content-end mt-3">
             {Finish}
         </div>
+                {props.Surveys.message && (
+                    <div className="alert alert-success mt-2" role="alert">
+                        {props.Surveys.message}, <b>go to dashboard to view more!</b>
+                    </div>
+                )}
       </div>
     </div></div>
     </div></div>
