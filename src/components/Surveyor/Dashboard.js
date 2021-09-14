@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PrevCard from './PrevCard'
 import {Link} from "react-router-dom";
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { Loading } from '../LoadingComponent';
 import { Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup,Label,Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
@@ -39,13 +39,13 @@ export default function Dashboard(props) {
             <Loading/>
         </div>
     }
-let msg=null;
+const [msg,setMsg]=useState(null);
     let prevs = surveys.map((survey, index) =>{
         return (
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}  survey={props.Surveys} fetchSurveys={props.fetchSurveys}/>
+            <PrevCard setMsg={setMsg} type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}  survey={props.Surveys} fetchSurveys={props.fetchSurveys}/>
             </div>
 
         
@@ -110,6 +110,9 @@ let msg=null;
                 </Breadcrumb>
                 </div>
             </div>
+            <Row>
+                <Col> {msg}</Col>
+            </Row>
             <Row>
                 <Col>
                 <div className="mt-3 text-center colorAndB2" style={{ padding:'4px'}} >
