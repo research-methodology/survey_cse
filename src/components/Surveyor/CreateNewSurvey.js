@@ -110,8 +110,10 @@ props.createNewSurvey(readyData);
             </Button> )
     let handleEnterAndLeave = (event) =>{
         let [category] = (event.target.id).split(',');
+
         let type = event.type;
         if(type === 'mouseenter'){
+            if(category!==null || undefined)
             setShowDelete(category+',showIt');
         }
         else if(type === 'mouseleave'){

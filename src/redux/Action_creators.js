@@ -5,8 +5,6 @@ import IdleTimer from 'react-idle-timer';
 import Modal from 'react-modal';
 import { Button } from 'reactstrap';
 Modal.setAppElement('#root');
-
-
 export const SubmitSurveyrespons=(output,surveyid)=>(dispatch)=>{
     dispatch({type: ActionTypes.RESIPONDING_REQUEST});
     console.log("Survey id is: ",surveyid);
