@@ -212,7 +212,7 @@ var Renderitems = ({ items,SubmitSurveyrespons,Respond}) => {
     return (
       <div>
        
-        <h2> {category.categoryName}</h2>
+        {/*<h2> {category.categoryName}</h2>*/}
         
         {questions}
       </div>
@@ -252,7 +252,7 @@ Prev category
 };
 
 function RenderQuestions(props) {
-  const [questionsToDiplay, setQuestionsToDisplay] = useState(
+  const [questionsToDiplay] = useState(
     props.QuestionInfo
   );
   let msg = null;

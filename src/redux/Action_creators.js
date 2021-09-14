@@ -391,9 +391,9 @@ export const createNewSurvey=(result) =>(dispatch) =>{
             //let createdSurvey =response.body;
 
             console.log("sending survey successfull ", response)
-            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:response.surveyURL});
+            dispatch({type: ActionTypes.CREATE_NEW_SURVEY_SUCCESS,payload:response.surveyURL, message:"Create new survey successful"});
              console.log('survey url is : ',response.surveyURL);
-             alert('survey url is : '+response.surveyURL);
+             //alert('survey url is : '+response.surveyURL);
         }
     },error => {
         throw error;
