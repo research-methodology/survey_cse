@@ -1,57 +1,23 @@
 
 import React, {useState} from 'react'
 import { Button, Modal, ModalBody,ModalHeader ,Form, FormGroup,Label, Input} from 'reactstrap'
+import {HandleTrashCategory} from './HandleTrashComponent'
 export default function CategoriesComponent(props) {
     
     const [isModalOpen, setIsModalOpen] = useState(false);
     const togglerModal = () => setIsModalOpen(!isModalOpen);
-    //let addClass = (event) =>{
-        // let id = event.target.id;
-        // //let element = document.querySelector("." + id);
-        // let element = document.getElementsByClassName(id)[0];
-        // element.classList.remove("hideIt");
 
-    //}
-    //let removeClass = (event) =>{
-        // let id = event.target.id;
-        // //let element = document.querySelector("." + id);
-        // let element = document.getElementsByClassName(id)[0];
-        // element.classList.add("hideIt");
-    //}
+    const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
+    const togglerModalEdit = () => setIsModalOpenEdit(!isModalOpenEdit);
 
-    // let element = null;
-    //
-    // if(document.readyState === "complete") {
-    //     // Fully loaded!
-    //     element = document.querySelector(".categoryButton");
-    //
-    //     element.addEventListener("mouseover", event => {
-    //         console.log("Mouse in");
-    //         element.classList.add("showDeleteAndEdit");
-    //     });
-    //
-    //     element.addEventListener("mouseout", event => {
-    //         console.log("Mouse out");
-    //         element.classList.remove("showDeleteAndEdit");
-    //     });
-    // }
-    // else if(document.readyState === "interactive") {
-    //     // DOM ready! Images, frames, and other subresources are still downloading.
-    // }
-    // else {
-    //     // Loading still in progress.
-    //     // To wait for it to complete, add "DOMContentLoaded" or "load" listeners.
-    //
-    //     window.addEventListener("DOMContentLoaded", () => {
-    //         // DOM ready! Images, frames, and other subresources are still downloading.
-    //     });
-    //
-    //     window.addEventListener("load", () => {
-    //         // Fully loaded!
-    //     });
-    // }
-    //
+    const [oldCategory, setOldCategory] = useState(null);
+    const [newCategory, setNewCategory] = useState(null);
+    function HandleEdit(event, category){
+        event.preventDefault();
 
+        setOldCategory(category);
+        togglerModalEdit();
+    }
     let handleClick=(event) =>{
         let category = event.target.id;
         props.setSelectedCategory(category);
@@ -62,26 +28,34 @@ export default function CategoriesComponent(props) {
         props.addNewCategory(newCategory);
         togglerModal();
     }
+  
     let categories = props.categories.map((category, index) =>{
+        function HandleDelete(event){
+            console.log(event.target);
+            event.stopPropagation();
+            HandleTrashCategory(category,props.categories);
+            window.location.reload();
+           }
         let btn = "";
         let [cCategory,action] =  props.showDelete.split(',');
         if(category===cCategory && action ==='showIt' && category !=='Default'){
-            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark d-flex justify-content-end align-items-center">
+            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark d-flex justify-content-end align-items-center mainbtn">
                     {category}
-                    <div className={"btn-group ml-5 pl-5"}>
-                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                    <div className={"btn-group ml-5"}>
+                         
+                        <Button onClick={(event) => HandleEdit(event, category)} className="bg-light text-dark innerbtn"><span className="fa fa-edit"></span></Button>
+                        <Button onClick={event=>HandleDelete(event)} className="bg-danger innerbtn"><span className="fa fa-trash"></span></Button>
                     </div>
                    </Button>
-                :<Button key={category + index} id={category} onClick={handleClick} className="w-100 d-flex justify-content-end align-items-center">{category}
-                    <div className={"btn-group  ml-5 pl-5"}>
-                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                :<Button key={category + index} id={category} onClick={handleClick} className="w-100 d-flex justify-content-end align-items-center mainbtn">{category}
+                    <div className={"btn-group ml-5"}>
+                        <Button onClick={(event) => HandleEdit(event, category)} className="bg-light text-dark innerbtn"><span className="fa fa-edit"></span></Button>
+                        <Button onClick={event=>HandleDelete(event)} className="bg-danger innerbtn"><span className="fa fa-trash"></span></Button>
                     </div>
                 </Button>
         }
         else{
-            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark categoryButton">
+            btn = category===props.selectedCategory?<Button key={category + index} id={category} onClick={handleClick} className="w-100 bg-light text-dark categoryButton mainbtn">
                     {category}
                     <i class="fa fa-angle-double-right ml-3 "></i></Button>
                 :<Button key={category + index} id={category} onClick={handleClick} className="w-100 categoryButton">{category} </Button>
@@ -95,8 +69,32 @@ export default function CategoriesComponent(props) {
 
         )
     })
+    function handleEditAnswer(event){
+        event.preventDefault();
+
+        props.editCategory(oldCategory,newCategory);
+        togglerModalEdit();
+    }
     return (
         <div>
+            <Modal isOpen={isModalOpenEdit} toggle={togglerModalEdit}>
+                <ModalHeader toggle={togglerModalEdit}>Edit category</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={handleEditAnswer}>
+                        <FormGroup>
+                            <Label htmlFor="category">oldValue</Label>
+                            <Input type="text" id="oldCategoryEdit" name="editCategory" value={oldCategory} disabled/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="category">new value</Label>
+                            <Input type="text" id="editCategoryTextField" onChange={(event)=> setNewCategory(event.target.value)} value={newCategory} name="question"/>
+                        </FormGroup>
+
+
+                        <Button onClick={handleEditAnswer} type="button" value="edit">Edit</Button>
+                    </Form>
+                </ModalBody>
+            </Modal>
            <Modal isOpen={isModalOpen} toggle={togglerModal}>
                 <ModalHeader toggle={togglerModal}>Create new Category</ModalHeader>
                 <ModalBody>

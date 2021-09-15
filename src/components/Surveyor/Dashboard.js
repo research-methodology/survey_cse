@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import PrevCard from './PrevCard'
 import {Link} from "react-router-dom";
 // import { useEffect } from 'react';
@@ -12,17 +12,23 @@ import { Button, Modal, ModalHeader, ModalBody,
   
 
 export default function Dashboard(props) {
+    useEffect(() =>{
+        setTimeout(() =>{
+            localStorage.removeItem("deleteMessage")
+        }, 1500)
+    }, []);
     //  useEffect(()=>{
-        
+
     //       // localStorage.removeItem('surveys');
     //         if(props.Surveys.surveys.length===0 && !props.Surveys.isLoading){
-    //             props.fetchSurveys(); 
+    //             props.fetchSurveys();
     //             console.log("Surveys of the user is ",props.Surveys.Surveys);
-               
+
     //         }
-        
+
     //  },[]);
      const [isModalOpen,setModelopen]=useState(false);
+     const [deleteMessage, setDeleteMessage] = useState(localStorage.getItem("deleteMessage"));
 
     let surveys = [
         {
@@ -45,7 +51,7 @@ const [msg,setMsg]=useState(null);
             <React.Fragment>
             <Col>
             <div className="m-3">
-            <PrevCard setMsg={setMsg} type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}  survey={props.Surveys} fetchSurveys={props.fetchSurveys}/>
+            <PrevCard setDeleteMessage={setDeleteMessage} setMsg={setMsg} type={survey.type?survey.type:"survey"} index={index-1} surveyTitle={survey.surveyTitle} description={survey.description} surveyId={survey._id}  survey={props.Surveys} fetchSurveys={props.fetchSurveys}/>
             </div>
 
         
@@ -111,7 +117,11 @@ const [msg,setMsg]=useState(null);
                 </div>
             </div>
             <Row>
-                <Col> {msg}</Col>
+                <Col> {msg} <br/> {deleteMessage && (
+                    <div className="alert alert-success mt-2" role="alert">
+                    {deleteMessage}
+                </div>
+                )}</Col>
             </Row>
             <Row>
                 <Col>
