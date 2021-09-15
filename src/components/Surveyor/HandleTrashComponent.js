@@ -14,7 +14,7 @@ const HandleTrash=(itemTodelete,itemList)=>{
 
 }
 export const HandleTrashQuestions=(itemTodelete,itemList)=>{
-    HandleTrash(itemTodelete,itemList);
+        HandleTrash(itemTodelete,itemList);
     var surveyInfo=localStorage.getItem('surveyInfo');
     //console.log('Type is: '+typeof surveyInfo);
     var mySurveyObject=JSON.parse(surveyInfo);

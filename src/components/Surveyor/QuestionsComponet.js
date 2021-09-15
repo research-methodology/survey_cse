@@ -1,14 +1,23 @@
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 import { Button, Modal, ModalBody,ModalHeader ,Form, FormGroup,Label, Input} from 'reactstrap'
 import {HandleTrashQuestions} from './HandleTrashComponent'
 export default function QuestionsComponet(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const togglerModal = () => setIsModalOpen(!isModalOpen);
 
-
+    const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
+    const togglerModalEdit = () => setIsModalOpenEdit(!isModalOpenEdit);
     let handleClick = (event) =>{
         let question = event.target.id;
         props.setSelectedQuestion(question);
+    }
+    const [oldQuestion, setOldQuestion] = useState(null);
+    const [newQuestion, setNewQuestion] = useState(null);
+    function HandleEdit(event, question){
+        event.preventDefault();
+
+        setOldQuestion(question);
+        togglerModalEdit();
     }
     let questions = props.questions.map((question, index) =>{
         let btn = "";
@@ -22,15 +31,15 @@ export default function QuestionsComponet(props) {
         if(question===cCategory && action ==='showIt'){
             btn = question===props.selectedQuestion?<Button key={question + index} id={question} onClick={handleClick} className="w-100 bg-light text-dark d-flex justify-content-end align-items-center">
                     {question}
-                    <div className={"btn-group ml-5 pl-5"}>
-                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
+                    <div className={"btn-group ml-5"}>
+                        <Button onClick={(event) => HandleEdit(event, question)} className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
                         <Button onClick={event=>HandleDelete(event)}className="bg-danger"><span className="fa fa-trash"></span></Button>
                     </div>
                 </Button>
                 :<Button key={question + index} id={question} onClick={handleClick} className="w-100 d-flex justify-content-end align-items-center">{question}
-                    <div className={"btn-group  ml-5 pl-5"}>
-                        <Button className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
-                        <Button className="bg-danger"><span className="fa fa-trash"></span></Button>
+                    <div className={"btn-group ml-5"}>
+                        <Button onClick={(event) => HandleEdit(event, question)} className="bg-light text-dark"><span className="fa fa-edit"></span></Button>
+                        <Button onClick={event=>HandleDelete(event)} className="bg-danger"><span className="fa fa-trash"></span></Button>
                     </div>
                 </Button>
         }
@@ -55,6 +64,12 @@ export default function QuestionsComponet(props) {
         props.addNewQuestion(newQuestion);
         togglerModal();
     }
+    function handleEditQuestion(event){
+        event.preventDefault();
+
+        props.editQuestion(oldQuestion,newQuestion);
+         togglerModalEdit();
+    }
     return (
         <div>
             <Modal isOpen={isModalOpen} toggle={togglerModal}>
@@ -70,8 +85,27 @@ export default function QuestionsComponet(props) {
                         <Button onClick={handleAddNewQuestion} type="button" value="create">Create</Button>
                     </Form>
                 </ModalBody>
-            </Modal> 
-        <div className="mt-3">
+            </Modal>
+
+            <Modal isOpen={isModalOpenEdit} toggle={togglerModalEdit}>
+                <ModalHeader toggle={togglerModalEdit}>Edit Question</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={handleEditQuestion}>
+                        <FormGroup>
+                            <Label htmlFor="question">oldValue</Label>
+                            <Input type="text" id="oldQuestionEdit" name="editQuestion" value={oldQuestion} disabled/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="question">new value</Label>
+                            <Input type="text" id="editQuestionTextField" onChange={(event)=> setNewQuestion(event.target.value)} value={newQuestion} name="question"/>
+                        </FormGroup>
+
+
+                        <Button onClick={handleEditQuestion} type="button" value="edit">Edit</Button>
+                    </Form>
+                </ModalBody>
+            </Modal>
+            <div className="mt-3">
             <div className="addItemsCards color1">
                 <div>
                     <Button onClick={togglerModal} className="m-1"><span className="fa fa-plus" ></span> Add new question</Button>
