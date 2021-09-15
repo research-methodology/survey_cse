@@ -41,7 +41,7 @@ export default function CreateNewSurvey(props) {
     function addNewAnswer(newAnswer){
         if(selectedQuestion !==null){
             let currentSurveyInfo = {...surveyInfo};
-            if(currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"]===(null || undefined)){
+            if(currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"]===null || currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"]=== undefined){
                 currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"]={};
             }
             currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][newAnswer]={};
@@ -100,7 +100,7 @@ props.createNewSurvey(readyData);
      const [wayOfAnswering, setWayOfAnswering] = useState('Choose');
     let [showDelete,setShowDelete] = useState('null,null');
     
-  let Finish=(<Button></Button>);
+  let Finish = null;
   if(props.Surveys.submitisLoading){
       Finish=(<Button><Loading/></Button>);
   }
@@ -126,14 +126,14 @@ props.createNewSurvey(readyData);
         questionArray = false;
     }
     let answerArray = true;
-    if(selectedQuestion===null ||surveyInfo["surveys"][selectedCategory]["questions"]===undefined || 
-    surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion] === undefined || surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"] === (undefined && null) ){
+    if(selectedQuestion===null || surveyInfo["surveys"][selectedCategory] === undefined || surveyInfo["surveys"][selectedCategory]["questions"]===undefined ||
+    surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion] === undefined || surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"] === undefined ||surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"] ===  null ){
         answerArray = false;
     }
     let enableChooseWayOfAnswering = false;
     if(selectedQuestion !==null){
         let currentSurveyInfo = {...surveyInfo};
-        if(currentSurveyInfo["surveys"][selectedCategory]["questions"] === undefined || currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]===null ||currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]=== undefined){
+        if(currentSurveyInfo["surveys"][selectedCategory]===undefined || currentSurveyInfo["surveys"][selectedCategory]["questions"] === undefined || currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]===null ||currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]=== undefined){
             enableChooseWayOfAnswering = false;
         }
         else{
