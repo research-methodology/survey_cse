@@ -6,7 +6,7 @@ import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
 import Contact from './COntactCOmponent';
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
-import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,HandleSession,GetsurveyId,fetchSurveys,Userprofile} from '../redux/Action_creators';
+import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,HandleSession,GetsurveyId,fetchSurveys,Userprofile,UpdateSurvey} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
 import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -30,6 +30,7 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch => ({
     frontLogout:() =>{dispatch({type:FRONT_LOGOUT})},
     createNewSurvey:(result) =>{dispatch(createNewSurvey(result))},
+    UpdateSurvey:(result,surveyid) =>{dispatch(UpdateSurvey(result,surveyid))},
     postFeedback: (feedback) => dispatch(postFeedback(feedback)),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
     resetSignupForm:()=>{dispatch(actions.reset('signup'))},
@@ -140,10 +141,11 @@ render(){
                        />
                        <Route exact path="/verification/:token" component={()=><Verifyemail Verifyuser={this.props.Verifyuser} auth={this.props.auth} />}/>
                        <PrivateRoute path="/dashboard"  component={() => <Dashboard Surveys={this.props.Surveys}  fetchSurveys={this.props. fetchSurveys} Userprofile={this.props.Userprofile} auth={this.props.auth}/>} />
-                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey} Surveys={this.props.Surveys} fetchSurveys={this.props.fetchSurveys}  />} />
+                            <PrivateRoute path="/createNewSurvey" component={() => <CreateNewSurvey createNewSurvey={this.props.createNewSurvey}  Surveys={this.props.Surveys} fetchSurveys={this.props.fetchSurveys}  />} />
                             <Route path="/confirmemail" component={confirmemail}/>
                             <Route path="/respondent/:surveyId" component={() => <RespondentHome Surveys={this.props.Surveys} SubmitSurveyrespons={this.props.SubmitSurveyrespons} respond={this.props.respond} GetsurveyId={this.props.GetsurveyId}  requesturl={this.props. requesturl}/>} />
                             <PrivateRoute path="/SurveyResult/:index" component={() => <SurveyPage Surveys={this.props.Surveys} /> } />
+                            <PrivateRoute path="/editSurvey/:index" component={()=> <CreateNewSurvey UpdateSurvey={this.props.UpdateSurvey}Surveys={this.props.Surveys} fetchSurveys={this.props.fetchSurveys}  />}/>
                             <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} auth={this.props.auth} postFeedback={this.props.postFeedback} />} />
                             <Redirect to="/home" />
                         </Switch>

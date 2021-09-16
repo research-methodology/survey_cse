@@ -75,10 +75,7 @@ export default function PrevCard(props) {
     //    }
    
 let msg=null;
-function HandleEdit(){
-
-}
-let editButton=<Button onClick={HandleEdit} className="bg-light text-dark w-30 mr-5">Edit Survey <span className="fa fa-edit"></span></Button>
+let editButton=<Button className="bg-light text-dark w-30 mr-5 btn"><a href={"/editSurvey/"+ (props.index)} >Edit Survey <span className="fa fa-edit"></span></a></Button>
    let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-danger w-30"> Delete survey </Button>;
    if(deleteloading){
       // console.log("it is loading");

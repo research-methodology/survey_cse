@@ -6,8 +6,17 @@ import CategoriesComponent from "./CategoriesComponent";
 import QuestionsComponet from "./QuestionsComponet";
 import {Link} from "react-router-dom";
 import { Loading } from "../LoadingComponent";
+import {useParams} from "react-router-dom";
 import {findAllByPlaceholderText} from "@testing-library/react";
 export default function CreateNewSurvey(props) {
+    const params = useParams()
+    let index=params.index;
+    let SelectedSurvey = props.Surveys.surveys[index] === undefined? []: props.Surveys.surveys[index];
+    console.log("Selected survey=: ",SelectedSurvey);
+    localStorage.setItem('SelectedSurvey',JSON.stringify(SelectedSurvey));
+    var UsableSurvey=JSON.parse(localStorage.getItem('SelectedSurvey'));
+    const surveyId=UsableSurvey._id;
+    //console.log('Survey id is: ',surveyId)
     let testInfo = localStorage.getItem('surveyInfo') === null ?{
             surveyTitle:"Testing Survey title",
             surveys:{
@@ -16,6 +25,89 @@ export default function CreateNewSurvey(props) {
                 }
 
             }} : JSON.parse(localStorage.getItem('surveyInfo'));
+            let temp=UsableSurvey;
+            console.log('Temp data ',temp)
+            let ArleadDone={
+                
+            }
+            let mysurveys={}
+            ArleadDone['surveyTitle']=temp['surveyTitle'];
+            //console.log('title is : ',ArleadDone.surveyTitle)
+            for(const key in temp['categories']){
+                
+                
+                console.log(`category ${key} : `)
+                for(const data in temp['categories'][key]){
+                    let categoryData=temp['categories'][key];
+                    let questionsdata={};
+                    let questAnswers={}
+                    if(data=='questions'){
+                        questionsdata['questions']={};
+                        //console.log('data ',data)
+                        for(const question in categoryData[data] ){
+                            let quest=categoryData[data][question]['question'];
+                            let way=categoryData[data][question]['wayOfAnswering']
+                            //console.log('question found',quest)
+                            let answers=categoryData[data][question]['answers'];
+                            //console.log('way of answering ',way)
+                            //questAnswers['answers']=answers;
+                           let answer={}
+                            for(const answ in answers){
+                                
+                                answer[answers[answ]['answer']]={};
+                          
+                               // let answer=answers[answ];
+                                //console.log('Answers....: '+JSON.stringify(answ),answers[answ])
+                                //questAnswers['answers'][answer['answer']]={};
+                        
+                            }
+                            //console.log('single answer ',answer)
+                            questAnswers['wayOfAnswering']=way;
+                            questAnswers['answers']=answer;
+                            //console.log('right now answers are: ',questAnswers)
+                           // console.log('right now answers type is: ',typeof questAnswers['answers'])
+        
+                            questionsdata['questions'][quest]=questAnswers;
+                        }
+                         
+                        // console.log('data  values',categoryData['categoryName'])
+                        mysurveys[categoryData['categoryName']]=questionsdata;
+                        
+                         //ArleadDone[categoryData['categoryName']]=questionsdata;
+                    }
+                   //console.log('my cats ',mysurveys)
+                    ArleadDone['surveys']=mysurveys;
+                
+                    
+                  
+                   
+                    // for (var cat in )
+                    console.log(`${data} :${ temp['categories'][key][data]} \n`)
+                }
+        
+            }
+        
+            console.log('now arleaddone data is :',ArleadDone)
+           
+            //console.log('current data: ', testInfo)
+            let InitialData={};
+            let IsUpudate=false;
+            let IsCreatenew=false;
+            if( ArleadDone.surveyTitle===undefined){
+                InitialData=testInfo;
+                IsCreatenew=true;
+                IsUpudate=false;
+            }
+            else{
+                InitialData=ArleadDone;
+                IsUpudate=true;
+                IsCreatenew=false;
+            }
+            //console.log('edit? :',IsUpudate)
+            //console.log('create? :',IsCreatenew)
+           
+            //console.log("Test the data now:\n",InitialData)
+        
     function addNewCategory(newCategory){
         let currentSurveyInfo = {...surveyInfo};
         currentSurveyInfo["surveys"][newCategory] ={};
@@ -83,6 +175,7 @@ export default function CreateNewSurvey(props) {
 
         
     }
+
     function handleFinish(event) {
         if(surveyTitle === null){
             alert("fill title first")
@@ -110,29 +203,54 @@ export default function CreateNewSurvey(props) {
             })
             readyData.categories.push(categ);
         })
+if(IsCreatenew===true){
+    props.createNewSurvey(readyData);
+    localStorage.removeItem('surveyInfo');
+}
+if(IsUpudate===true){
+    props.UpdateSurvey(readyData,surveyId);
+    localStorage.removeItem('SelectedSurvey');
+}
+        
+        
+    }
 
-props.createNewSurvey(readyData);
-        localStorage.removeItem('surveyInfo');
-    }
     function ChangeSurveyTitle(event){
+        
         //currentSurveyInfo.surveyTitle = event.value;
+        
         setsurveyTitle(event.target.value)
+       
+
     }
-    const [surveyInfo, setsurveyInfo] = useState(testInfo);
+    let title=null;
+    if(IsUpudate===true){
+       title=InitialData.surveyTitle;
+   
+    }
+    else
+    title=null
+     
+    const [surveyInfo, setsurveyInfo] = useState(InitialData);
     const [selectedCategory, setSelectedCategory] = useState("Default");
     const [selectedQuestion, setSelectedQuestion] = useState(null);
-    const [surveyTitle, setsurveyTitle] = useState(null);
+    const [surveyTitle, setsurveyTitle] = useState(title);
      const [wayOfAnswering, setWayOfAnswering] = useState('Choose');
     let [showDelete,setShowDelete] = useState('null,null');
     
   let Finish = null;
+ // console.log('Loading submission ',props.Surveys.submitisLoading)
   if(props.Surveys.submitisLoading){
       Finish=(<Button><Loading/></Button>);
   }
-  else Finish=
+  else if (IsUpudate) Finish=
   (<Button onClick={handleFinish}>
-                Finish
+                Update Survey
             </Button> )
+   else Finish=
+   (<Button onClick={handleFinish}>
+                 Finish
+             </Button> )
     let handleEnterAndLeave = (event) =>{
         let [category] = (event.target.id).split(',');
 
@@ -166,7 +284,10 @@ props.createNewSurvey(readyData);
         }
     }
 
+
+
   return (
+     
     <div>
       <div className="">
           <div className="container">
@@ -195,7 +316,7 @@ props.createNewSurvey(readyData);
                         <Row>
                             <div className="col-11 ml-2">
                                 <Label>Survey title</Label>
-                                <Input onChange={ChangeSurveyTitle} type="text" />
+                                <Input onChange={ChangeSurveyTitle} type="text" value={title} />
                             </div>
                         </Row>
                     </Form>

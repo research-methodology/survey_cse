@@ -370,6 +370,35 @@ export const loginUser = (creds) => (dispatch) => {
 //     localStorage.removeItem('creds');
 //     dispatch(receiveLogout())
 // }
+export const UpdateSurvey=(result,surveyId)=>(dispatch)=>{
+    dispatch({type:ActionTypes.EDIT_SURVEY});
+    console.log('Ressults=> ',result);
+    return fetch(baseUrl + `surveys/update/${surveyId}`,{
+        method:"PUT",
+        body:JSON.stringify(result),
+        headers:{
+            "Authorization":localStorage.getItem('token'),
+            'Content-Type':'application/json'
+        },
+        credentials: "same-origin"
+    }).then(response=>response.json()).then(response =>{
+        console.log('Respons :',response);
+
+        if(response.status === 200 || response.status === 201){
+
+            //let createdSurvey =response.body;
+
+            dispatch({type: ActionTypes.EDIT_SURVEY_SUCCESS,payload:response.surveyURL, message:"Editing survey successful"});
+             console.log('survey url is : ',response.surveyURL);
+             //alert('survey url is : '+response.surveyURL);
+        }
+    },error => {
+        throw error;
+  }).catch(error =>  {
+    console.log('Survey', error); 
+    dispatch({type: ActionTypes.EDIT_SURVEY_FAILURE, payload:error.message});
+});
+}
 export const createNewSurvey=(result) =>(dispatch) =>{
     dispatch({type:ActionTypes.CREATE_NEW_SURVEY});
     console.log('Ressults=> ',result);
