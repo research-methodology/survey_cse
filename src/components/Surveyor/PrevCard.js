@@ -75,7 +75,11 @@ export default function PrevCard(props) {
     //    }
    
 let msg=null;
-   let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-danger mt-2"> Delete survey </Button>;
+function HandleEdit(){
+
+}
+let editButton=<Button onClick={HandleEdit} className="bg-light text-dark w-30 mr-5">Edit Survey <span className="fa fa-edit"></span></Button>
+   let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-danger w-30"> Delete survey </Button>;
    if(deleteloading){
       // console.log("it is loading");
     deltesurveybtn  =(<Button color="light"><Loading/></Button> ); 
@@ -109,7 +113,7 @@ let msg=null;
         <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
         <CardText>Share your survey via :<a href={SurveyUrl}>{SurveyUrl}</a></CardText>
         <Button href={"/SurveyResult/" + (props.index)} > View results</Button>
-       {deltesurveybtn}
+       <div className="w-100 mt-2 bg-light d-flex justify-content-center align-items-center">{editButton}{deltesurveybtn}</div>
       </Card>
         </div>
     }
