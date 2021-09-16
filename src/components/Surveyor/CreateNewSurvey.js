@@ -7,7 +7,7 @@ import QuestionsComponet from "./QuestionsComponet";
 import {Link} from "react-router-dom";
 import { Loading } from "../LoadingComponent";
 import {useParams} from "react-router-dom";
-import {findAllByPlaceholderText} from "@testing-library/react";
+//import {findAllByPlaceholderText} from "@testing-library/react";
 export default function CreateNewSurvey(props) {
     const params = useParams()
     let index=params.index;
@@ -25,6 +25,7 @@ export default function CreateNewSurvey(props) {
 
             }} : JSON.parse(localStorage.getItem('surveyInfo'));
             let temp=SelectedSurvey;
+            let EditableData=SelectedSurvey;
             //console.log('Temp data ',temp)
        
             let ArleadDone={};
@@ -125,7 +126,7 @@ export default function CreateNewSurvey(props) {
         localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
         console.log('in local storage we get ',currentSurveyInfo)
         ArleadDone=localStorage.getItem('SelectedSurvey');
-        
+
     };
     function editQuestion (oldQuestion, newQuestion) {
         let currentSurveyInfo = {...surveyInfo};
@@ -238,7 +239,9 @@ if(IsCreatenew===true){
     localStorage.removeItem('surveyInfo');
 }
 if(IsUpudate===true){
+    console.log('Just for a test ', EditableData)
     console.log('Read data ',readyData)
+ 
     console.log('Check before submission data now :',JSON.parse(localStorage.getItem('SelectedSurvey')))
     props.UpdateSurvey(readyData,surveyId);
     localStorage.removeItem('SelectedSurvey');
