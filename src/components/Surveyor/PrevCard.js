@@ -73,9 +73,16 @@ export default function PrevCard(props) {
     //              console.log("Nothing shown");
     //     }
     //    }
-   
+   function SetEdit(){
+       let index=props.index;
+       let link=`/editSurvey/${index}`;
+       
+       //let SelectedSurvey = props.survey.surveys[index] === undefined? []: props.survey.surveys[index];
+       localStorage.removeItem('SelectedSurvey');
+       window.location=link;
+   }
 let msg=null;
-let editButton=<Button className="bg-light text-dark w-30 mr-5 btn"><a href={"/editSurvey/"+ (props.index)} >Edit Survey <span className="fa fa-edit"></span></a></Button>
+let editButton=<Button className="bg-light text-dark w-30 mr-5 btn" onClick={SetEdit}>Edit Survey <span className="fa fa-edit"></span></Button>
    let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-danger w-30"> Delete survey </Button>;
    if(deleteloading){
       // console.log("it is loading");
