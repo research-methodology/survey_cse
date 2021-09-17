@@ -13,9 +13,9 @@ const HandleTrash=(itemTodelete,itemList)=>{
     }
 
 }
-export const HandleTrashQuestions=(itemTodelete,itemList)=>{
+export const HandleTrashQuestions=(itemTodelete,itemList,{IsCreatenew})=>{
         HandleTrash(itemTodelete,itemList);
-    var surveyInfo=localStorage.getItem('surveyInfo');
+        var surveyInfo=IsCreatenew? localStorage.getItem('surveyInfo'):localStorage.getItem('SelectedSurvey');
     //console.log('Type is: '+typeof surveyInfo);
     var mySurveyObject=JSON.parse(surveyInfo);
     for (const categories in mySurveyObject.surveys) {
@@ -37,14 +37,21 @@ export const HandleTrashQuestions=(itemTodelete,itemList)=>{
         }
     
     }
-    localStorage.removeItem('surveyInfo');
-    localStorage.setItem('surveyInfo',JSON.stringify(mySurveyObject));
+   
+    if(IsCreatenew){
+        localStorage.removeItem('surveyInfo');
+localStorage.setItem('surveyInfo',JSON.stringify(mySurveyObject));
+}
+else{
+localStorage.removeItem('SelectedSurvey');
+localStorage.setItem('SelectedSurvey',JSON.stringify(mySurveyObject));
+}
 
 
 }
-export const HandleTrashAnswer=(itemTodelete,itemList)=>{
+export const HandleTrashAnswer=(itemTodelete,itemList,{IsCreatenew})=>{
     HandleTrash(itemTodelete,itemList);
-    var surveyInfo=localStorage.getItem('surveyInfo');
+    var surveyInfo=IsCreatenew? localStorage.getItem('surveyInfo'):localStorage.getItem('SelectedSurvey');
     //console.log('Type is: '+typeof surveyInfo);
     var mySurveyObject=JSON.parse(surveyInfo);
     for (const categories in mySurveyObject.surveys) {
@@ -64,13 +71,20 @@ export const HandleTrashAnswer=(itemTodelete,itemList)=>{
         }
     
     }
-    localStorage.removeItem('surveyInfo');
-    localStorage.setItem('surveyInfo',JSON.stringify(mySurveyObject));
+      
+    if(IsCreatenew){
+        localStorage.removeItem('surveyInfo');
+localStorage.setItem('surveyInfo',JSON.stringify(mySurveyObject));
+}
+else{
+localStorage.removeItem('SelectedSurvey');
+localStorage.setItem('SelectedSurvey',JSON.stringify(mySurveyObject));
+}
 
 
 }
-export const HandleTrashCategory=(itemTodelete,itemList=[])=>{
-   var surveyInfo=localStorage.getItem('surveyInfo');
+export const HandleTrashCategory=(itemTodelete,itemList=[],{IsCreatenew})=>{
+   var surveyInfo=IsCreatenew? localStorage.getItem('surveyInfo'):localStorage.getItem('SelectedSurvey');
    //console.log('Type is: '+typeof surveyInfo);
    var mySurveyObject=JSON.parse(surveyInfo);
    //console.log('Type is now: '+typeof mySurveyObject);
@@ -84,10 +98,16 @@ export const HandleTrashCategory=(itemTodelete,itemList=[])=>{
                    console.log(`${key}: ${mySurveyObject.surveys[key]}`);
             }
      
-       
-
-       localStorage.removeItem('surveyInfo');
+       if(IsCreatenew){
+                 localStorage.removeItem('surveyInfo');
        localStorage.setItem('surveyInfo',JSON.stringify(mySurveyObject));
+       }
+       else{
+        localStorage.removeItem('SelectedSurvey');
+        localStorage.setItem('SelectedSurvey',JSON.stringify(mySurveyObject));
+       }
+
+ 
 
         console.log('categories are: ',JSON.stringify(mySurveyObject));
     }

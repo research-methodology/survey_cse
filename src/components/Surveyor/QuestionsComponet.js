@@ -24,7 +24,7 @@ export default function QuestionsComponet(props) {
         function HandleDelete(event){
             console.log(event.target);
             event.stopPropagation();
-            HandleTrashQuestions(question,props.questions);
+            HandleTrashQuestions(question,props.questions,props.IsCreatenew);
             window.location.reload();
            }
         let [cCategory,action] =  props.showDelete.split(',');

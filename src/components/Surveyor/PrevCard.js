@@ -102,6 +102,7 @@ let editButton=<Button className="bg-light text-dark w-30 mr-5 btn" onClick={Set
           // }
     var crd = '';
     if(props.type === 'CreateNew'){
+        localStorage.removeItem('SelectedSurvey');
         crd = <div>
             <Card  className="d-flex justify-content-center align-items-center color1 PrevCard1" body style={{  height:'200px'}}>
                 <CardText><a href='/createNewSurvey'>

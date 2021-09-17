@@ -86,19 +86,21 @@ export default function CreateNewSurvey(props) {
                         }
                 
                     }
+                    localStorage.setItem('SelectedSurvey',JSON.stringify(ArleadDone));
                 }
                 else{
                  ArleadDone=JSON.parse(localStorage.getItem('SelectedSurvey'));
                 }
                
-            
+                console.log('current data: ', JSON.parse(localStorage.getItem('SelectedSurvey')))
             
             
           
             console.log('now arleaddone data is :',ArleadDone)
            
-            console.log('current data: ', JSON.parse(localStorage.getItem('SelectedSurvey')))
+            
             let InitialData={};
+            
             let IsUpudate=false;
             let IsCreatenew=false;
             if( ArleadDone.surveyTitle===undefined){
@@ -116,50 +118,75 @@ export default function CreateNewSurvey(props) {
             //console.log('create? :',IsCreatenew)
            
             //console.log("Test the data now:\n",InitialData)
-        
+            
     function addNewCategory(newCategory){
         let currentSurveyInfo = {...surveyInfo};
+        currentSurveyInfo['surveyTitle']=surveyTitle;
         currentSurveyInfo["surveys"][newCategory] ={};
         setsurveyInfo(currentSurveyInfo);
         console.log('currently we get ',currentSurveyInfo)
+        if(IsUpudate){
+            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+           // console.log('in local storage we get ',currentSurveyInfo)
+            ArleadDone=localStorage.getItem('SelectedSurvey');
+    
+        }
+        else
         localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-        localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-        console.log('in local storage we get ',currentSurveyInfo)
-        ArleadDone=localStorage.getItem('SelectedSurvey');
-
+     
     };
     function editQuestion (oldQuestion, newQuestion) {
+        
         let currentSurveyInfo = {...surveyInfo};
+        currentSurveyInfo['surveyTitle']=surveyTitle;
         currentSurveyInfo["surveys"][selectedCategory]["questions"][newQuestion] = currentSurveyInfo["surveys"][selectedCategory]["questions"][oldQuestion];
         delete currentSurveyInfo["surveys"][selectedCategory]["questions"][oldQuestion];
         setsurveyInfo(currentSurveyInfo);
+        if(IsUpudate){
+            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+           // console.log('in local storage we get ',currentSurveyInfo)
+            ArleadDone=localStorage.getItem('SelectedSurvey');
+    
+        }
+        else
         localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-        localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-        ArleadDone=localStorage.getItem('SelectedSurvey');
         setSelectedQuestion(newQuestion);
 
     }
     function editAnswer (oldAnswer, newAnswer) {
         let currentSurveyInfo = {...surveyInfo};
+        currentSurveyInfo['surveyTitle']=surveyTitle;
         currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][newAnswer] = currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][oldAnswer];
         delete currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][oldAnswer];
         setsurveyInfo(currentSurveyInfo);
+        if(IsUpudate){
+            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+           // console.log('in local storage we get ',currentSurveyInfo)
+            ArleadDone=localStorage.getItem('SelectedSurvey');
+    
+        }
+        else
         localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-        localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-        ArleadDone=localStorage.getItem('SelectedSurvey');
     }
     function editCategory (oldCategory, newCategory) {
         let currentSurveyInfo = {...surveyInfo};
+        currentSurveyInfo['surveyTitle']=surveyTitle;
         currentSurveyInfo["surveys"][newCategory] = currentSurveyInfo["surveys"][oldCategory];
         delete currentSurveyInfo["surveys"][oldCategory];
         setsurveyInfo(currentSurveyInfo);
+        if(IsUpudate){
+            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+           // console.log('in local storage we get ',currentSurveyInfo)
+            ArleadDone=localStorage.getItem('SelectedSurvey');
+    
+        }
+        else
         localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-        localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-        ArleadDone=localStorage.getItem('SelectedSurvey');
         setSelectedCategory(newCategory);
     }
     function addNewQuestion(newQuestion){
         let currentSurveyInfo = {...surveyInfo};
+        currentSurveyInfo['surveyTitle']=surveyTitle;
         if(selectedCategory !== null){
             if(currentSurveyInfo["surveys"][selectedCategory]["questions"] === null || currentSurveyInfo["surveys"][selectedCategory]["questions"] === undefined){
                 currentSurveyInfo["surveys"][selectedCategory]["questions"] = {};
@@ -167,9 +194,14 @@ export default function CreateNewSurvey(props) {
             
             currentSurveyInfo["surveys"][selectedCategory]["questions"][newQuestion] ={};
             setsurveyInfo(currentSurveyInfo);
+            if(IsUpudate){
+                localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+               // console.log('in local storage we get ',currentSurveyInfo)
+                ArleadDone=localStorage.getItem('SelectedSurvey');
+        
+            }
+            else
             localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-            ArleadDone=localStorage.getItem('SelectedSurvey');
             console.log('in local storage again  we get ',currentSurveyInfo)
         }
         else{
@@ -183,25 +215,37 @@ export default function CreateNewSurvey(props) {
     function addNewAnswer(newAnswer){
         if(selectedQuestion !==null){
             let currentSurveyInfo = {...surveyInfo};
+             currentSurveyInfo['surveyTitle']=surveyTitle;
             if(currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"]===null || currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"]=== undefined){
                 currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"]={};
             }
             currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][newAnswer]={};
             setsurveyInfo(currentSurveyInfo);
+            if(IsUpudate){
+                localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+               // console.log('in local storage we get ',currentSurveyInfo)
+                ArleadDone=localStorage.getItem('SelectedSurvey');
+        
+            }
+            else
             localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-            ArleadDone=localStorage.getItem('SelectedSurvey');
         }
 
     }
     function setWayOfAnsweringOnSelectedQuestion(selected){
         setWayOfAnswering(selected);
         let currentSurveyInfo = {...surveyInfo};
+         currentSurveyInfo['surveyTitle']=surveyTitle;
         currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["wayOfAnswering"] = selected;
         setsurveyInfo(currentSurveyInfo);
+        if(IsUpudate){
+            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+           // console.log('in local storage we get ',currentSurveyInfo)
+            ArleadDone=localStorage.getItem('SelectedSurvey');
+    
+        }
+        else
         localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-        localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-        ArleadDone=localStorage.getItem('SelectedSurvey');
         
     }
     
@@ -250,21 +294,32 @@ if(IsUpudate===true){
         
     }
 
-    function ChangeSurveyTitle(event){
+    function ChangeSurveyTitle(){
         
         //currentSurveyInfo.surveyTitle = event.value;
-        
-        setsurveyTitle(event.target.value)
+        let title=document.getElementById('titleid').value;
+        console.log("Onchange event is set to ",title)
+        setsurveyTitle(title)
        
 
     }
-    let title=null;
+     let title=null
     if(IsUpudate===true){
-       title=InitialData.surveyTitle;
-   
+       //title=InitialData.surveyTitle;
+      
+      
+       if(InitialData.surveyTitle){
+           title=InitialData.surveyTitle;
+              console.log('My title ',InitialData.surveyTitle)
+              
+       }
+    
+
+      // 
     }
-    else
-    title=null
+
+   
+   
      
     const [surveyInfo, setsurveyInfo] = useState(InitialData);
     const [selectedCategory, setSelectedCategory] = useState("Default");
@@ -314,6 +369,7 @@ if(IsUpudate===true){
     let enableChooseWayOfAnswering = false;
     if(selectedQuestion !==null){
         let currentSurveyInfo = {...surveyInfo};
+         currentSurveyInfo['surveyTitle']=surveyTitle;
         if(currentSurveyInfo["surveys"][selectedCategory]===undefined || currentSurveyInfo["surveys"][selectedCategory]["questions"] === undefined || currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]===null ||currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]=== undefined){
             enableChooseWayOfAnswering = false;
         }
@@ -354,7 +410,7 @@ if(IsUpudate===true){
                         <Row>
                             <div className="col-11 ml-2">
                                 <Label>Survey title</Label>
-                                <div onChange={ChangeSurveyTitle} contentEditable="true" className="d-flex justify-content-center m-2 border border-primary rounded border-3 h-50 align-items-center"> {title} </div>
+                                <input type="text" suppressContentEditableWarning={true} onChange={ChangeSurveyTitle} contentEditable="true" className="d-flex justify-content-center m-2 border border-primary rounded border-3 h-50 align-items-center w-100" id='titleid' placeholder="Fill the title" value={surveyTitle}/>
                             </div>
                         </Row>
                     </Form>
@@ -368,19 +424,22 @@ if(IsUpudate===true){
               <h6 className="m-1">Categories</h6>
             <CategoriesComponent editCategory={editCategory} categories={Object.keys(surveyInfo["surveys"])}
                                  selectedCategory={selectedCategory} handleEnterAndLeave={handleEnterAndLeave} showDelete={showDelete}
-                                 setSelectedCategory={setSelectedCategory} addNewCategory={addNewCategory} />
+                                 setSelectedCategory={setSelectedCategory} addNewCategory={addNewCategory} IsCreatenew={IsCreatenew}/>
           </div>
           <div className="col-4">
               <h6 className="m-1"> Questions in selected category</h6>
               <QuestionsComponet selectedQuestion={selectedQuestion} editQuestion={editQuestion}  handleEnterAndLeave={handleEnterAndLeave} showDelete={showDelete}
                                  questions={questionArray ?Object.keys(surveyInfo["surveys"][selectedCategory]["questions"]):[]}
-              setSelectedQuestion={setSelectedQuestion}  addNewQuestion={addNewQuestion}/>
+              setSelectedQuestion={setSelectedQuestion}  addNewQuestion={addNewQuestion} IsCreatenew={IsCreatenew}/>
           </div>
           <div className="col-4">
               <h6 className="m-1"> Answer of selected question</h6>
             <AnswersComponet editAnswer={editAnswer} answers={answerArray?Object.keys(surveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"] ):[]}
                              addNewAnswer={addNewAnswer} handleEnterAndLeave={handleEnterAndLeave} showDelete={showDelete}
-            setWayOfAnsweringOnSelectedQuestion={setWayOfAnsweringOnSelectedQuestion} wayOfAnswering={wayOfAnswering} selectedQuestion={selectedQuestion} enableChooseWayOfAnswering = {enableChooseWayOfAnswering}
+            setWayOfAnsweringOnSelectedQuestion={setWayOfAnsweringOnSelectedQuestion} 
+            wayOfAnswering={wayOfAnswering} selectedQuestion={selectedQuestion} 
+            enableChooseWayOfAnswering = {enableChooseWayOfAnswering}
+            IsCreatenew={IsCreatenew}
             />
           </div>
         </div>

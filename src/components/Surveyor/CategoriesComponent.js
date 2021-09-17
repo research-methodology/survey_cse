@@ -96,7 +96,7 @@ localStorage.setItem('surveyInfo',JSON.stringify(mySurveyObject));
         function HandleDelete(event){
             console.log(event.target);
             event.stopPropagation();
-            HandleTrashCategory(category,props.categories);
+            HandleTrashCategory(category,props.categories,props.IsCreatenew);
             window.location.reload();
            }
         function EditCategory(event){
