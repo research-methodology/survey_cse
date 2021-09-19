@@ -11,22 +11,46 @@ import {useParams} from "react-router-dom";
 export default function CreateNewSurvey(props) {
     const params = useParams()
     let index=params.index;
+    let IsCreatenew=false;
+    let location=window.location.pathname;
+    console.log(location)
+    let createnews='/createNewSurvey';
+    
+    if(location==createnews){
+     IsCreatenew=true
+    }
+    console.log(IsCreatenew)
     let SelectedSurvey = props.Surveys.surveys[index] === undefined? []: props.Surveys.surveys[index];
     console.log("Selected survey=: ",SelectedSurvey);
     const surveyId=SelectedSurvey._id;
     //console.log('Survey id is: ',surveyId)
     //let Updatabaledata=SelectedSurvey;
-    let testInfo = localStorage.getItem('surveyInfo') === null ?{
+       
+    let testInfo = {}
+   
+    if(localStorage.getItem('surveyInfo') === null ){
+        
+        testInfo={
             surveyTitle:"Testing Survey title",
             surveys:{
                 Default:{
                     questions:{}
                 }
 
-            }} : JSON.parse(localStorage.getItem('surveyInfo'));
+            }}
+      
+            localStorage.setItem('surveyInfo',JSON.stringify(testInfo));
+           
+
+         } else{
+             testInfo=JSON.parse(localStorage.getItem('surveyInfo'));
+         }
+         console.log('Temp data is null ?',localStorage.getItem('surveyInfo'))
+             
             let temp=SelectedSurvey;
             let EditableData=SelectedSurvey;
-            //console.log('Temp data ',temp)
+               
+         
        
             let ArleadDone={};
             let mysurveys={}
@@ -101,20 +125,17 @@ export default function CreateNewSurvey(props) {
             
             let InitialData={};
             
-            let IsUpudate=false;
-            let IsCreatenew=false;
-            if( ArleadDone.surveyTitle===undefined){
+            if(IsCreatenew){
+                
                 InitialData=testInfo;
-                IsCreatenew=true;
-                IsUpudate=false;
+                console.log('initial data ',InitialData)
+               
             }
             else{
                 InitialData=ArleadDone;
-                IsUpudate=true;
-                IsCreatenew=false;
-                localStorage.removeItem('surveyInfo')
             }
-            //console.log('edit? :',IsUpudate)
+           
+            console.log('edit? :',!IsCreatenew)
             //console.log('create? :',IsCreatenew)
            
             //console.log("Test the data now:\n",InitialData)
@@ -122,10 +143,11 @@ export default function CreateNewSurvey(props) {
     function addNewCategory(newCategory){
         let currentSurveyInfo = {...surveyInfo};
         currentSurveyInfo['surveyTitle']=surveyTitle;
+        console.log(currentSurveyInfo)
         currentSurveyInfo["surveys"][newCategory] ={};
         setsurveyInfo(currentSurveyInfo);
         console.log('currently we get ',currentSurveyInfo)
-        if(IsUpudate){
+        if(!IsCreatenew){
             localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
            // console.log('in local storage we get ',currentSurveyInfo)
             ArleadDone=localStorage.getItem('SelectedSurvey');
@@ -138,11 +160,12 @@ export default function CreateNewSurvey(props) {
     function editQuestion (oldQuestion, newQuestion) {
         
         let currentSurveyInfo = {...surveyInfo};
+     
         currentSurveyInfo['surveyTitle']=surveyTitle;
         currentSurveyInfo["surveys"][selectedCategory]["questions"][newQuestion] = currentSurveyInfo["surveys"][selectedCategory]["questions"][oldQuestion];
         delete currentSurveyInfo["surveys"][selectedCategory]["questions"][oldQuestion];
         setsurveyInfo(currentSurveyInfo);
-        if(IsUpudate){
+        if(!IsCreatenew){
             localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
            // console.log('in local storage we get ',currentSurveyInfo)
             ArleadDone=localStorage.getItem('SelectedSurvey');
@@ -159,7 +182,7 @@ export default function CreateNewSurvey(props) {
         currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][newAnswer] = currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][oldAnswer];
         delete currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][oldAnswer];
         setsurveyInfo(currentSurveyInfo);
-        if(IsUpudate){
+        if(!IsCreatenew){
             localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
            // console.log('in local storage we get ',currentSurveyInfo)
             ArleadDone=localStorage.getItem('SelectedSurvey');
@@ -174,7 +197,7 @@ export default function CreateNewSurvey(props) {
         currentSurveyInfo["surveys"][newCategory] = currentSurveyInfo["surveys"][oldCategory];
         delete currentSurveyInfo["surveys"][oldCategory];
         setsurveyInfo(currentSurveyInfo);
-        if(IsUpudate){
+        if(!IsCreatenew){
             localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
            // console.log('in local storage we get ',currentSurveyInfo)
             ArleadDone=localStorage.getItem('SelectedSurvey');
@@ -194,7 +217,7 @@ export default function CreateNewSurvey(props) {
             
             currentSurveyInfo["surveys"][selectedCategory]["questions"][newQuestion] ={};
             setsurveyInfo(currentSurveyInfo);
-            if(IsUpudate){
+            if(!IsCreatenew){
                 localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
                // console.log('in local storage we get ',currentSurveyInfo)
                 ArleadDone=localStorage.getItem('SelectedSurvey');
@@ -202,15 +225,22 @@ export default function CreateNewSurvey(props) {
             }
             else
             localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-            console.log('in local storage again  we get ',currentSurveyInfo)
+            //console.log('in local storage again  we get ',currentSurveyInfo)
         }
         else{
             currentSurveyInfo["surveys"]["Default"]["questions"][newQuestion] ={};
             setsurveyInfo(currentSurveyInfo);
+            if(!IsCreatenew){
+                localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
+               // console.log('in local storage we get ',currentSurveyInfo)
+                ArleadDone=localStorage.getItem('SelectedSurvey');
+        
+            }
+            else
             localStorage.setItem('surveyInfo',JSON.stringify(currentSurveyInfo));
-            localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
-            ArleadDone=localStorage.getItem('SelectedSurvey');
+         
         }
+        
     }
     function addNewAnswer(newAnswer){
         if(selectedQuestion !==null){
@@ -221,7 +251,7 @@ export default function CreateNewSurvey(props) {
             }
             currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["answers"][newAnswer]={};
             setsurveyInfo(currentSurveyInfo);
-            if(IsUpudate){
+            if(!IsCreatenew){
                 localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
                // console.log('in local storage we get ',currentSurveyInfo)
                 ArleadDone=localStorage.getItem('SelectedSurvey');
@@ -238,7 +268,7 @@ export default function CreateNewSurvey(props) {
          currentSurveyInfo['surveyTitle']=surveyTitle;
         currentSurveyInfo["surveys"][selectedCategory]["questions"][selectedQuestion]["wayOfAnswering"] = selected;
         setsurveyInfo(currentSurveyInfo);
-        if(IsUpudate){
+        if(!IsCreatenew){
             localStorage.setItem('SelectedSurvey',JSON.stringify(currentSurveyInfo));
            // console.log('in local storage we get ',currentSurveyInfo)
             ArleadDone=localStorage.getItem('SelectedSurvey');
@@ -277,12 +307,12 @@ export default function CreateNewSurvey(props) {
             })
             readyData.categories.push(categ);
         })
-if(IsCreatenew===true){
+if(IsCreatenew){
    
     props.createNewSurvey(readyData);
     localStorage.removeItem('surveyInfo');
 }
-if(IsUpudate===true){
+else{
     console.log('Just for a test ', EditableData)
     console.log('Read data ',readyData)
  
@@ -300,11 +330,26 @@ if(IsUpudate===true){
         let title=document.getElementById('titleid').value;
         console.log("Onchange event is set to ",title)
         setsurveyTitle(title)
+        if(IsCreatenew){
+            var currentSurvey=JSON.parse(localStorage.getItem('surveyInfo'));
+             console.log('in onchange ',currentSurvey)
+            currentSurvey['surveyTitle']=surveyTitle;
+           localStorage.setItem('surveyInfo',JSON.stringify( currentSurvey));
+                
+            
+        }
+        else{
+            var currentSurvey=JSON.parse(localStorage.getItem('SelectedSurvey'));
+           
+            currentSurvey['surveyTitle']=surveyTitle;
+            localStorage.setItem('SelectedSurvey',JSON.stringify( currentSurvey));
+        }
+        
        
 
     }
      let title=null
-    if(IsUpudate===true){
+    if(!IsCreatenew){
        //title=InitialData.surveyTitle;
       
       
@@ -334,7 +379,7 @@ if(IsUpudate===true){
       Finish=(<Button><Loading/></Button>);
   }
   else{
-    if (IsUpudate) Finish=
+    if (!IsCreatenew) Finish=
     (<Button onClick={handleFinish}>
                   Update Survey
               </Button> )

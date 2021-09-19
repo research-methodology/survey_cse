@@ -392,6 +392,9 @@ export const UpdateSurvey=(result,surveyId)=>(dispatch)=>{
              console.log('survey url is : ',response.surveyURL);
              //alert('survey url is : '+response.surveyURL);
         }
+        else{
+            dispatch({type: ActionTypes.EDIT_SURVEY_FAILURE, payload:response.message});
+        }
     },error => {
         throw error;
   }).catch(error =>  {
