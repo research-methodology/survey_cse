@@ -82,8 +82,8 @@ export default function PrevCard(props) {
        window.location=link;
    }
 let msg=null;
-let editButton=<Button className="bg-light text-dark w-30 mr-5 btn" onClick={SetEdit}>Edit Survey <span className="fa fa-edit"></span></Button>
-   let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-danger w-30"> Delete survey </Button>;
+let editButton=<Button className="bg-light text-dark w-20 ml-5 btn-sm mr-0" onClick={SetEdit}>Edit Survey <span className="fa fa-edit"></span></Button>
+   let deltesurveybtn =  <Button onClick={deleteSurvey} className="bg-danger w-100"> Delete survey </Button>;
    if(deleteloading){
       // console.log("it is loading");
     deltesurveybtn  =(<Button color="light"><Loading/></Button> ); 
@@ -116,10 +116,11 @@ let editButton=<Button className="bg-light text-dark w-30 mr-5 btn" onClick={Set
         crd = <div>
               
             <Card className="colorAndB2 PrevCard1" body style={{ borderColor: '#333', height:'250px'}}>
-        <CardTitle tag="h5">{props.surveyTitle}</CardTitle>
+       <div className=" w-100 d-flex justify-content-center align-items-center"> <div className="w-80 d-flex justify-content-left align-items-left"><CardTitle tag="h5">{props.surveyTitle}</CardTitle></div>{editButton}</div>
+        
         <CardText>Share your survey via :<a href={SurveyUrl}>{SurveyUrl}</a></CardText>
         <Button href={"/SurveyResult/" + (props.index)} > View results</Button>
-       <div className="w-100 mt-2 bg-light d-flex justify-content-center align-items-center">{editButton}{deltesurveybtn}</div>
+       <div className="w-100 mt-2 bg-light d-flex justify-content-center align-items-center">{deltesurveybtn}</div>
       </Card>
         </div>
     }

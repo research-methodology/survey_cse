@@ -318,7 +318,7 @@ else{
  
     console.log('Check before submission data now :',JSON.parse(localStorage.getItem('SelectedSurvey')))
     props.UpdateSurvey(readyData,surveyId);
-    localStorage.removeItem('SelectedSurvey');
+    //localStorage.removeItem('SelectedSurvey');
 }
         
         
@@ -425,6 +425,34 @@ else{
 
 
     console.log('Check  data now :',JSON.parse(localStorage.getItem('SelectedSurvey')))
+    let intro=null;
+    if(IsCreatenew){
+        intro=(  <div className="col-12 mt-3 mb-3 colorAndB2 text-center">
+        <h2>Creation of new survey</h2>
+        <p>Use following cards to create your survey.</p>
+        <p>Affter selecting category, questions in that category will shown on questions card. <br/> Same to answers that will shown after selection of question </p>
+    </div>);
+    }
+    else{
+        intro=(  <div className="col-12 mt-3 mb-3 colorAndB2 text-center">
+        <h2>Edit the selected  survey</h2>
+        <p>Use following cards to edit your survey.</p>
+        <p>Affter selecting category, questions in that category will shown on questions card. <br/> Same to answers that will shown after selection of question </p>
+    </div>)
+    }
+    let message=null;
+    if(props.Surveys.message){
+        message=(
+            <div className="alert alert-success mt-2" role="alert">
+                {props.Surveys.message}, <b>go to dashboard to view more!</b>
+            </div>)
+    }
+    if(props.Surveys.errMess){
+        message=(
+            <div className="alert alert-success mt-2" role="alert"><b>Something went wrong!</b>
+                ,{props.Surveys.errMess} 
+            </div>)
+    }
   return (
      
     <div>
@@ -441,11 +469,7 @@ else{
                   </div>
               </div>
       <div className="row">
-            <div className="col-12 mt-3 mb-3 colorAndB2 text-center">
-                <h2>Creation of new survey</h2>
-                <p>Use following cards to create your survey.</p>
-                <p>Affter selecting category, questions in that category will shown on questions card. <br/> Same to answers that will shown after selection of question </p>
-            </div>
+          {intro}
         </div>
           </div>
         <div className="surveyContainer  container-survey">
@@ -491,11 +515,7 @@ else{
         <div className="d-flex justify-content-end mt-3">
             {Finish}
         </div>
-                {props.Surveys.message && (
-                    <div className="alert alert-success mt-2" role="alert">
-                        {props.Surveys.message}, <b>go to dashboard to view more!</b>
-                    </div>
-                )}
+               {message}
       </div>
     </div></div>
     </div></div>
