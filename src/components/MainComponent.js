@@ -1,10 +1,10 @@
 
-import React, { Component } from 'react';
-import RespondentHome from './RespndentPart/RespondentHomepage'
+import React, { Component,Suspense, lazy  } from 'react';
+
 import Signuppage from './SignupPage'; 
 import{ Footer} from './FooterComponent';
 import {connect} from "react-redux";
-import Contact from './COntactCOmponent';
+//import Contact from './COntactCOmponent';
 import { Switch, Route, Redirect ,withRouter} from 'react-router-dom';
 import {Signup_form,loginUser,logoutUser,  postFeedback,logout, createNewSurvey,Verifyuser,SubmitSurveyrespons,HandleSessionexpired,HandleSession,GetsurveyId,fetchSurveys,Userprofile,UpdateSurvey} from '../redux/Action_creators';
 import {actions} from 'react-redux-form';
@@ -12,12 +12,18 @@ import Login from './LoginPage';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Home from './HomeComponent';
 import Navigation from './Navigation';
-import Dashboard from './Surveyor/Dashboard';
-import CreateNewSurvey from './Surveyor/CreateNewSurvey';
-import SurveyPage from './Surveyor/SurveyPage';
+//import Dashboard from './Surveyor/Dashboard';
+//import CreateNewSurvey from './Surveyor/CreateNewSurvey';
+//import SurveyPage from './Surveyor/SurveyPage';
 import confirmemail from './confirmemailpage';
 import Verifyemail from './Verifyuser';
 import {FRONT_LOGOUT} from "../redux/ActionTypes";
+
+const CreateNewSurvey=lazy(()=>import('./Surveyor/CreateNewSurvey'))
+const SurveyPage=lazy(()=>import('./Surveyor/SurveyPage'))
+const Contact=lazy(()=>import('./COntactCOmponent'))
+const Dashboard=lazy(()=>import('./Surveyor/Dashboard'))
+const RespondentHome=lazy(()=> import ('./RespndentPart/RespondentHomepage'))
 const mapStateToProps = state =>{
     return{
         auth: state.auth,
@@ -126,12 +132,15 @@ render(){
     
 
         return(
+           
             <div>
+                
                 <Navigation fetchSurveys={this.props.fetchSurveys} auth={this.props.auth} logout={this.props.logout} Userprofile={this.props.Userprofile} />
                 <TransitionGroup>
                     <CSSTransition
                     appear
                     classNames="fade" timeout ={{enter: 300, exit: 200}}>
+                         <Suspense fallback={<h1>Loading...</h1>}>
                         <Switch>
                             <Route path="/home" component={Home}/>
                              
@@ -149,11 +158,14 @@ render(){
                             <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} auth={this.props.auth} postFeedback={this.props.postFeedback} />} />
                             <Redirect to="/home" />
                         </Switch>
+                        </Suspense>
                     </CSSTransition>
                 </TransitionGroup>
                 <br/>    <br/>    <br/>
-               <Footer/> 
+               <Footer/>       
+              
             </div>
+     
         )
     }
     
